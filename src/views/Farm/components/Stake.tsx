@@ -16,7 +16,6 @@ import useStake from '../../../hooks/useStake';
 import useStakedBalance from '../../../hooks/useStakedBalance';
 import useTokenBalance from '../../../hooks/useTokenBalance';
 import useWithdraw from '../../../hooks/useWithdraw';
-import useRedeem from '../../../hooks/useRedeem';
 
 import { getDisplayBalance } from '../../../utils/formatBalance';
 
@@ -30,7 +29,6 @@ interface StakeProps {
 }
 
 const Stake: React.FC<StakeProps> = ({ farm }) => {
-  const { onRedeem } = useRedeem(farm);
   const [approveStatus, approve] = useApprove(farm.depositToken, farm.address);
 
   // TODO: reactive update of token balance
@@ -92,7 +90,7 @@ const Stake: React.FC<StakeProps> = ({ farm }) => {
               />
             ) : (
               <>
-                <IconButton onClick={onRedeem}>
+                <IconButton onClick={onPresentWithdraw}>
                   <RemoveIcon />
                 </IconButton>
                 <StyledActionSpacer />

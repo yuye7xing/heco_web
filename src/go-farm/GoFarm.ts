@@ -151,8 +151,8 @@ export class GoFarm {
    */
   async unstake(pid: number, amount: BigNumber): Promise<TransactionResponse> {
     const pool = this.contracts['MasterChef'];
-    const gas = await pool.estimateGas.exit(pid, amount);
-    return await pool.exit(pid, amount, this.gasOptions(gas));
+    const gas = await pool.estimateGas.withdraw(pid, amount);
+    return await pool.withdraw(pid, amount, this.gasOptions(gas));
   }
 
   /**
@@ -160,8 +160,8 @@ export class GoFarm {
    */
   async harvest(pid: number): Promise<TransactionResponse> {
     const pool = this.contracts['MasterChef'];
-    const gas = await pool.estimateGas.withdraw(pid);
-    return await pool.withdraw(pid, this.gasOptions(gas));
+    const gas = await pool.estimateGas.harvest(pid);
+    return await pool.harvest(pid, this.gasOptions(gas));
   }
 
   async getApy(): Promise<string> {

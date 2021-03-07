@@ -44,8 +44,8 @@ const configurations: { [env: string]: Configuration } = {
     chainId: ChainId.HECOMAIN,
     etherscanUrl: 'https://hecoinfo.com',
     defaultProvider: 'https://http-mainnet-node.huobichain.com',
-    MasterChef: '0x95295764ADd279aBcD335B441F3aDf3DeF7740a2',
-    GetApy: '0x0462d64E23CDA9A5ECEE2896356875B8d3B81fD9',
+    MasterChef: '0x7dCeBC34F55b52df742C91581089ebD0BCBD254F',
+    GetApy: '0xE453Fd8FF38b46fBda57f236103f6336CBf50594',
     deployments: require('./go-farm/deployments/deployments.mainnet.json'),
     externalTokens: {
       GOT: ['0xA7d5b5Dbc29ddef9871333AD2295B2E7D6F12391', 18],
@@ -218,7 +218,7 @@ export const bankDefinitions: { [contractName: string]: FarmInfo } = {
     TokenB: 'DOT',
     finished: false,
     sort: 14,
-    pid: 13,
+    pid: 15,
   },
   pool_14: {
     name: '二向箔生菜',
@@ -228,7 +228,7 @@ export const bankDefinitions: { [contractName: string]: FarmInfo } = {
     TokenB: 'HUSD',
     finished: false,
     sort: 15,
-    pid: 14,
+    pid: 13,
   },
   pool_15: {
     name: '黑暗森林木耳',
@@ -238,9 +238,9 @@ export const bankDefinitions: { [contractName: string]: FarmInfo } = {
     TokenB: 'USDT',
     finished: false,
     sort: 16,
-    pid: 15,
+    pid: 14,
   },
 };
 // export default configurations[process.env.NODE_ENV || "development"];
-// export default configurations["production"];
-export default configurations["development"];
+export default configurations["production"];
+// export default configurations["development"];
