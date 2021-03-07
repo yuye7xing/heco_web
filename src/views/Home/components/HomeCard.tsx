@@ -8,6 +8,7 @@ import { commify } from 'ethers/lib/utils';
 import config from '../../../config';
 import { BigNumber } from 'ethers';
 import { getDisplayBalance } from '../../../utils/formatBalance';
+import Countdown, { CountdownRenderProps } from 'react-countdown';
 
 interface HomeCardProps {
   title: string;
@@ -15,6 +16,7 @@ interface HomeCardProps {
   color: string;
   supplyLabel?: string;
   address: string;
+  startTime: Date;
   stat?: TokenStat;
   tvl?: BigNumber;
 }
@@ -24,35 +26,57 @@ const HomeCard: React.FC<HomeCardProps> = ({
   symbol,
   color,
   address,
+  startTime,
   supplyLabel = '总供应量',
   stat,
-  tvl
+  tvl,
 }) => {
   const tokenUrl = `${config.etherscanUrl}/token/${address}`;
+  const countdownRenderer = (countdownProps: CountdownRenderProps) => {
+    const { days, hours, minutes, seconds } = countdownProps;
+    const h = String(days * 24 + hours);
+    const m = String(minutes);
+    const s = String(seconds);
+    return (
+      <StyledCountdown>
+        {h.padStart(2, '0')}:{m.padStart(2, '0')}:{s.padStart(2, '0')}
+      </StyledCountdown>
+    );
+  };
   return (
     <Wrapper>
       <CardHeader>{title}</CardHeader>
       <StyledCards>
         <TokenSymbol symbol={symbol} />
         <CardSection>
+          <Countdown date={startTime} renderer={countdownRenderer} />
+          <Label text="开矿倒计时" color="#EEA7ED" />
+        </CardSection>
+        <CardSection>
           {stat ? (
             <StyledValue>{(stat.priceInDAI !== '-' ? '$' : '') + stat.priceInDAI}</StyledValue>
           ) : (
             <ValueSkeleton />
           )}
-          <Label text="当前价格" color={color} />
+          <StyledSupplyLabel href={tokenUrl} target="_blank" color={color}>
+            <Label text="当前价格" color="#E83725" />
+          </StyledSupplyLabel>
         </CardSection>
 
-        <CardSection>
+        {/* <CardSection>
           {stat ? <StyledValue>{commify(stat.totalSupply)}</StyledValue> : <ValueSkeleton />}
           <StyledSupplyLabel href={tokenUrl} target="_blank" color={color}>
             {supplyLabel}
           </StyledSupplyLabel>
-        </CardSection>
+        </CardSection> */}
 
         <CardSection>
-          {tvl ? <StyledValue>${getDisplayBalance(tvl,18,0)}</StyledValue> : <ValueSkeleton />}
-          <Label text="总存款数额" color={color} />
+          {tvl ? (
+            <StyledValue>${getDisplayBalance(tvl, 18, 0)}</StyledValue>
+          ) : (
+            <ValueSkeleton />
+          )}
+          <Label text="总存款数额" color="#ECF25C" />
         </CardSection>
       </StyledCards>
     </Wrapper>
@@ -70,6 +94,12 @@ const CardHeader = styled.h2`
   text-align: center;
 `;
 
+const StyledCountdown = styled.p`
+  font-size: 36px;
+  font-weight: 700;
+  color: ${(props) => props.theme.color.grey[100]};
+  margin: 0 0 6px 0;
+`;
 const StyledCards = styled.div`
   min-width: 200px;
   padding: ${(props) => props.theme.spacing[3]}px;
@@ -102,6 +132,7 @@ const ValueSkeletonPadding = styled.div`
 
 const StyledSupplyLabel = styled.a`
   display: block;
+  text-decoration: none;
   color: ${(props) => props.color};
 `;
 

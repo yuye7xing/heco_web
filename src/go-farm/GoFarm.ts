@@ -1,6 +1,6 @@
 import { Fetcher, Route, Token } from 'goswap-sdk';
 import { Configuration } from './config';
-import { ContractName, TokenStat, UserInfo } from './types';
+import { StartTime, TokenStat, UserInfo } from './types';
 import { BigNumber, Contract, ethers, Overrides } from 'ethers';
 import { TransactionResponse } from '@ethersproject/providers';
 import ERC20 from './ERC20';
@@ -182,6 +182,12 @@ export class GoFarm {
   async getTvl(): Promise<BigNumber> {
     const getApy = this.contracts['GetApy'];
     return await getApy.getTvl();
+  }
+
+  async getStartTime(): Promise<StartTime> {
+    const startTime = new Date(1615348800000);
+    
+    return {startTime};
   }
 
   /**

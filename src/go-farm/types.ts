@@ -35,7 +35,6 @@ export type UserInfo = {
   rewardDebt: string;
 };
 
-export type TreasuryAllocationTime = {
-  prevAllocation: Date;
-  nextAllocation: Date;
+export type StartTime = {
+  startTime: Date;
 }

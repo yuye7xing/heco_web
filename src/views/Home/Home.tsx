@@ -8,18 +8,16 @@ import { OverviewData } from './types';
 import useGoFarm from '../../hooks/useGoFarm';
 import background_1 from '../../assets/img/background_2.jpg';
 import { BigNumber } from 'ethers';
-// import Notice from '../../components/Notice';
+import moment from 'moment';
+import useStartTime from '../../hooks/useStartTime';
 
 const Home: React.FC = () => {
   const goFarm = useGoFarm();
 
-  const [{ GOT}, setStats] = useState<OverviewData>({});
-  const [ tvl, setTvl] = useState<BigNumber>(BigNumber.from(0));
+  const [{ GOT }, setStats] = useState<OverviewData>({});
+  const [tvl, setTvl] = useState<BigNumber>(BigNumber.from(0));
   const fetchStats = useCallback(async () => {
-    const [GOT,tvl] = await Promise.all([
-      goFarm.getGOTStatFromUniswap(),
-      goFarm.getTvl()
-    ]);
+    const [GOT, tvl] = await Promise.all([goFarm.getGOTStatFromUniswap(), goFarm.getTvl()]);
     setStats({ GOT });
     setTvl(tvl);
   }, [goFarm, setStats]);
@@ -28,31 +26,38 @@ const Home: React.FC = () => {
     if (goFarm) {
       fetchStats().catch((err) => console.error(err.stack));
     }
-  }, [goFarm,fetchStats]);
+  }, [goFarm, fetchStats]);
 
   const GOTAddr = useMemo(() => goFarm?.externalTokens['GOT'].address, [goFarm]);
 
+
+  const { startTime } = useStartTime();
+
+  
+  const deadline = useMemo(() => moment(startTime).add(1, 'second').toDate(), [startTime]);
+  
   return (
     <Background>
-    <Page>
-      <PageHeader
-        // icon={<img src={require("../../assets/img/goCash (3).png")} width="80%" alt="goCash" height="100%"/>}
-        subtitle="在Go Swap提供流动性,赚取Go Swap Token"
-        title="欢迎来到星际农场!"
-      />
-      <Spacer size="md" />
-      <CardWrapper>
-        <HomeCard
-          title="Go Swap Token"
-          symbol="GOT"
-          color="#ECF25C"
-          supplyLabel="循环供应"
-          address={GOTAddr}
-          stat={GOT}
-          tvl={tvl}
+      <Page>
+        <PageHeader
+          // icon={<img src={require("../../assets/img/goCash (3).png")} width="80%" alt="goCash" height="100%"/>}
+          subtitle="在Go Swap提供流动性,赚取Go Swap Token"
+          title="欢迎来到星际农场!"
         />
-      </CardWrapper>
-    </Page>
+        <Spacer size="md" />
+        <CardWrapper>
+          <HomeCard
+            title="Go Swap Token"
+            symbol="GOT"
+            color="#ECF25C"
+            supplyLabel="循环供应"
+            startTime={deadline}
+            address={GOTAddr}
+            stat={GOT}
+            tvl={tvl}
+          />
+        </CardWrapper>
+      </Page>
     </Background>
   );
 };
