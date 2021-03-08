@@ -50,7 +50,7 @@ const HomeCard: React.FC<HomeCardProps> = ({
         <TokenSymbol symbol={symbol} />
         <CardSection>
           <Countdown date={startTime} renderer={countdownRenderer} />
-          <Label text="开矿倒计时" color="#EEA7ED" />
+          <Label text="距离开始耕种" color="#EEA7ED" />
         </CardSection>
         <CardSection>
           {stat ? (
