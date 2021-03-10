@@ -49,10 +49,6 @@ const HomeCard: React.FC<HomeCardProps> = ({
       <StyledCards>
         <TokenSymbol symbol={symbol} />
         <CardSection>
-          <Countdown date={startTime} renderer={countdownRenderer} />
-          <Label text="距离开始耕种" color="#EEA7ED" />
-        </CardSection>
-        <CardSection>
           {stat ? (
             <StyledValue>{(stat.priceInDAI !== '-' ? '$' : '') + stat.priceInDAI}</StyledValue>
           ) : (
