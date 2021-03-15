@@ -38,3 +38,19 @@ export type UserInfo = {
 export type StartTime = {
   startTime: Date;
 }
+
+export interface VaultInfo {
+  name: string;
+  depositTokenName: ContractName;
+  sort: number;
+  finished: boolean;
+  id: number;
+}
+
+export interface Vault extends VaultInfo {
+  address: string;
+  depositToken: ERC20;
+  earnToken: ERC20;
+  apy: BigNumber;
+  balance: BigNumber;
+}

@@ -4,11 +4,11 @@ import Label from '../../../components/Label';
 import { TokenStat } from '../../../go-farm/types';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import TokenSymbol from '../../../components/TokenSymbol';
-import { commify } from 'ethers/lib/utils';
+// import { commify } from 'ethers/lib/utils';
 import config from '../../../config';
 import { BigNumber } from 'ethers';
 import { getDisplayBalance } from '../../../utils/formatBalance';
-import Countdown, { CountdownRenderProps } from 'react-countdown';
+// import { CountdownRenderProps } from 'react-countdown';
 
 interface HomeCardProps {
   title: string;
@@ -32,17 +32,17 @@ const HomeCard: React.FC<HomeCardProps> = ({
   tvl,
 }) => {
   const tokenUrl = `${config.etherscanUrl}/token/${address}`;
-  const countdownRenderer = (countdownProps: CountdownRenderProps) => {
-    const { days, hours, minutes, seconds } = countdownProps;
-    const h = String(days * 24 + hours);
-    const m = String(minutes);
-    const s = String(seconds);
-    return (
-      <StyledCountdown>
-        {h.padStart(2, '0')}:{m.padStart(2, '0')}:{s.padStart(2, '0')}
-      </StyledCountdown>
-    );
-  };
+  // const countdownRenderer = (countdownProps: CountdownRenderProps) => {
+  //   const { days, hours, minutes, seconds } = countdownProps;
+  //   const h = String(days * 24 + hours);
+  //   const m = String(minutes);
+  //   const s = String(seconds);
+  //   return (
+  //     <StyledCountdown>
+  //       {h.padStart(2, '0')}:{m.padStart(2, '0')}:{s.padStart(2, '0')}
+  //     </StyledCountdown>
+  //   );
+  // };
   return (
     <Wrapper>
       <CardHeader>{title}</CardHeader>
@@ -90,12 +90,12 @@ const CardHeader = styled.h2`
   text-align: center;
 `;
 
-const StyledCountdown = styled.p`
-  font-size: 36px;
-  font-weight: 700;
-  color: ${(props) => props.theme.color.grey[100]};
-  margin: 0 0 6px 0;
-`;
+// const StyledCountdown = styled.p`
+//   font-size: 36px;
+//   font-weight: 700;
+//   color: ${(props) => props.theme.color.grey[100]};
+//   margin: 0 0 6px 0;
+// `;
 const StyledCards = styled.div`
   min-width: 200px;
   padding: ${(props) => props.theme.spacing[3]}px;

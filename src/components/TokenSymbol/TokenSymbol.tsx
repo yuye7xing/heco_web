@@ -10,6 +10,9 @@ import BTCLogo from '../../assets/img/BTC.png';
 import ETHLogo from '../../assets/img/ETH.png';
 import HTLogo from '../../assets/img/HT.png';
 import DOTLogo from '../../assets/img/DOT.png';
+import BCHLogo from '../../assets/img/BCH.png';
+import HPTLogo from '../../assets/img/HPT.png';
+import LTCLogo from '../../assets/img/LTC.png';
 
 const logosBySymbol: {[title: string]: string} = {
   'GOC': gocLogo,
@@ -22,6 +25,9 @@ const logosBySymbol: {[title: string]: string} = {
   'ETH': ETHLogo,
   'HT': HTLogo,
   'DOT': DOTLogo,
+  'BCH': BCHLogo,
+  'HPT': HPTLogo,
+  'LTC': LTCLogo,
   'GOC_HUSD-LP': gocLogo,
   'GOS_HUSD-LP': gosLogo,
 };

@@ -1,6 +1,6 @@
 import { ChainId } from 'goswap-sdk';
 import { Configuration } from './go-farm/config';
-import { FarmInfo } from './go-farm';
+import { FarmInfo, VaultInfo } from './go-farm';
 
 const configurations: { [env: string]: Configuration } = {
   development: {
@@ -43,7 +43,7 @@ const configurations: { [env: string]: Configuration } = {
   production: {
     chainId: ChainId.HECOMAIN,
     etherscanUrl: 'https://hecoinfo.com',
-    defaultProvider: 'https://http-mainnet-node.huobichain.com',
+    defaultProvider: 'https://http-mainnet.huobichain.com',
     MasterChef: '0x7dCeBC34F55b52df742C91581089ebD0BCBD254F',
     GetApy: '0xE453Fd8FF38b46fBda57f236103f6336CBf50594',
     deployments: require('./go-farm/deployments/deployments.mainnet.json'),
@@ -240,6 +240,78 @@ export const bankDefinitions: { [contractName: string]: FarmInfo } = {
     sort: 16,
     pid: 14,
   },
+};
+export const vaultDefinitions: { [contractName: string]: VaultInfo } = {
+  pool_0: {
+    name: 'HUSD',
+    depositTokenName: 'HUSD',
+    finished: false,
+    sort: 1,
+    id: 1,
+  },
+  pool_1: {
+    name: 'HT',
+    depositTokenName: 'HT',
+    finished: false,
+    sort: 2,
+    id: 2,
+  },
+  pool_2: {
+    name: 'USDT',
+    depositTokenName: 'USDT',
+    finished: false,
+    sort: 3,
+    id: 3,
+  },
+  pool_3: {
+    name: 'BTC',
+    depositTokenName: 'BTC',
+    finished: false,
+    sort: 4,
+    id: 4,
+  },
+  pool_4: {
+    name: 'ETH',
+    depositTokenName: 'ETH',
+    finished: false,
+    sort: 5,
+    id: 5,
+  },
+  pool_5: {
+    name: 'BCH',
+    depositTokenName: 'BCH',
+    finished: false,
+    sort: 6,
+    id: 6,
+  },
+  pool_6: {
+    name: 'LTC',
+    depositTokenName: 'LTC',
+    finished: false,
+    sort: 7,
+    id: 7,
+  },
+  pool_7: {
+    name: 'DOT',
+    depositTokenName: 'DOT',
+    finished: false,
+    sort: 8,
+    id: 8,
+  },
+  pool_8: {
+    name: 'HPT',
+    depositTokenName: 'HPT',
+    finished: false,
+    sort: 9,
+    id: 9,
+  },
+  pool_9: {
+    name: 'GOT',
+    depositTokenName: 'GOT',
+    finished: false,
+    sort: 0,
+    id: 0,
+  }
 };
 // export default configurations[process.env.NODE_ENV || "development"];
 export default configurations["production"];

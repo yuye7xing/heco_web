@@ -1,33 +1,34 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Farm } from '../../go-farm';
+import { Vault } from '../../go-farm';
 import Button from '../../components/Button';
 import Card from '../../components/Card';
 import CardContent from '../../components/CardContent';
 import CardIcon from '../../components/CardIcon';
-import useFarms from '../../hooks/useFarms';
+import useVaults from '../../hooks/useVaults';
 import TokenSymbol from '../../components/TokenSymbol';
 import Notice from '../../components/Notice';
 import { getDisplayBalance } from '../../utils/formatBalance';
 
-const FarmCards: React.FC = () => {
-  const [farms] = useFarms();
+const VaultCards: React.FC = () => {
+  const [vaults] = useVaults();
 
-  const activeFarms = farms.filter((farm) => !farm.finished);
-  const inactiveFarms = farms.filter((farm) => farm.finished);
+  const activeVaults = vaults.filter((vault) => !vault.finished);
+  const inactiveVaults = vaults.filter((vault) => vault.finished);
+
 
   let finishedFirstRow = false;
-  const inactiveRows = inactiveFarms.reduce<Farm[][]>(
-    (farmRows, farm) => {
-      const newFarmRows = [...farmRows];
-      if (newFarmRows[newFarmRows.length - 1].length === (finishedFirstRow ? 2 : 3)) {
-        newFarmRows.push([farm]);
+  const inactiveRows = inactiveVaults.reduce<Vault[][]>(
+    (vaultRows, vault) => {
+      const newVaultRows = [...vaultRows];
+      if (newVaultRows[newVaultRows.length - 1].length === (finishedFirstRow ? 2 : 3)) {
+        newVaultRows.push([vault]);
         finishedFirstRow = true;
       } else {
-        newFarmRows[newFarmRows.length - 1].push(farm);
+        newVaultRows[newVaultRows.length - 1].push(vault);
       }
-      return newFarmRows;
+      return newVaultRows;
     },
     [[]],
   );
@@ -37,29 +38,29 @@ const FarmCards: React.FC = () => {
       {inactiveRows[0].length > 0 && (
         <StyledInactiveNoticeContainer>
           <Notice color="grey">
-            <b>You have farms where the mining has finished.</b>
+            <b>You have vaults where the mining has finished.</b>
             <br />
             Please withdraw and settle your stakes.
           </Notice>
         </StyledInactiveNoticeContainer>
       )}
       <StyledRow>
-        {activeFarms.map((farm, i) => (
-          <React.Fragment key={farm.name}>
-            <FarmCard farm={farm}  />
-            {i % 4 !== 3 && <StyledSpacer />}
+        {activeVaults.map((vault, i) => (
+          <React.Fragment key={vault.name}>
+            <VaultCard vault={vault} />
+            {i < activeVaults.length - 1 && <StyledSpacer />}
           </React.Fragment>
         ))}
       </StyledRow>
       {inactiveRows[0].length > 0 && (
         <>
-          <StyledInactiveFarmTitle>Inactive Farms</StyledInactiveFarmTitle>
-          {inactiveRows.map((farmRow, i) => (
+          <StyledInactiveVaultTitle>Inactive Vaults</StyledInactiveVaultTitle>
+          {inactiveRows.map((vaultRow, i) => (
             <StyledRow key={i}>
-              {farmRow.map((farm, j) => (
+              {vaultRow.map((vault, j) => (
                 <React.Fragment key={j}>
-                  <FarmCard farm={farm}  />
-                  {j < farmRow.length - 1 && <StyledSpacer />}
+                  <VaultCard vault={vault} />
+                  {j < vaultRow.length - 1 && <StyledSpacer />}
                 </React.Fragment>
               ))}
             </StyledRow>
@@ -70,15 +71,15 @@ const FarmCards: React.FC = () => {
   );
 };
 
-interface FarmCardProps {
-  farm: Farm;
+interface VaultCardProps {
+  vault: Vault;
 }
 
-const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
+const VaultCard: React.FC<VaultCardProps> = ({ vault }) => {
   return (
     <StyledCardWrapper>
-      {farm.depositTokenName.includes('LP') &&
-        (farm.depositTokenName.includes('GOC_HUSD') ? (
+      {vault.depositTokenName.includes('LP') &&
+        (vault.depositTokenName.includes('GOC_HUSD') ? (
           <StyledCardSuperAccent />
         ) : (
             <StyledCardNomal />
@@ -88,22 +89,17 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
           <StyledContent>
             <LogoCard>
               <CardIcon>
-                <TokenSymbol symbol={farm.TokenA} size={54} />
-              </CardIcon>
-              <CardIcon>
-                <TokenSymbol symbol={farm.TokenB} size={54} />
+                <TokenSymbol symbol={vault.depositTokenName} size={54} />
               </CardIcon>
             </LogoCard>
-            <StyledTitle>{farm.name}</StyledTitle>
+            <StyledTitle>{vault.name}</StyledTitle>
             <StyledDetails>
-              <StyledDetail>存入 {farm.depositTokenName.toUpperCase()}</StyledDetail>
-              <StyledDetail>赚取 {`${farm.earnTokenName}`}</StyledDetail>
-              <div><br/></div>
-              <StyledDetail>Apy {getDisplayBalance(farm.apy,18,2)}%</StyledDetail>
-              <StyledDetail>存款额 ${getDisplayBalance(farm.poolPrice,18,0)}</StyledDetail>
-              <StyledDetail>日产量 {getDisplayBalance(farm.alloc,18,0)} GOT</StyledDetail>
+              {/* <StyledDetail>存入 {vault.depositTokenName.toUpperCase()}</StyledDetail>
+              <StyledDetail>赚取 {`${vault.depositTokenName}`}</StyledDetail> */}
+              <StyledDetail>Apy {getDisplayBalance(vault.apy,18,2)}%</StyledDetail>
+              <StyledDetail>存款额 ${getDisplayBalance(vault.balance,18,0)}</StyledDetail>
             </StyledDetails>
-            <Button text="加入" to={`/farm/${farm.depositTokenName}`} />
+            <Button text="加入" to={`/vault/${vault.depositTokenName}`} />
           </StyledContent>
         </CardContent>
       </Card>
@@ -179,7 +175,7 @@ const StyledCards = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 924px;
+  width: 900px;
   @media (max-width: 768px) {
     width: 100%;
   }
@@ -206,7 +202,7 @@ const StyledRow = styled.div`
 
 const StyledCardWrapper = styled.div`
   display: flex;
-  width: calc((900px - ${(props) => props.theme.spacing[4]}px * 2) / 4);
+  width: calc((900px - ${(props) => props.theme.spacing[4]}px * 2) / 5);
   position: relative;
   margin-bottom: 20px;
 `;
@@ -232,7 +228,7 @@ const StyledSpacer = styled.div`
 `;
 
 const StyledDetails = styled.div`
-  margin-bottom: ${(props) => props.theme.spacing[4]}px;
+  margin-bottom: ${(props) => props.theme.spacing[6]}px;
   margin-top: ${(props) => props.theme.spacing[2]}px;
   text-align: center;
 `;
@@ -246,7 +242,7 @@ const StyledInactiveNoticeContainer = styled.div`
   margin-bottom: ${(props) => props.theme.spacing[6]}px;
 `;
 
-const StyledInactiveFarmTitle = styled.p`
+const StyledInactiveVaultTitle = styled.p`
   font-size: 24px;
   font-weight: 600;
   color: ${(props) => props.theme.color.grey[400]};
@@ -254,4 +250,4 @@ const StyledInactiveFarmTitle = styled.p`
   margin-bottom: ${(props) => props.theme.spacing[4]}px;
 `;
 
-export default FarmCards;
+export default VaultCards;

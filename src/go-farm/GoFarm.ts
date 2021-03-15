@@ -26,7 +26,7 @@ export class GoFarm {
   bacDai: Contract;
 
   constructor(cfg: Configuration) {
-    const { deployments, externalTokens } = cfg;
+    const { externalTokens } = cfg;
     const provider = getDefaultProvider();
 
     // loads contracts from deployments
@@ -142,6 +142,11 @@ export class GoFarm {
     const gas = await pool.estimateGas.deposit(pid, amount);
     return await pool.deposit(pid, amount, this.gasOptions(gas));
   }
+  async vaultStake(pid: number, amount: BigNumber): Promise<TransactionResponse> {
+    const pool = this.contracts['MasterChef'];
+    const gas = await pool.estimateGas.deposit(pid, amount);
+    return await pool.deposit(pid, amount, this.gasOptions(gas));
+  }
 
   /**
    * Withdraws token from given pool.
@@ -154,11 +159,21 @@ export class GoFarm {
     const gas = await pool.estimateGas.withdraw(pid, amount);
     return await pool.withdraw(pid, amount, this.gasOptions(gas));
   }
+  async vaultUnstake(pid: number, amount: BigNumber): Promise<TransactionResponse> {
+    const pool = this.contracts['MasterChef'];
+    const gas = await pool.estimateGas.withdraw(pid, amount);
+    return await pool.withdraw(pid, amount, this.gasOptions(gas));
+  }
 
   /**
    * Transfers earned token reward from given pool to my account.
    */
   async harvest(pid: number): Promise<TransactionResponse> {
+    const pool = this.contracts['MasterChef'];
+    const gas = await pool.estimateGas.harvest(pid);
+    return await pool.harvest(pid, this.gasOptions(gas));
+  }
+  async vaultHarvest(pid: number): Promise<TransactionResponse> {
     const pool = this.contracts['MasterChef'];
     const gas = await pool.estimateGas.harvest(pid);
     return await pool.harvest(pid, this.gasOptions(gas));
