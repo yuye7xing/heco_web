@@ -7,6 +7,7 @@ export type Configuration = {
   defaultProvider: string,
   deployments: Deployments,
   externalTokens: {[contractName: string]: [string, number]};
+  vaults: {[contractName: string]: string};
   MasterChef: string,
   GetApy: string,
   config?: EthereumConfig,

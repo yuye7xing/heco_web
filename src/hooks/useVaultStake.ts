@@ -12,7 +12,7 @@ const useStake = (vault: Vault) => {
     (amount: string) => {
       const amountBn = parseUnits(amount, vault.depositToken.decimal);
       handleTransactionReceipt(
-        goFarm.vaultStake(vault.id, amountBn),
+        goFarm.vaultStake(vault.depositTokenName, amountBn),
         `质押 ${amount} ${vault.depositTokenName} 到 ${vault.depositTokenName}`,
       );
     },

@@ -7,6 +7,7 @@ import ERC20 from './ERC20';
 import { getDefaultProvider } from '../utils/provider';
 import IUniswapV2PairABI from './IUniswapV2Pair.abi.json';
 import MasterChefABI from './deployments/masterChef.abi.json';
+import GVaultABI from './deployments/gVault.abi.json';
 import GetApyAbi from './deployments/GetApy.abi.json';
 
 /**
@@ -26,7 +27,7 @@ export class GoFarm {
   bacDai: Contract;
 
   constructor(cfg: Configuration) {
-    const { externalTokens } = cfg;
+    const { externalTokens, vaults } = cfg;
     const provider = getDefaultProvider();
 
     // loads contracts from deployments
@@ -37,6 +38,10 @@ export class GoFarm {
     this.pair = {};
     for (const [symbol, [address, decimal]] of Object.entries(externalTokens)) {
       this.externalTokens[symbol] = new ERC20(address, provider, symbol, decimal);
+    }
+
+    for (const [symbol, address] of Object.entries(vaults)) {
+      this.contracts[symbol] = new Contract(address, GVaultABI, provider);
     }
 
     // Uniswap V2 Pair
@@ -142,12 +147,6 @@ export class GoFarm {
     const gas = await pool.estimateGas.deposit(pid, amount);
     return await pool.deposit(pid, amount, this.gasOptions(gas));
   }
-  async vaultStake(pid: number, amount: BigNumber): Promise<TransactionResponse> {
-    const pool = this.contracts['MasterChef'];
-    const gas = await pool.estimateGas.deposit(pid, amount);
-    return await pool.deposit(pid, amount, this.gasOptions(gas));
-  }
-
   /**
    * Withdraws token from given pool.
    * @param poolName A name of pool contract.
@@ -155,11 +154,6 @@ export class GoFarm {
    * @returns {string} Transaction hash
    */
   async unstake(pid: number, amount: BigNumber): Promise<TransactionResponse> {
-    const pool = this.contracts['MasterChef'];
-    const gas = await pool.estimateGas.withdraw(pid, amount);
-    return await pool.withdraw(pid, amount, this.gasOptions(gas));
-  }
-  async vaultUnstake(pid: number, amount: BigNumber): Promise<TransactionResponse> {
     const pool = this.contracts['MasterChef'];
     const gas = await pool.estimateGas.withdraw(pid, amount);
     return await pool.withdraw(pid, amount, this.gasOptions(gas));
@@ -204,7 +198,7 @@ export class GoFarm {
     
     return {startTime};
   }
-
+  
   /**
    * Harvests and withdraws deposited tokens from the pool.
    */
@@ -213,4 +207,40 @@ export class GoFarm {
     const gas = await pool.estimateGas.exit(pid);
     return await pool.exit(pid, this.gasOptions(gas));
   }
+
+  async getAllBalance(): Promise<string> {
+    const getApy = this.contracts['GetApy'];
+    return await getApy.getAllAlloc();
+  }
+
+  async stakedBalanceOnVault(name: string, account = this.myAccount): Promise<BigNumber> {
+    const vault = this.contracts[name];
+    return await vault.balanceOf( account);
+  }
+
+  async vaultUnstake(name: string, amount: BigNumber): Promise<TransactionResponse> {
+    const vault = this.contracts[name];
+    const gas = await vault.estimateGas.withdraw(amount);
+    return await vault.withdraw(amount, this.gasOptions(gas));
+  }
+
+  async vaultStake(name: string, amount: BigNumber): Promise<TransactionResponse> {
+    const vault = this.contracts[name];
+    const gas = await vault.estimateGas.deposit(amount);
+    return await vault.deposit(amount, this.gasOptions(gas));
+  }
+
+  async earnedFromVault(name: string, account = this.myAccount): Promise<BigNumber> {
+    const vault = this.contracts[name];
+    const getPricePerFullShare = await vault.getPricePerFullShare();
+    const balance = await vault.balanceOf(account);
+    return BigNumber.from(balance).mul(getPricePerFullShare).div(BigNumber.from('1000000000000000000'))
+  }
+
+  async vaultWithdrawAll(name: string): Promise<TransactionResponse> {
+    const vault = this.contracts[name];
+    const gas = await vault.estimateGas.withdrawAll();
+    return await vault.withdrawAll(this.gasOptions(gas));
+  }
+
 }

@@ -5,22 +5,21 @@ import Button from '../../../components/Button';
 import Card from '../../../components/Card';
 import CardContent from '../../../components/CardContent';
 import CardIcon from '../../../components/CardIcon';
-import { AddIcon, RemoveIcon } from '../../../components/icons';
+import { AddIcon } from '../../../components/icons';
 import IconButton from '../../../components/IconButton';
 import Label from '../../../components/Label';
 import Value from '../../../components/Value';
+import useGoFarm from '../../../hooks/useGoFarm';
 
 import useApprove, { ApprovalState } from '../../../hooks/useApprove';
 import useModal from '../../../hooks/useModal';
 import useVaultStake from '../../../hooks/useVaultStake';
-import useStakedBalance from '../../../hooks/useStakedBalance';
+import useVaultStakedBalance from '../../../hooks/useVaultStakedBalance';
 import useTokenBalance from '../../../hooks/useTokenBalance';
-import useVaultWithdraw from '../../../hooks/useVaultWithdraw';
 
 import { getDisplayBalance } from '../../../utils/formatBalance';
 
 import DepositModal from './DepositModal';
-import WithdrawModal from './WithdrawModal';
 import TokenSymbol from '../../../components/TokenSymbol';
 import { Vault } from '../../../go-farm';
 
@@ -29,14 +28,17 @@ interface StakeProps {
 }
 
 const Stake: React.FC<StakeProps> = ({ vault }) => {
-  const [approveStatus, approve] = useApprove(vault.depositToken, vault.address);
+  const goFarm = useGoFarm();
+  const [approveStatus, approve] = useApprove(
+    vault.depositToken,
+    goFarm?.contracts[vault.depositTokenName].address,
+  );
 
   // TODO: reactive update of token balance
   const tokenBalance = useTokenBalance(vault.depositToken);
-  const stakedBalance = useStakedBalance(vault.id);
+  const stakedBalance = useVaultStakedBalance(vault.depositTokenName);
 
   const { onStake } = useVaultStake(vault);
-  const { onWithdraw } = useVaultWithdraw(vault);
 
   const [onPresentDeposit, onDismissDeposit] = useModal(
     <DepositModal
@@ -45,18 +47,6 @@ const Stake: React.FC<StakeProps> = ({ vault }) => {
       onConfirm={(amount) => {
         onStake(amount);
         onDismissDeposit();
-      }}
-      tokenName={vault.depositTokenName}
-    />,
-  );
-
-  const [onPresentWithdraw, onDismissWithdraw] = useModal(
-    <WithdrawModal
-      max={stakedBalance}
-      decimals={vault.depositToken.decimal}
-      onConfirm={(amount) => {
-        onWithdraw(amount);
-        onDismissWithdraw();
       }}
       tokenName={vault.depositTokenName}
     />,
@@ -73,7 +63,7 @@ const Stake: React.FC<StakeProps> = ({ vault }) => {
             </CardIcon>
             </LogoCard>
             <Value value={getDisplayBalance(stakedBalance, vault.depositToken.decimal)} />
-            <Label text={`质押的${vault.depositTokenName}`} />
+            <Label text={`存入的 g${vault.depositTokenName} 数量`} />
           </StyledCardHeader>
           <StyledCardActions>
             {approveStatus !== ApprovalState.APPROVED ? (
@@ -87,10 +77,6 @@ const Stake: React.FC<StakeProps> = ({ vault }) => {
               />
             ) : (
               <>
-                <IconButton onClick={onPresentWithdraw}>
-                  <RemoveIcon />
-                </IconButton>
-                <StyledActionSpacer />
                 <IconButton
                   disabled={vault.finished}
                   onClick={() => (vault.finished ? null : onPresentDeposit())}
@@ -122,10 +108,10 @@ const StyledCardActions = styled.div`
   width: 100%;
 `;
 
-const StyledActionSpacer = styled.div`
-  height: ${(props) => props.theme.spacing[4]}px;
-  width: ${(props) => props.theme.spacing[4]}px;
-`;
+// const StyledActionSpacer = styled.div`
+//   height: ${(props) => props.theme.spacing[4]}px;
+//   width: ${(props) => props.theme.spacing[4]}px;
+// `;
 
 const StyledCardContentInner = styled.div`
   align-items: center;

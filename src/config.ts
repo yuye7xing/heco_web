@@ -37,6 +37,9 @@ const configurations: { [env: string]: Configuration } = {
       'GOS_HUSD-LP': ['0xd0e8d781fae230e3da6e45ed881c99ba639ca400', 18],
       'GOS_USDT-LP': ['0xf577e0caf94472801fbcbabb45e8b974e2439ea8', 18],
     },
+    vaults: {
+      HUSD: '0xAF0DA088d0c2fDc1ceD8A4484445e54B0ffC7B14',
+    },
     refreshInterval: 10000,
     gasLimitMultiplier: 1.1
   },
@@ -73,6 +76,9 @@ const configurations: { [env: string]: Configuration } = {
       'GOC_DOT-LP': ['0x31641cC22c6139FA8724410BB499c829BC9B5Dc0', 18],
       'GOS_HUSD-LP': ['0xdaDE2b002d135c5796f7cAAd544f9Bc043D05C9B', 18],
       'GOS_USDT-LP': ['0xE4224d87F2502216A85F3b46eBb5f61F2004EfC2', 18],
+    },
+    vaults: {
+      HUSD: '0xAF0DA088d0c2fDc1ceD8A4484445e54B0ffC7B14',
     },
     refreshInterval: 30000,
     gasLimitMultiplier: 1.7
@@ -249,69 +255,69 @@ export const vaultDefinitions: { [contractName: string]: VaultInfo } = {
     sort: 1,
     id: 1,
   },
-  pool_1: {
-    name: 'HT',
-    depositTokenName: 'HT',
-    finished: false,
-    sort: 2,
-    id: 2,
-  },
-  pool_2: {
-    name: 'USDT',
-    depositTokenName: 'USDT',
-    finished: false,
-    sort: 3,
-    id: 3,
-  },
-  pool_3: {
-    name: 'BTC',
-    depositTokenName: 'BTC',
-    finished: false,
-    sort: 4,
-    id: 4,
-  },
-  pool_4: {
-    name: 'ETH',
-    depositTokenName: 'ETH',
-    finished: false,
-    sort: 5,
-    id: 5,
-  },
-  pool_5: {
-    name: 'BCH',
-    depositTokenName: 'BCH',
-    finished: false,
-    sort: 6,
-    id: 6,
-  },
-  pool_6: {
-    name: 'LTC',
-    depositTokenName: 'LTC',
-    finished: false,
-    sort: 7,
-    id: 7,
-  },
-  pool_7: {
-    name: 'DOT',
-    depositTokenName: 'DOT',
-    finished: false,
-    sort: 8,
-    id: 8,
-  },
-  pool_8: {
-    name: 'HPT',
-    depositTokenName: 'HPT',
-    finished: false,
-    sort: 9,
-    id: 9,
-  },
-  pool_9: {
-    name: 'GOT',
-    depositTokenName: 'GOT',
-    finished: false,
-    sort: 0,
-    id: 0,
-  }
+  // pool_1: {
+  //   name: 'HT',
+  //   depositTokenName: 'HT',
+  //   finished: false,
+  //   sort: 2,
+  //   id: 2,
+  // },
+  // pool_2: {
+  //   name: 'USDT',
+  //   depositTokenName: 'USDT',
+  //   finished: false,
+  //   sort: 3,
+  //   id: 3,
+  // },
+  // pool_3: {
+  //   name: 'BTC',
+  //   depositTokenName: 'BTC',
+  //   finished: false,
+  //   sort: 4,
+  //   id: 4,
+  // },
+  // pool_4: {
+  //   name: 'ETH',
+  //   depositTokenName: 'ETH',
+  //   finished: false,
+  //   sort: 5,
+  //   id: 5,
+  // },
+  // pool_5: {
+  //   name: 'BCH',
+  //   depositTokenName: 'BCH',
+  //   finished: false,
+  //   sort: 6,
+  //   id: 6,
+  // },
+  // pool_6: {
+  //   name: 'LTC',
+  //   depositTokenName: 'LTC',
+  //   finished: false,
+  //   sort: 7,
+  //   id: 7,
+  // },
+  // pool_7: {
+  //   name: 'DOT',
+  //   depositTokenName: 'DOT',
+  //   finished: false,
+  //   sort: 8,
+  //   id: 8,
+  // },
+  // pool_8: {
+  //   name: 'HPT',
+  //   depositTokenName: 'HPT',
+  //   finished: false,
+  //   sort: 9,
+  //   id: 9,
+  // },
+  // pool_9: {
+  //   name: 'GOT',
+  //   depositTokenName: 'GOT',
+  //   finished: true,
+  //   sort: 0,
+  //   id: 0,
+  // }
 };
 // export default configurations[process.env.NODE_ENV || "development"];
 export default configurations["production"];

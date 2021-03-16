@@ -11,6 +11,7 @@ const Vaults: React.FC = ({ children }) => {
 
   const fetchPools = useCallback(async () => {
     const vaults: Vault[] = [];
+    const balance = await goFarm.getAllBalance();
 
     for (const vaultInfo of Object.values(vaultDefinitions)) {
       if (vaultInfo.finished) {
@@ -31,7 +32,6 @@ const Vaults: React.FC = ({ children }) => {
         balance:BigNumber.from(0),
       });
     }
-    console.log('vaults',vaults)
     vaults.sort((a, b) => (a.sort > b.sort ? 1 : -1));
     setVaults(vaults);
   }, [ goFarm, setVaults]);

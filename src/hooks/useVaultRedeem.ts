@@ -8,8 +8,11 @@ const useRedeem = (vault: Vault) => {
   const handleTransactionReceipt = useHandleTransactionReceipt();
 
   const handleRedeem = useCallback(() => {
-    handleTransactionReceipt(goFarm.exit(vault.id), `赎回 ${vault.depositTokenName}`);
-  }, [vault, goFarm,handleTransactionReceipt]);
+    handleTransactionReceipt(
+      goFarm.vaultWithdrawAll(vault.depositTokenName),
+      `赎回 ${vault.depositTokenName}`,
+    );
+  }, [vault, goFarm, handleTransactionReceipt]);
 
   return { onRedeem: handleRedeem };
 };

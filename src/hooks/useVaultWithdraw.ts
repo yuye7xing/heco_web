@@ -4,7 +4,7 @@ import { Vault } from '../go-farm';
 import useHandleTransactionReceipt from './useHandleTransactionReceipt';
 import { parseUnits } from 'ethers/lib/utils';
 
-const useWithdraw = (vault: Vault) => {
+const useVaultWithdraw = (vault: Vault) => {
   const goFarm = useGoFarm();
   const handleTransactionReceipt = useHandleTransactionReceipt();
 
@@ -12,7 +12,7 @@ const useWithdraw = (vault: Vault) => {
     (amount: string) => {
       const amountBn = parseUnits(amount, vault.depositToken.decimal);
       handleTransactionReceipt(
-        goFarm.vaultUnstake(vault.id, amountBn),
+        goFarm.vaultUnstake(vault.depositTokenName, amountBn),
         `从 ${vault.depositTokenName} 取出 ${amount} ${vault.depositTokenName} `,
       );
     },
@@ -21,4 +21,4 @@ const useWithdraw = (vault: Vault) => {
   return { onWithdraw: handleWithdraw };
 };
 
-export default useWithdraw;
+export default useVaultWithdraw;
