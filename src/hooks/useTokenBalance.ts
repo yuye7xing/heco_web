@@ -10,7 +10,11 @@ const useTokenBalance = (token: ERC20) => {
 
   const fetchBalance = useCallback(async () => {
     if(goFarm){
-      setBalance(await token.balanceOf(goFarm.myAccount));
+      if(token.symbol === 'HT'){
+        setBalance(goFarm.balance)
+      }else{
+        setBalance(await token.balanceOf(goFarm.myAccount));
+      }
     }
   }, [token,goFarm]);
 

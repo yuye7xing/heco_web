@@ -1,13 +1,14 @@
 import { Fetcher, Route, Token } from 'goswap-sdk';
 import { Configuration } from './config';
 import { StartTime, TokenStat, UserInfo } from './types';
-import { BigNumber, Contract, ethers, Overrides } from 'ethers';
+import { BigNumber, Contract, ethers, Overrides,PayableOverrides } from 'ethers';
 import { TransactionResponse } from '@ethersproject/providers';
 import ERC20 from './ERC20';
 import { getDefaultProvider } from '../utils/provider';
 import IUniswapV2PairABI from './IUniswapV2Pair.abi.json';
 import MasterChefABI from './deployments/masterChef.abi.json';
 import GVaultABI from './deployments/gVault.abi.json';
+import GVaultHTABI from './deployments/gVaultHT.abi.json';
 import GetApyAbi from './deployments/GetApy.abi.json';
 
 /**
@@ -16,6 +17,7 @@ import GetApyAbi from './deployments/GetApy.abi.json';
  */
 export class GoFarm {
   myAccount: string;
+  balance: BigNumber;
   provider: ethers.providers.Web3Provider;
   signer?: ethers.Signer;
   config: Configuration;
@@ -41,7 +43,8 @@ export class GoFarm {
     }
 
     for (const [symbol, address] of Object.entries(vaults)) {
-      this.contracts[symbol] = new Contract(address, GVaultABI, provider);
+      const abi = symbol === 'HT' ? GVaultHTABI : GVaultABI
+      this.contracts[symbol] = new Contract(address, abi, provider);
     }
 
     // Uniswap V2 Pair
@@ -55,11 +58,13 @@ export class GoFarm {
    * @param provider From an unlocked wallet. (e.g. Metamask)
    * @param account An address of unlocked wallet account.
    */
-  unlockWallet(provider: any, account: string) {
+  unlockWallet(provider: any, account: string, balance: BigNumber) {
     const newProvider = new ethers.providers.Web3Provider(provider, this.config.chainId);
 
     this.signer = newProvider.getSigner(0);
+    
     this.myAccount = account;
+    this.balance = balance;
     for (const [name, contract] of Object.entries(this.contracts)) {
       this.contracts[name] = contract.connect(this.signer);
     }
@@ -80,6 +85,14 @@ export class GoFarm {
     console.log(`⛽️ Gas multiplied: ${gas} -> ${multiplied}`);
     return {
       gasLimit: BigNumber.from(multiplied),
+    };
+  }
+  gasAndValueOptions(gas: BigNumber,value: BigNumber): PayableOverrides {
+    const multiplied = Math.floor(gas.toNumber() * this.config.gasLimitMultiplier);
+    console.log(`⛽️ Gas multiplied: ${gas} -> ${multiplied}`);
+    return {
+      gasLimit: BigNumber.from(multiplied),
+      value:value
     };
   }
 
@@ -226,8 +239,14 @@ export class GoFarm {
 
   async vaultStake(name: string, amount: BigNumber): Promise<TransactionResponse> {
     const vault = this.contracts[name];
-    const gas = await vault.estimateGas.deposit(amount);
-    return await vault.deposit(amount, this.gasOptions(gas));
+    if(name === 'HT'){
+      const gas = await vault.estimateGas.deposit(amount,{value:amount});
+      return await vault.deposit(amount, this.gasAndValueOptions(gas, amount));
+    }else{
+      const gas = await vault.estimateGas.deposit(amount);
+      return await vault.deposit(amount, this.gasOptions(gas))
+
+    }
   }
 
   async earnedFromVault(name: string, account = this.myAccount): Promise<BigNumber> {

@@ -58,24 +58,15 @@ const Stake: React.FC<StakeProps> = ({ vault }) => {
         <StyledCardContentInner>
           <StyledCardHeader>
             <LogoCard>
-            <CardIcon>
-              <TokenSymbol symbol={vault.depositTokenName} size={54} />
-            </CardIcon>
+              <CardIcon>
+                <TokenSymbol symbol={vault.depositTokenName} size={54} />
+              </CardIcon>
             </LogoCard>
             <Value value={getDisplayBalance(stakedBalance, vault.depositToken.decimal)} />
             <Label text={`存入的 g${vault.depositTokenName} 数量`} />
           </StyledCardHeader>
           <StyledCardActions>
-            {approveStatus !== ApprovalState.APPROVED ? (
-              <Button
-                disabled={
-                  approveStatus === ApprovalState.PENDING ||
-                  approveStatus === ApprovalState.UNKNOWN
-                }
-                onClick={approve}
-                text={`批准 ${vault.depositTokenName}`}
-              />
-            ) : (
+            {approveStatus === ApprovalState.APPROVED ||  vault.depositTokenName === 'HT'? (
               <>
                 <IconButton
                   disabled={vault.finished}
@@ -84,6 +75,15 @@ const Stake: React.FC<StakeProps> = ({ vault }) => {
                   <AddIcon />
                 </IconButton>
               </>
+            ) : (
+              <Button
+                disabled={
+                  approveStatus === ApprovalState.PENDING ||
+                  approveStatus === ApprovalState.UNKNOWN
+                }
+                onClick={approve}
+                text={`批准 ${vault.depositTokenName}`}
+              />
             )}
           </StyledCardActions>
         </StyledCardContentInner>
@@ -91,7 +91,6 @@ const Stake: React.FC<StakeProps> = ({ vault }) => {
     </Card>
   );
 };
-
 
 const LogoCard = styled.div`
   display: flex;

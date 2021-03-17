@@ -18,7 +18,7 @@ const configurations: { [env: string]: Configuration } = {
       HUSD: ['0x0f548051B135fa8f7F6190cb78Fd13eCB544fEE6', 8],
       BTC: ['0x4139d24c6C25Cc44F1F405405aC4BF44682F37C6', 18],
       ETH: ['0x6B958fe634e4bb5fe8Fd363E1D9E85C14e61fBF4', 18],
-      HT: ['0x50B29a42c9e4d0f940292c386207f492458eE358', 18],
+      HT: ['0x5545153CCFcA01fbd7Dd11C0b23ba694D9509A6F', 18],
       DOT: ['0xE9ab18781dcB3709c45Edb72688706435B17052f', 18],
       'GOT_HUSD-LP': ['0xc31b9f33fb2c54b789c263781ccee9b23b747677', 18],
       'GOT_USDT-LP': ['0xb13598584a6b73644460e1bfacedcef95c17c650', 18],
@@ -39,6 +39,7 @@ const configurations: { [env: string]: Configuration } = {
     },
     vaults: {
       HUSD: '0xAF0DA088d0c2fDc1ceD8A4484445e54B0ffC7B14',
+      HT: '0x2F80931dC31003d6fB6Ed91BD4F4b43224D348C8',
     },
     refreshInterval: 10000,
     gasLimitMultiplier: 1.1
@@ -58,7 +59,7 @@ const configurations: { [env: string]: Configuration } = {
       HUSD: ['0x0298c2b32eaE4da002a15f36fdf7615BEa3DA047', 8],
       BTC: ['0x66a79D23E58475D2738179Ca52cd0b41d73f0BEa', 18],
       ETH: ['0x64FF637fB478863B7468bc97D30a5bF3A428a1fD', 18],
-      HT: ['0x5545153ccfca01fbd7dd11c0b23ba694d9509a6f', 18],
+      HT: ['0x5545153CCFcA01fbd7Dd11C0b23ba694D9509A6F', 18],
       DOT: ['0xa2c49cee16a5e5bdefde931107dc1fae9f7773e3', 18],
       'GOT_HUSD-LP': ['0x11d6a89Ce4Bb44138219ae11C1535F52E16B7Bd2', 18],
       'GOT_USDT-LP': ['0xbb12324A015785076D966f654CF0123A70970D1d', 18],
@@ -79,6 +80,7 @@ const configurations: { [env: string]: Configuration } = {
     },
     vaults: {
       HUSD: '0xAF0DA088d0c2fDc1ceD8A4484445e54B0ffC7B14',
+      HT: '0x2F80931dC31003d6fB6Ed91BD4F4b43224D348C8',
     },
     refreshInterval: 30000,
     gasLimitMultiplier: 1.7
@@ -255,13 +257,13 @@ export const vaultDefinitions: { [contractName: string]: VaultInfo } = {
     sort: 1,
     id: 1,
   },
-  // pool_1: {
-  //   name: 'HT',
-  //   depositTokenName: 'HT',
-  //   finished: false,
-  //   sort: 2,
-  //   id: 2,
-  // },
+  pool_1: {
+    name: 'HT',
+    depositTokenName: 'HT',
+    finished: false,
+    sort: 2,
+    id: 2,
+  },
   // pool_2: {
   //   name: 'USDT',
   //   depositTokenName: 'USDT',
