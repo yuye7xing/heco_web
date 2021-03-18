@@ -13,6 +13,12 @@ import DOTLogo from '../../assets/img/DOT.png';
 import BCHLogo from '../../assets/img/BCH.png';
 import HPTLogo from '../../assets/img/HPT.png';
 import LTCLogo from '../../assets/img/LTC.png';
+import MDXLogo from '../../assets/img/MDX.png';
+import BETHLogo from '../../assets/img/BETH.svg';
+import FILLogo from '../../assets/img/FIL.png';
+import UNILogo from '../../assets/img/UNI.svg';
+import YFILogo from '../../assets/img/YFI.svg';
+import LINKLogo from '../../assets/img/LINK.svg';
 
 const logosBySymbol: {[title: string]: string} = {
   'GOC': gocLogo,
@@ -28,6 +34,12 @@ const logosBySymbol: {[title: string]: string} = {
   'BCH': BCHLogo,
   'HPT': HPTLogo,
   'LTC': LTCLogo,
+  'MDX': MDXLogo,
+  'BETH': BETHLogo,
+  'FIL': FILLogo,
+  'YFI': YFILogo,
+  'UNI': UNILogo,
+  'LINK': LINKLogo,
   'GOC_HUSD-LP': gocLogo,
   'GOS_HUSD-LP': gosLogo,
 };

@@ -228,7 +228,7 @@ export class GoFarm {
 
   async stakedBalanceOnVault(name: string, account = this.myAccount): Promise<BigNumber> {
     const vault = this.contracts[name];
-    return await vault.balanceOf( account);
+    return await vault.balanceOf(account);
   }
 
   async vaultUnstake(name: string, amount: BigNumber): Promise<TransactionResponse> {
