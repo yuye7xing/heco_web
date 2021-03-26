@@ -81,10 +81,10 @@ const StyledCardActions = styled.div`
   width: 100%;
 `;
 
-const StyledActionSpacer = styled.div`
-  height: ${(props) => props.theme.spacing[4]}px;
-  width: ${(props) => props.theme.spacing[4]}px;
-`;
+// const StyledActionSpacer = styled.div`
+//   height: ${(props) => props.theme.spacing[4]}px;
+//   width: ${(props) => props.theme.spacing[4]}px;
+// `;
 // const StyledSpacer = styled.div`
 //   height: ${(props) => props.theme.spacing[4]}px;
 //   width: ${(props) => props.theme.spacing[4]}px;

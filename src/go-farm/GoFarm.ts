@@ -10,6 +10,8 @@ import MasterChefABI from './deployments/masterChef.abi.json';
 import GVaultABI from './deployments/gVault.abi.json';
 import GVaultHTABI from './deployments/gVaultHT.abi.json';
 import GetApyAbi from './deployments/GetApy.abi.json';
+import GetVaultApyAbi from './deployments/GetVaultApy.abi.json';
+import GetGOTApyAbi from './deployments/GetGOTApy.abi.json';
 
 /**
  * An API module of GoFarm Cash contracts.
@@ -36,6 +38,8 @@ export class GoFarm {
     this.contracts = {};
     this.contracts['MasterChef'] = new Contract(cfg.MasterChef, MasterChefABI, provider);
     this.contracts['GetApy'] = new Contract(cfg.GetApy, GetApyAbi, provider);
+    this.contracts['GetVaultApy'] = new Contract(cfg.GetVaultApy, GetVaultApyAbi, provider);
+    this.contracts['GetGOTApy'] = new Contract(cfg.GetGOTApy, GetGOTApyAbi, provider);
     this.externalTokens = {};
     this.pair = {};
     for (const [symbol, [address, decimal]] of Object.entries(externalTokens)) {
@@ -127,7 +131,6 @@ export class GoFarm {
     try {
       const husdToToken = await Fetcher.fetchPairData(husd, token, this.provider);
       const priceInHUSD = new Route([husdToToken], token);
-      console.log(priceInHUSD.midPrice);
       return priceInHUSD.midPrice.toSignificant(3);
     } catch (err) {
       console.error(`Failed to fetch token price of ${tokenContract.symbol}: ${err}`);
@@ -260,6 +263,52 @@ export class GoFarm {
     const vault = this.contracts[name];
     const gas = await vault.estimateGas.withdrawAll();
     return await vault.withdrawAll(this.gasOptions(gas));
+  }
+
+  async getVaultApys(): Promise<string> {
+    const getVaultApy = this.contracts['GetVaultApy'];
+    const { vaults } = this.config;
+    const _vaults = [];
+    for (const [, address] of Object.entries(vaults)) {
+      if(address !== this.externalTokens['sGOT'].address){
+        _vaults.push(address);
+      }
+    }
+    return await getVaultApy.getApysOfDay(_vaults);
+  }
+
+  async getGOTApy(): Promise<string> {
+    const getGOTApyContract = this.contracts['GetGOTApy'];
+    return await getGOTApyContract.getApysOfDay();
+  }
+
+  async getVaultTVLs(): Promise<string> {
+    const getVaultApy = this.contracts['GetVaultApy'];
+    const { vaults } = this.config;
+    const _vaults = [];
+    for (const [, address] of Object.entries(vaults)) {
+      if(address !== this.externalTokens['sGOT'].address){
+        _vaults.push(address);
+      }
+    }
+    return await getVaultApy.getTVLs(_vaults);
+  }
+
+  async getVaultTVLPrice(): Promise<string> {
+    const getVaultApy = this.contracts['GetVaultApy'];
+    const { vaults } = this.config;
+    const _vaults = [];
+    for (const [, address] of Object.entries(vaults)) {
+      if(address !== this.externalTokens['sGOT'].address){
+        _vaults.push(address);
+      }
+    }
+    return await getVaultApy.getTVLPrice(_vaults);
+  }
+
+  async getGOTTVLPrice(): Promise<string> {
+    const getGOTApyContract = this.contracts['GetGOTApy'];
+    return await getGOTApyContract.getTVLPrice();
   }
 
 }

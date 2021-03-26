@@ -11,7 +11,13 @@ const Vaults: React.FC = ({ children }) => {
 
   const fetchPools = useCallback(async () => {
     const vaults: Vault[] = [];
-    const balance = await goFarm.getAllBalance();
+    // const balance = await goFarm.getAllBalance();
+    const apys = await goFarm.getVaultApys();
+    const GOTapy = await goFarm.getGOTApy();
+    // const balance = await goFarm.getVaultTVLs();
+    const price = await goFarm.getVaultTVLPrice();
+    const GOTprice = await goFarm.getGOTTVLPrice();
+    console.log('price',price)
 
     for (const vaultInfo of Object.values(vaultDefinitions)) {
       if (vaultInfo.finished) {
@@ -28,8 +34,8 @@ const Vaults: React.FC = ({ children }) => {
         address: config.MasterChef,
         depositToken:  goFarm.externalTokens[vaultInfo.depositTokenName],
         earnToken:  goFarm.externalTokens[vaultInfo.depositTokenName],
-        apy: BigNumber.from(0),
-        balance:BigNumber.from(0),
+        apy: vaultInfo.id === 15 ? BigNumber.from(GOTapy) : BigNumber.from(apys[vaultInfo.id]),
+        balance: vaultInfo.id === 15 ? BigNumber.from(GOTprice) : BigNumber.from(price[vaultInfo.id]),
       });
     }
     vaults.sort((a, b) => (a.sort > b.sort ? 1 : -1));

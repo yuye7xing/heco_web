@@ -46,8 +46,9 @@ background-repeat: no-repeat;
 background-attachment: fixed;
 width: 100%;
 background-size: cover;
-z-index: -3;
+z-index: 0;
 height: 100%;
+position: relative;
   }
 `;
 const Center = styled.div`

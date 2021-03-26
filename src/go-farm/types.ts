@@ -54,3 +54,13 @@ export interface Vault extends VaultInfo {
   apy: BigNumber;
   balance: BigNumber;
 }
+
+export type VaultDetial = {
+  amount: BigNumber;
+  tvl: BigNumber;
+  apy: BigNumber;
+};
+
+export type VaultsDetial = {
+  detial: {[address: string]: VaultDetial};
+};

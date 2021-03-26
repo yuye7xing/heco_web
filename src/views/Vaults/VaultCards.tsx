@@ -9,7 +9,7 @@ import CardIcon from '../../components/CardIcon';
 import useVaults from '../../hooks/useVaults';
 import TokenSymbol from '../../components/TokenSymbol';
 import Notice from '../../components/Notice';
-import { getDisplayBalance } from '../../utils/formatBalance';
+import { getDisplayBalance,getDisplayApy } from '../../utils/formatBalance';
 
 const VaultCards: React.FC = () => {
   const [vaults] = useVaults();
@@ -22,7 +22,7 @@ const VaultCards: React.FC = () => {
   const inactiveRows = inactiveVaults.reduce<Vault[][]>(
     (vaultRows, vault) => {
       const newVaultRows = [...vaultRows];
-      if (newVaultRows[newVaultRows.length - 1].length === (finishedFirstRow ? 2 : 3)) {
+      if (newVaultRows[newVaultRows.length - 1].length === (finishedFirstRow ? 2 : 2)) {
         newVaultRows.push([vault]);
         finishedFirstRow = true;
       } else {
@@ -48,7 +48,7 @@ const VaultCards: React.FC = () => {
         {activeVaults.map((vault, i) => (
           <React.Fragment key={vault.name}>
             <VaultCard vault={vault} />
-            {i < activeVaults.length - 1 && <StyledSpacer />}
+            {i % 4 !== 3 && <StyledSpacer />}
           </React.Fragment>
         ))}
       </StyledRow>
@@ -78,12 +78,11 @@ interface VaultCardProps {
 const VaultCard: React.FC<VaultCardProps> = ({ vault }) => {
   return (
     <StyledCardWrapper>
-      {vault.depositTokenName.includes('LP') &&
-        (vault.depositTokenName.includes('GOC_HUSD') ? (
+      { vault.depositTokenName.includes('GOT') ? (
           <StyledCardSuperAccent />
         ) : (
             <StyledCardNomal />
-          ))}
+          )}
       <Card>
         <CardContent>
           <StyledContent>
@@ -96,8 +95,8 @@ const VaultCard: React.FC<VaultCardProps> = ({ vault }) => {
             <StyledDetails>
               {/* <StyledDetail>存入 {vault.depositTokenName.toUpperCase()}</StyledDetail>
               <StyledDetail>赚取 {`${vault.depositTokenName}`}</StyledDetail> */}
-              <StyledDetail>Apy {getDisplayBalance(vault.apy,18,2)}%</StyledDetail>
-              <StyledDetail>存款额 ${getDisplayBalance(vault.balance,18,0)}</StyledDetail>
+              <StyledDetail>Apy {vault.depositTokenName.includes('GOT') ? getDisplayBalance(vault.apy,18,2) : getDisplayApy(vault.apy)}%</StyledDetail>
+              <StyledDetail>存款额 ${getDisplayBalance(vault.balance,vault.depositToken.decimal,0)}</StyledDetail>
             </StyledDetails>
             <Button text="加入" to={`/vault/${vault.depositTokenName}`} />
           </StyledContent>

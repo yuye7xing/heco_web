@@ -77,12 +77,11 @@ interface FarmCardProps {
 const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
   return (
     <StyledCardWrapper>
-      {farm.depositTokenName.includes('LP') &&
-        (farm.depositTokenName.includes('GOC_HUSD') ? (
+      {farm.depositTokenName.includes('GOT_HUSD-LP') ? (
           <StyledCardSuperAccent />
         ) : (
             <StyledCardNomal />
-          ))}
+          )}
       <Card>
         <CardContent>
           <StyledContent>
