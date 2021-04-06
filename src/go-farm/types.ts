@@ -1,4 +1,5 @@
 import { BigNumber } from 'ethers';
+import { type } from 'node:os';
 import ERC20 from './ERC20';
 
 export type ContractName = string;
@@ -55,6 +56,20 @@ export interface Vault extends VaultInfo {
   balance: BigNumber;
 }
 
+export interface LotteryInfo {
+  name: string;
+  depositTokenName: ContractName;
+  sort: number;
+  finished: boolean;
+  id: number;
+}
+
+export interface Lottery extends LotteryInfo {
+  address: string;
+  depositToken: ERC20;
+  earnToken: ERC20;
+}
+
 export type VaultDetial = {
   amount: BigNumber;
   tvl: BigNumber;
@@ -64,3 +79,19 @@ export type VaultDetial = {
 export type VaultsDetial = {
   detial: {[address: string]: VaultDetial};
 };
+
+export type LotteryTime = {
+  prevEpochTime: Date;
+  nextEpochTime: Date;
+  epoch: number;
+};
+
+export type TotalPot = {
+  HUSD : BigNumber;
+  GOC : BigNumber;
+}
+
+export type Allocations = {
+  HUSD : number[];
+  GOC : number[];
+}

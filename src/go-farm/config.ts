@@ -8,6 +8,7 @@ export type Configuration = {
   deployments: Deployments,
   externalTokens: {[contractName: string]: [string, number]};
   vaults: {[contractName: string]: string};
+  lotterys: {[contractName: string]: string};
   MasterChef: string,
   GetApy: string,
   GetVaultApy: string,

@@ -1,6 +1,6 @@
 import { ChainId } from 'goswap-sdk';
 import { Configuration } from './go-farm/config';
-import { FarmInfo, VaultInfo } from './go-farm';
+import { FarmInfo, VaultInfo, LotteryInfo } from './go-farm';
 
 const configurations: { [env: string]: Configuration } = {
   development: {
@@ -43,6 +43,10 @@ const configurations: { [env: string]: Configuration } = {
       HUSD: '0xAF0DA088d0c2fDc1ceD8A4484445e54B0ffC7B14',
       HT: '0x2F80931dC31003d6fB6Ed91BD4F4b43224D348C8',
       USDT: '0xCc555dfe688E3C9Ec5278f8ceD1846fEda8633f9',
+    },
+    lotterys:{
+      HUSD : '0x2af035Ace5ce90134A9a012b1527BC97656Ea46E',
+      GOC : '0xa28a6250c3E313FC32d4557a0025FF1460D0c550'
     },
     refreshInterval: 10000,
     gasLimitMultiplier: 1.1
@@ -110,6 +114,10 @@ const configurations: { [env: string]: Configuration } = {
       YFI: '0xc65A0980B911f30D3bf30ADcFE33fA1141E17a58',
       LINK: '0x77F77D8c3833A851e33063B137E39Fb0f88D0314',
       BETH: '0x5a4Cd1BCc5189BDd55C65eF8eB965A86E09aE0C3',
+    },
+    lotterys:{
+      HUSD : '0x2af035Ace5ce90134A9a012b1527BC97656Ea46E',
+      GOC : '0xa28a6250c3E313FC32d4557a0025FF1460D0c550'
     },
     refreshInterval: 30000,
     gasLimitMultiplier: 1.7
@@ -392,9 +400,25 @@ export const vaultDefinitions: { [contractName: string]: VaultInfo } = {
     id: 14,
   },
 };
+export const lotteryDefinitions: { [contractName: string]: LotteryInfo } = {
+  pool_0: {
+    name: 'HUSD船票',
+    depositTokenName: 'HUSD',
+    finished: false,
+    sort: 0,
+    id: 15,
+  },
+  pool_1: {
+    name: 'GOC船票',
+    depositTokenName: 'GOC',
+    finished: false,
+    sort: 1,
+    id: 0,
+  }
+};
 // export default configurations[process.env.NODE_ENV || "development"];
-export default configurations["production"];
-// export default configurations["development"];
+// export default configurations["production"];
+export default configurations["development"];
 // ["0x94832D6B65327c3bA11b005B98998F238091555D",
 // "0xF56728794DaD2D02595876E0582185aF8f994Bcb",
 // "0xb95b9Fa817471BbC100F62d36187BC95C3F0c09B",

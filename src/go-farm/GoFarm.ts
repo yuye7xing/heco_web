@@ -1,7 +1,7 @@
 import { Fetcher, Route, Token } from 'goswap-sdk';
 import { Configuration } from './config';
-import { StartTime, TokenStat, UserInfo } from './types';
-import { BigNumber, Contract, ethers, Overrides,PayableOverrides } from 'ethers';
+import { StartTime, TokenStat, UserInfo, LotteryTime, TotalPot, Allocations } from './types';
+import { BigNumber, Contract, ethers, Overrides, PayableOverrides } from 'ethers';
 import { TransactionResponse } from '@ethersproject/providers';
 import ERC20 from './ERC20';
 import { getDefaultProvider } from '../utils/provider';
@@ -12,6 +12,8 @@ import GVaultHTABI from './deployments/gVaultHT.abi.json';
 import GetApyAbi from './deployments/GetApy.abi.json';
 import GetVaultApyAbi from './deployments/GetVaultApy.abi.json';
 import GetGOTApyAbi from './deployments/GetGOTApy.abi.json';
+import LotteryAbi from './deployments/Lottery.abi.json';
+import moment from 'moment';
 
 /**
  * An API module of GoFarm Cash contracts.
@@ -31,7 +33,7 @@ export class GoFarm {
   bacDai: Contract;
 
   constructor(cfg: Configuration) {
-    const { externalTokens, vaults } = cfg;
+    const { externalTokens, vaults, lotterys } = cfg;
     const provider = getDefaultProvider();
 
     // loads contracts from deployments
@@ -47,8 +49,12 @@ export class GoFarm {
     }
 
     for (const [symbol, address] of Object.entries(vaults)) {
-      const abi = symbol === 'HT' ? GVaultHTABI : GVaultABI
+      const abi = symbol === 'HT' ? GVaultHTABI : GVaultABI;
       this.contracts[symbol] = new Contract(address, abi, provider);
+    }
+
+    for (const [symbol, address] of Object.entries(lotterys)) {
+      this.contracts['Lottery_' + symbol] = new Contract(address, LotteryAbi, provider);
     }
 
     // Uniswap V2 Pair
@@ -66,7 +72,7 @@ export class GoFarm {
     const newProvider = new ethers.providers.Web3Provider(provider, this.config.chainId);
 
     this.signer = newProvider.getSigner(0);
-    
+
     this.myAccount = account;
     this.balance = balance;
     for (const [name, contract] of Object.entries(this.contracts)) {
@@ -91,12 +97,12 @@ export class GoFarm {
       gasLimit: BigNumber.from(multiplied),
     };
   }
-  gasAndValueOptions(gas: BigNumber,value: BigNumber): PayableOverrides {
+  gasAndValueOptions(gas: BigNumber, value: BigNumber): PayableOverrides {
     const multiplied = Math.floor(gas.toNumber() * this.config.gasLimitMultiplier);
     console.log(`⛽️ Gas multiplied: ${gas} -> ${multiplied}`);
     return {
       gasLimit: BigNumber.from(multiplied),
-      value:value
+      value: value,
     };
   }
 
@@ -211,10 +217,10 @@ export class GoFarm {
 
   async getStartTime(): Promise<StartTime> {
     const startTime = new Date(1615348800000);
-    
-    return {startTime};
+
+    return { startTime };
   }
-  
+
   /**
    * Harvests and withdraws deposited tokens from the pool.
    */
@@ -242,13 +248,12 @@ export class GoFarm {
 
   async vaultStake(name: string, amount: BigNumber): Promise<TransactionResponse> {
     const vault = this.contracts[name];
-    if(name === 'HT'){
-      const gas = await vault.estimateGas.deposit(amount,{value:amount});
+    if (name === 'HT') {
+      const gas = await vault.estimateGas.deposit(amount, { value: amount });
       return await vault.deposit(amount, this.gasAndValueOptions(gas, amount));
-    }else{
+    } else {
       const gas = await vault.estimateGas.deposit(amount);
-      return await vault.deposit(amount, this.gasOptions(gas))
-
+      return await vault.deposit(amount, this.gasOptions(gas));
     }
   }
 
@@ -256,7 +261,9 @@ export class GoFarm {
     const vault = this.contracts[name];
     const getPricePerFullShare = await vault.getPricePerFullShare();
     const balance = await vault.balanceOf(account);
-    return BigNumber.from(balance).mul(getPricePerFullShare).div(BigNumber.from('1000000000000000000'))
+    return BigNumber.from(balance)
+      .mul(getPricePerFullShare)
+      .div(BigNumber.from('1000000000000000000'));
   }
 
   async vaultWithdrawAll(name: string): Promise<TransactionResponse> {
@@ -270,16 +277,16 @@ export class GoFarm {
     const { vaults } = this.config;
     const _vaults = [];
     for (const [, address] of Object.entries(vaults)) {
-      if(address !== this.externalTokens['sGOT'].address){
+      if (address !== this.externalTokens['sGOT'].address) {
         _vaults.push(address);
       }
     }
-    return await getVaultApy.getApysOfDay(_vaults);
+    return await getVaultApy.getApysOfWeek(_vaults);
   }
 
   async getGOTApy(): Promise<string> {
     const getGOTApyContract = this.contracts['GetGOTApy'];
-    return await getGOTApyContract.getApysOfDay();
+    return await getGOTApyContract.getApysOfWeek();
   }
 
   async getVaultTVLs(): Promise<string> {
@@ -287,7 +294,7 @@ export class GoFarm {
     const { vaults } = this.config;
     const _vaults = [];
     for (const [, address] of Object.entries(vaults)) {
-      if(address !== this.externalTokens['sGOT'].address){
+      if (address !== this.externalTokens['sGOT'].address) {
         _vaults.push(address);
       }
     }
@@ -299,7 +306,7 @@ export class GoFarm {
     const { vaults } = this.config;
     const _vaults = [];
     for (const [, address] of Object.entries(vaults)) {
-      if(address !== this.externalTokens['sGOT'].address){
+      if (address !== this.externalTokens['sGOT'].address) {
         _vaults.push(address);
       }
     }
@@ -311,4 +318,60 @@ export class GoFarm {
     return await getGOTApyContract.getTVLPrice();
   }
 
+  async getTotalPot(): Promise<TotalPot> {
+    const lotteryHUSDContract = this.contracts['Lottery_HUSD'];
+    const HUSDPot = await lotteryHUSDContract.totalAmount();
+    const lotteryGOCContract = this.contracts['Lottery_GOC'];
+    const GOCPot = await lotteryGOCContract.totalAmount();
+    return { HUSD: HUSDPot, GOC: GOCPot };
+  }
+
+  async getAllcation(): Promise<Allocations> {
+    const lotteryHUSDContract = this.contracts['Lottery_HUSD'];
+    const lotteryGOCContract = this.contracts['Lottery_GOC'];
+    const HUSDAllocation = [];
+    const GOCAllocation = [];
+    HUSDAllocation[0] = await lotteryHUSDContract.allocation(0);
+    HUSDAllocation[1] = await lotteryHUSDContract.allocation(1);
+    HUSDAllocation[2] = await lotteryHUSDContract.allocation(2);
+    GOCAllocation[0] = await lotteryGOCContract.allocation(0);
+    GOCAllocation[1] = await lotteryGOCContract.allocation(1);
+    GOCAllocation[2] = await lotteryGOCContract.allocation(2);
+    return { HUSD: HUSDAllocation, GOC: GOCAllocation };
+  }
+
+  async getLotteryTimes(): Promise<LotteryTime> {
+    const today = moment().startOf('day').add(5, 'hour');
+    let diff = Math.round(moment().diff(today) / 1000);
+    let epoch = 0;
+    let epochStart = moment();
+    let prevEpochTime = new Date();
+    let nextEpochTime = new Date();
+    let epochTime = 0;
+    if (diff < 0) {
+      epochStart = moment().startOf('day').subtract(1, 'hour');
+      diff = 3600 * 6 + diff;
+      epochTime = diff;
+    } else {
+      epochStart = moment().subtract(diff % (3600 * 6), 'second');
+      epochTime = diff % (3600 * 6);
+    }
+    // console.log('diff',diff)
+    // console.log('epochTime',epochTime)
+    // console.log('now=======',moment().toDate())
+    // console.log('epochStart',epochStart.toDate())
+    if (epochTime < 3600 * 4.5 && epochTime > 3600) {
+      prevEpochTime = epochStart.toDate();
+      nextEpochTime = epochStart.add(4.5, 'hours').toDate();
+    } else if (epochTime < 3600) {
+      prevEpochTime = epochStart.add(4.5, 'hours').toDate();
+      nextEpochTime = epochStart.add(0.5, 'hours').toDate();
+      epoch = 1;
+    } else {
+      prevEpochTime = epochStart.add(5, 'hours').toDate();
+      nextEpochTime = epochStart.add(1, 'hours').toDate();
+      epoch = 2;
+    }
+    return { prevEpochTime, nextEpochTime, epoch };
+  }
 }
