@@ -9,7 +9,9 @@ export type Configuration = {
   externalTokens: {[contractName: string]: [string, number]};
   vaults: {[contractName: string]: string};
   MasterChef: string,
+  MasterChefV2: string,
   GetApy: string,
+  GetApyV2: string,
   GetVaultApy: string,
   GetGOTApy: string,
   config?: EthereumConfig,

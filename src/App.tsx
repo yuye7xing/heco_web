@@ -6,10 +6,12 @@ import { UseWalletProvider } from 'use-wallet';
 
 import FarmsProvider from './contexts/Farms';
 import VaultsProvider from './contexts/Vaults';
+import FarmsV2Provider from './contexts/FarmsV2';
 import GoFarmProvider from './contexts/GoFarmProvider';
 import ModalsProvider from './contexts/Modals';
 
 import Farms from './views/Farms';
+import FarmsV2 from './views/FarmsV2';
 import Vaults from './views/Vaults';
 import Home from './views/Home';
 
@@ -33,6 +35,9 @@ const App: React.FC = () => {
           <Route path="/vault">
             <Vaults />
           </Route>
+          <Route path="/farmV2">
+            <FarmsV2 />
+          </Route>
         </Switch>
       </Router>
     </Providers>
@@ -48,12 +53,14 @@ const Providers: React.FC = ({ children }) => {
           <GoFarmProvider>
             <ModalsProvider>
               <FarmsProvider>
-              <VaultsProvider>
-                <>
-                  <Popups />
-                  {children}
-                </>
-              </VaultsProvider>
+                <VaultsProvider>
+                <FarmsV2Provider>
+                  <>
+                    <Popups />
+                    {children}
+                  </>
+                </FarmsV2Provider>
+                </VaultsProvider>
               </FarmsProvider>
             </ModalsProvider>
           </GoFarmProvider>

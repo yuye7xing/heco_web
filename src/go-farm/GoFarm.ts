@@ -12,6 +12,7 @@ import GVaultHTABI from './deployments/gVaultHT.abi.json';
 import GetApyAbi from './deployments/GetApy.abi.json';
 import GetVaultApyAbi from './deployments/GetVaultApy.abi.json';
 import GetGOTApyAbi from './deployments/GetGOTApy.abi.json';
+import { getDisplayBalance } from '../utils/formatBalance';
 
 /**
  * An API module of GoFarm Cash contracts.
@@ -37,7 +38,9 @@ export class GoFarm {
     // loads contracts from deployments
     this.contracts = {};
     this.contracts['MasterChef'] = new Contract(cfg.MasterChef, MasterChefABI, provider);
+    this.contracts['MasterChefV2'] = new Contract(cfg.MasterChefV2, MasterChefABI, provider);
     this.contracts['GetApy'] = new Contract(cfg.GetApy, GetApyAbi, provider);
+    this.contracts['GetApyV2'] = new Contract(cfg.GetApyV2, GetApyAbi, provider);
     this.contracts['GetVaultApy'] = new Contract(cfg.GetVaultApy, GetVaultApyAbi, provider);
     this.contracts['GetGOTApy'] = new Contract(cfg.GetGOTApy, GetGOTApyAbi, provider);
     this.externalTokens = {};
@@ -147,8 +150,23 @@ export class GoFarm {
     }
   }
 
+  async earnedFromFarmV2(pid: number, account = this.myAccount): Promise<BigNumber> {
+    const pool = this.contracts['MasterChefV2'];
+    try {
+      return await pool.pendingGOT(pid, account);
+    } catch (err) {
+      console.error(`Failed to call earned() on pool ${pool.address}: ${err.stack}`);
+      return BigNumber.from(0);
+    }
+  }
+
   async stakedBalanceOnFarm(pid: number, account = this.myAccount): Promise<UserInfo> {
     const pool = this.contracts['MasterChef'];
+    return await pool.userInfo(pid, account);
+  }
+
+  async stakedBalanceOnFarmV2(pid: number, account = this.myAccount): Promise<UserInfo> {
+    const pool = this.contracts['MasterChefV2'];
     return await pool.userInfo(pid, account);
   }
 
@@ -163,6 +181,11 @@ export class GoFarm {
     const gas = await pool.estimateGas.deposit(pid, amount);
     return await pool.deposit(pid, amount, this.gasOptions(gas));
   }
+  async stakeV2(pid: number, amount: BigNumber): Promise<TransactionResponse> {
+    const pool = this.contracts['MasterChefV2'];
+    const gas = await pool.estimateGas.deposit(pid, amount);
+    return await pool.deposit(pid, amount, this.gasOptions(gas));
+  }
   /**
    * Withdraws token from given pool.
    * @param poolName A name of pool contract.
@@ -171,6 +194,11 @@ export class GoFarm {
    */
   async unstake(pid: number, amount: BigNumber): Promise<TransactionResponse> {
     const pool = this.contracts['MasterChef'];
+    const gas = await pool.estimateGas.withdraw(pid, amount);
+    return await pool.withdraw(pid, amount, this.gasOptions(gas));
+  }
+  async unstakeV2(pid: number, amount: BigNumber): Promise<TransactionResponse> {
+    const pool = this.contracts['MasterChefV2'];
     const gas = await pool.estimateGas.withdraw(pid, amount);
     return await pool.withdraw(pid, amount, this.gasOptions(gas));
   }
@@ -183,8 +211,8 @@ export class GoFarm {
     const gas = await pool.estimateGas.harvest(pid);
     return await pool.harvest(pid, this.gasOptions(gas));
   }
-  async vaultHarvest(pid: number): Promise<TransactionResponse> {
-    const pool = this.contracts['MasterChef'];
+  async harvestV2(pid: number): Promise<TransactionResponse> {
+    const pool = this.contracts['MasterChefV2'];
     const gas = await pool.estimateGas.harvest(pid);
     return await pool.harvest(pid, this.gasOptions(gas));
   }
@@ -194,8 +222,18 @@ export class GoFarm {
     return await getApy.getAllApy();
   }
 
+  async getApyV2(): Promise<string> {
+    const getApy = this.contracts['GetApyV2'];
+    return await getApy.getAllApy();
+  }
+
   async getAllPoolPrice(): Promise<string> {
     const getApy = this.contracts['GetApy'];
+    return await getApy.getAllPoolPrice();
+  }
+
+  async getAllPoolPriceV2(): Promise<string> {
+    const getApy = this.contracts['GetApyV2'];
     return await getApy.getAllPoolPrice();
   }
 
@@ -204,8 +242,25 @@ export class GoFarm {
     return await getApy.getAllAlloc();
   }
 
+  async getAllAllocV2(): Promise<string> {
+    const getApy = this.contracts['GetApyV2'];
+    return await getApy.getAllAlloc();
+  }
+
   async getTvl(): Promise<BigNumber> {
     const getApy = this.contracts['GetApy'];
+    const getApyV2 = this.contracts['GetApyV2'];
+    const getVaultApy = this.contracts['GetVaultApy'];
+    const getGOTApyContract = this.contracts['GetGOTApy'];
+    const tvl = await getApy.getTvl();
+    const tvlV2 = await getApyV2.getTvl();
+    const vaultTvl = await getVaultApy.getTVL();
+    const GOTTvl = await getGOTApyContract.getTVLPrice();
+    return tvl.add(tvlV2).add(vaultTvl).add(GOTTvl);
+  }
+
+  async getTvlV2(): Promise<BigNumber> {
+    const getApy = this.contracts['GetApyV2'];
     return await getApy.getTvl();
   }
 
@@ -224,8 +279,19 @@ export class GoFarm {
     return await pool.exit(pid, this.gasOptions(gas));
   }
 
+  async exitV2(pid: number): Promise<TransactionResponse> {
+    const pool = this.contracts['MasterChefV2'];
+    const gas = await pool.estimateGas.exit(pid);
+    return await pool.exit(pid, this.gasOptions(gas));
+  }
+
   async getAllBalance(): Promise<string> {
     const getApy = this.contracts['GetApy'];
+    return await getApy.getAllAlloc();
+  }
+
+  async getAllBalanceV2(): Promise<string> {
+    const getApy = this.contracts['GetApyV2'];
     return await getApy.getAllAlloc();
   }
 
