@@ -13,7 +13,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({ icon, subtitle, title }) => {
       <StyledIcon>{icon}</StyledIcon>
       <StyledTitle>{title}</StyledTitle>
       <StyledSubtitle>⚠️重要通知:⚠️</StyledSubtitle>
-      <StyledSubtitle>星际农场将于北京时间2021年3月9日中午12点停矿并迁移至星际农场V2</StyledSubtitle>
+      <StyledSubtitle>星际农场将于北京时间2021年4月9日中午12点停矿并迁移至星际农场V2</StyledSubtitle>
       <StyledSubtitle>请在停矿前将存入的LP Token手动提取并存入星际农场V2</StyledSubtitle>
       <StyledSubtitle>停矿后星际农场V1的LP Token仍然可以取出,奖励GOT将不再计算</StyledSubtitle>
       <StyledSubtitle>原定的三月GOT产出计划由2的11次幂减少到2的6次幂</StyledSubtitle>
