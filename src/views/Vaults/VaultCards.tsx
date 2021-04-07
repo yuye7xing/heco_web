@@ -9,7 +9,7 @@ import CardIcon from '../../components/CardIcon';
 import useVaults from '../../hooks/useVaults';
 import TokenSymbol from '../../components/TokenSymbol';
 import Notice from '../../components/Notice';
-import { getDisplayBalance,getDisplayApy } from '../../utils/formatBalance';
+import { getDisplayBalance,getDisplayApy,getDisplayApy2 } from '../../utils/formatBalance';
 
 const VaultCards: React.FC = () => {
   const [vaults] = useVaults();
@@ -95,7 +95,8 @@ const VaultCard: React.FC<VaultCardProps> = ({ vault }) => {
             <StyledDetails>
               {/* <StyledDetail>存入 {vault.depositTokenName.toUpperCase()}</StyledDetail>
               <StyledDetail>赚取 {`${vault.depositTokenName}`}</StyledDetail> */}
-              <StyledDetail>Apy {vault.depositTokenName.includes('GOT') ? getDisplayBalance(vault.apy,18,2) : getDisplayApy(vault.apy)}%</StyledDetail>
+              <StyledDetail>1日年化 {vault.depositTokenName.includes('GOT') ? getDisplayBalance(vault.apy,18,2) : getDisplayApy(vault.apy)}%</StyledDetail>
+              <StyledDetail>复利APY {vault.depositTokenName.includes('GOT') ? getDisplayBalance(vault.apy,18,2) : getDisplayApy2(vault.apy)}%</StyledDetail>
               <StyledDetail>存款额 ${getDisplayBalance(vault.balance,vault.depositToken.decimal,0)}</StyledDetail>
             </StyledDetails>
             <Button text="加入" to={`/vault/${vault.depositTokenName}`} />

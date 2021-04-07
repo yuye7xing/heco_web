@@ -283,7 +283,6 @@ export class GoFarm {
     }
     return await getVaultApy.getApysOfWeek(_vaults);
   }
-
   async getGOTApy(): Promise<string> {
     const getGOTApyContract = this.contracts['GetGOTApy'];
     return await getGOTApyContract.getApysOfWeek();
