@@ -7,6 +7,7 @@ const Nav: React.FC = () => {
     <StyledNav>
       <StyledLink exact activeClassName="active" to="/">首页</StyledLink>
       <StyledLink exact activeClassName="active" to="/farm">星际农场</StyledLink>
+      <StyledLink exact activeClassName="active" to="/farmV2">星际农场V2</StyledLink>
       <StyledLink exact activeClassName="active" to="/vault">密集阵</StyledLink>
       <StyledLink exact activeClassName="active" to="/lottery">船票</StyledLink>
       <StyledLink2 href="https://heco.vote/#/gocash.heco" target="_blank">治理</StyledLink2>

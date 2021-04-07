@@ -22,7 +22,7 @@ const StyledCardIcon = styled.div`
   justify-content: center;
   box-shadow: inset 4px 4px 8px ${props => props.theme.color.grey[300]},
     inset -6px -6px 12px ${props => props.theme.color.grey[100]};
-  margin: 10px 10px ${props => props.theme.spacing[3]}px;
+  margin: 0 -5px 0px;
 `
 
 export default CardIcon
