@@ -34,7 +34,7 @@ const FarmsV2: React.FC = ({ children }) => {
         earnToken:  goFarm.externalTokens[farmInfo.earnTokenName],
         TokenA_Address:  goFarm.externalTokens[farmInfo.TokenA].address,
         TokenB_Address:  "",
-        apy: BigNumber.from(apys[farmInfo.pid]).mul(100).mul(365),
+        apy: BigNumber.from(apys[farmInfo.pid]).mul(100),
         poolPrice: BigNumber.from(poolPrices[farmInfo.pid]),
         alloc: BigNumber.from(allocs[farmInfo.pid])
       });
