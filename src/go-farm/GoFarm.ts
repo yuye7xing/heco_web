@@ -15,6 +15,7 @@ import GetGOTApyAbi from './deployments/GetGOTApy.abi.json';
 import LotteryAbi from './deployments/Lottery.abi.json';
 import moment from 'moment';
 import { getDisplayBalance } from '../utils/formatBalance';
+import { parseUnits } from 'ethers/lib/utils';
 
 /**
  * An API module of GoFarm Cash contracts.
@@ -306,6 +307,11 @@ export class GoFarm {
     return await vault.balanceOf(account);
   }
 
+  async tokenBalance(name: string, account = this.myAccount): Promise<BigNumber> {
+    const token = this.externalTokens[name];
+    return await token.balanceOf(account);
+  }
+
   async vaultUnstake(name: string, amount: BigNumber): Promise<TransactionResponse> {
     const vault = this.contracts[name];
     const gas = await vault.estimateGas.withdraw(amount);
@@ -425,10 +431,10 @@ export class GoFarm {
     // console.log('epochTime',epochTime)
     // console.log('now=======',moment().toDate())
     // console.log('epochStart',epochStart.toDate())
-    if (epochTime < 3600 * 4.5 && epochTime > 3600) {
+    if (epochTime < 3600 * 4.5) {
       prevEpochTime = epochStart.toDate();
       nextEpochTime = epochStart.add(4.5, 'hours').toDate();
-    } else if (epochTime < 3600) {
+    } else if (epochTime > 3600 * 4.5 && epochTime < 3600 * 5) {
       prevEpochTime = epochStart.add(4.5, 'hours').toDate();
       nextEpochTime = epochStart.add(0.5, 'hours').toDate();
       epoch = 1;
@@ -438,5 +444,36 @@ export class GoFarm {
       epoch = 2;
     }
     return { prevEpochTime, nextEpochTime, epoch };
+  }
+  async BuyTicket(
+    name: string,
+    val0: string,
+    val1: string,
+    val2: string,
+    val3: string,
+  ): Promise<TransactionResponse> {
+    const lotteryContract = this.contracts['Lottery_' + name];
+    const amountBn = parseUnits('1', this.externalTokens[name].decimal);
+    const numbers = [val0, val1, val2, val3];
+    const gas = await lotteryContract.estimateGas.buy(amountBn, numbers);
+    return await lotteryContract.buy(amountBn, numbers, this.gasOptions(gas));
+  }
+
+  async ticketNumbers(name: string): Promise<string[]> {
+    const lotteryContract = this.contracts['Lottery_' + name];
+    const drawed = await lotteryContract.drawed();
+    let issueIndex = await lotteryContract.issueIndex();
+    if (!drawed) {
+      issueIndex = issueIndex - 1;
+    }
+    const num = await lotteryContract.getHistoryNumbers(issueIndex);
+    return num;
+  }
+
+  async getUserInfo(name: string, account = this.myAccount): Promise<string[]> {
+    const lotteryContract = this.contracts['Lottery_' + name];
+    let issueIndex = await lotteryContract.issueIndex();
+    const userInfo = await lotteryContract.getUserInfo(issueIndex);
+    return userInfo;
   }
 }

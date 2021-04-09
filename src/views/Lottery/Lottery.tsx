@@ -8,8 +8,8 @@ import Button from '../../components/Button';
 import PageHeader from '../../components/PageHeader';
 import Label from '../../components/Label';
 import Spacer from '../../components/Spacer';
-import Harvest from './components/Harvest';
-import Stake from './components/Stake';
+import BuyTicket from './components/BuyTicket';
+import Drawed from './components/Drawed';
 import useLottery from '../../hooks/useLottery';
 // import useLotteryRedeem from '../../hooks/useLotteryRedeem';
 
@@ -25,46 +25,32 @@ const Lottery: React.FC = () => {
     <>
       <PageHeader
         // icon={<img src={require("../../assets/img/farm.png")} width="80%" height="90%" alt="farms" style={{position: "absolute",top: "5%",left:"10%"}}/>}
-        subtitle={`存入 ${lottery?.depositTokenName} 赚取 ${lottery?.depositTokenName}`}
+        subtitle={`通过 ${lottery?.depositTokenName} 购买船票,有机会赢取大奖`}
         title={lottery?.name}
       />
       <StyledBank>
         <StyledCardsWrapper>
           <StyledCardWrapper>
-            {/* <Harvest lottery={lottery} />
+            <BuyTicket lottery={lottery} />
           </StyledCardWrapper>
           <Spacer />
           <StyledCardWrapper>
-            <Stake lottery={lottery} /> */}
+            <Drawed lottery={lottery} />
           </StyledCardWrapper>
         </StyledCardsWrapper>
         <Spacer size="lg" />
         <div>
-          <Label color={'#000'} text={`g${lottery.depositTokenName}数量代表存款凭证的数量,存入后不会产生变化`} />
+          <Label color={'#fff'} text={`每张船票价值 1${lottery.depositTokenName},在1~14之内选择4个数字作为幸运号码!`} />
           <Button  text="取出全部资产" />
         </div>
         <Spacer size="lg" />
       </StyledBank>
     </>
-  ) : !lottery ? (
-    <BankNotFound />
   ) : (
     <UnlockWallet />
   );
 };
 
-
-const BankNotFound = () => {
-  return (
-    <Center>
-      <PageHeader
-        icon="🏚"
-        title="没有弹药"
-        subtitle="目前禁止开火"
-      />
-    </Center>
-  );
-};
 
 const UnlockWallet = () => {
   const { connect } = useWallet();

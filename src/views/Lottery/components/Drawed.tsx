@@ -10,45 +10,43 @@ import IconButton from '../../../components/IconButton';
 import Label from '../../../components/Label';
 import Value from '../../../components/Value';
 import useGoFarm from '../../../hooks/useGoFarm';
+import useTokenBalance from '../../../hooks/useTokenBalance';
 
 import useApprove, { ApprovalState } from '../../../hooks/useApprove';
 import useModal from '../../../hooks/useModal';
-import useVaultStake from '../../../hooks/useVaultStake';
-import useVaultStakedBalance from '../../../hooks/useVaultStakedBalance';
-import useTokenBalance from '../../../hooks/useTokenBalance';
+import useTicketBuy from '../../../hooks/useTicketBuy';
+import useLotteryStakedBalance from '../../../hooks/useLotteryStakedBalance';
+import useLotteryStatus from '../../../hooks/useLotteryStatus';
 
 import { getDisplayBalance } from '../../../utils/formatBalance';
 
-import DepositModal from './DepositModal';
+import BuyModal from './BuyModal';
 import TokenSymbol from '../../../components/TokenSymbol';
-import { Vault } from '../../../go-farm';
+import { Lottery } from '../../../go-farm';
 
-interface StakeProps {
-  vault: Vault;
+interface DrawedProps {
+  lottery: Lottery;
 }
 
-const Stake: React.FC<StakeProps> = ({ vault }) => {
+const Drawed: React.FC<DrawedProps> = ({ lottery }) => {
   const goFarm = useGoFarm();
   const [approveStatus, approve] = useApprove(
-    vault.depositToken,
-    goFarm?.contracts[vault.depositTokenName].address,
+    lottery.depositToken,
+    goFarm?.contracts['Lottery_'+lottery.depositTokenName].address,
   );
 
-  // TODO: reactive update of token balance
-  const tokenBalance = useTokenBalance(vault.depositToken);
-  const stakedBalance = useVaultStakedBalance(vault.depositTokenName);
+  const {numbers} = useLotteryStatus(lottery.depositTokenName);
+  // const stakedBalance = useLotteryStakedBalance(lottery.depositTokenName);
 
-  const { onStake } = useVaultStake(vault);
+  const { onTicketBuy } = useTicketBuy(lottery);
 
   const [onPresentDeposit, onDismissDeposit] = useModal(
-    <DepositModal
-      max={tokenBalance}
-      decimals={vault.depositToken.decimal}
-      onConfirm={(amount) => {
-        onStake(amount);
+    <BuyModal
+      onConfirm={(val0,val1,val2,val3) => {
+        onTicketBuy(val0,val1,val2,val3);
         onDismissDeposit();
       }}
-      tokenName={vault.depositTokenName}
+      tokenName={lottery.depositTokenName}
     />,
   );
 
@@ -56,21 +54,19 @@ const Stake: React.FC<StakeProps> = ({ vault }) => {
     <Card>
       <CardContent>
         <StyledCardContentInner>
+            <Label text={`上期中奖号码`} />
           <StyledCardHeader>
-            <LogoCard>
-              <CardIcon>
-                <TokenSymbol symbol={vault.depositTokenName} size={54} />
-              </CardIcon>
-            </LogoCard>
-            <Value value={getDisplayBalance(stakedBalance, vault.depositToken.decimal)} />
-            <Label text={`存入的 g${vault.depositTokenName} 数量`} />
+            <Value value={numbers[0]} />
+            <Value value={numbers[1]} />
+            <Value value={numbers[2]} />
+            <Value value={numbers[3]} />
           </StyledCardHeader>
           <StyledCardActions>
-            {approveStatus === ApprovalState.APPROVED ||  vault.depositTokenName === 'HT'? (
+            {approveStatus === ApprovalState.APPROVED ||  lottery.depositTokenName === 'HT'? (
               <>
                 <IconButton
-                  disabled={vault.finished}
-                  onClick={() => (vault.finished ? null : onPresentDeposit())}
+                  disabled={lottery.finished}
+                  onClick={() => (lottery.finished ? null : onPresentDeposit())}
                 >
                   <AddIcon />
                 </IconButton>
@@ -82,7 +78,7 @@ const Stake: React.FC<StakeProps> = ({ vault }) => {
                   approveStatus === ApprovalState.UNKNOWN
                 }
                 onClick={approve}
-                text={`批准 ${vault.depositTokenName}`}
+                text={`批准 ${lottery.depositTokenName}`}
               />
             )}
           </StyledCardActions>
@@ -98,7 +94,8 @@ const LogoCard = styled.div`
 const StyledCardHeader = styled.div`
   align-items: center;
   display: flex;
-  flex-direction: column;
+  justify-content: space-evenly;
+  width: 100%;
 `;
 const StyledCardActions = styled.div`
   display: flex;
@@ -120,4 +117,4 @@ const StyledCardContentInner = styled.div`
   justify-content: space-between;
 `;
 
-export default Stake;
+export default Drawed;

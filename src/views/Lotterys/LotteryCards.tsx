@@ -133,9 +133,9 @@ const LotteryCard: React.FC<LotteryCardProps> = ({ lottery }) => {
                 base={prevEpoch}
                 deadline={nextEpoch}
                 description={
-                  epoch == 0
+                  epoch === 0
                     ? '船票正在销售中'
-                    : epoch == 1
+                    : epoch === 1
                     ? '船票已售罄,等待开奖'
                     : '已开奖,等待下一轮开始'
                 }
@@ -201,7 +201,7 @@ const LogoCard = styled.div`
   border-bottom-width: 1px;
   border-bottom-color: #666;
   border-bottom-style: solid;
-  padding-bottom: 5px;
+  padding-bottom: 10px;
   margin-bottom: ${(props) => props.theme.spacing[2]}px;
 `;
 const StyledCardNomal = styled.div`

@@ -47,8 +47,8 @@ const configurations: { [env: string]: Configuration } = {
       USDT: '0xCc555dfe688E3C9Ec5278f8ceD1846fEda8633f9',
     },
     lotterys:{
-      HUSD : '0x2af035Ace5ce90134A9a012b1527BC97656Ea46E',
-      GOC : '0xa28a6250c3E313FC32d4557a0025FF1460D0c550'
+      HUSD : '0x6DfF52956d3486FF94D7382b46A05ef46d014F41',
+      GOC : '0xAA7820B8DF9f3afa79488c69B080B071EeA6fC25'
     },
     refreshInterval: 10000,
     gasLimitMultiplier: 1.1

@@ -88,6 +88,7 @@ const StyledCardContentInner = styled.div`
   justify-content: center;
   flex-direction: column;
   width: 100%;
+  margin-left: 20px;
 `;
 
 const StyledTitle = styled.h4`
