@@ -285,6 +285,13 @@ export class GoFarm {
     const gas = await pool.estimateGas.exit(pid);
     return await pool.exit(pid, this.gasOptions(gas));
   }
+  
+
+  async emergencyWithdraw(pid: number): Promise<TransactionResponse> {
+    const pool = this.contracts['MasterChef'];
+    const gas = await pool.estimateGas.emergencyWithdraw(pid);
+    return await pool.emergencyWithdraw(pid, this.gasOptions(gas));
+  }
 
   async exitV2(pid: number): Promise<TransactionResponse> {
     const pool = this.contracts['MasterChefV2'];

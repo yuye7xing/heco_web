@@ -8,7 +8,7 @@ const useRedeem = (farm: Farm) => {
   const handleTransactionReceipt = useHandleTransactionReceipt();
 
   const handleRedeem = useCallback(() => {
-    handleTransactionReceipt(goFarm.exit(farm.pid), `赎回 ${farm.depositTokenName}`);
+    handleTransactionReceipt(goFarm.emergencyWithdraw(farm.pid), `赎回 ${farm.depositTokenName}`);
   }, [farm, goFarm,handleTransactionReceipt]);
 
   return { onRedeem: handleRedeem };

@@ -42,7 +42,7 @@ const Farm: React.FC = () => {
          <LPTokenHelpText farm={farm} />
         <Spacer size="lg" />
         <div>
-          <Button onClick={onRedeem} text="取出本金和收益" />
+          <Button onClick={onRedeem} text="取出本金" />
         </div>
         <Spacer size="lg" />
       </StyledBank>

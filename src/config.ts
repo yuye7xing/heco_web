@@ -60,7 +60,7 @@ const configurations: { [env: string]: Configuration } = {
     MasterChef: '0x7dCeBC34F55b52df742C91581089ebD0BCBD254F',
     MasterChefV2: '0xb6e8Df513dD634Bc033CdB3099448269728e8deE',
     GetApy: '0xE453Fd8FF38b46fBda57f236103f6336CBf50594',
-    GetApyV2: '0x0FD83832b763371065cFA24e68d8BF50c8a225D5',
+    GetApyV2: '0xFbff130B9144a1ec5861216018d491582a76EE2b',
     GetVaultApy: '0xaE3a4402B987Ad29D5e7F17Bbb4fD22a713f7DaE',
     GetGOTApy: '0xE3e22A3a6EBc8b4265843C1f9f15d71E6b751467',
     deployments: require('./go-farm/deployments/deployments.mainnet.json'),
