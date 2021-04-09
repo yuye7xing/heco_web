@@ -32,12 +32,12 @@ const Harvest: React.FC<HarvestProps> = ({ farm }) => {
             <CardIcon>
               <TokenSymbol symbol={farm.earnToken.symbol} />
             </CardIcon>
-            <Value value={getDisplayBalance(earnings)} />
+            <Value value={'0'} />
             <Label text={`赚到的${farm.earnTokenName}`} />
           </StyledCardHeader>
-          <StyledCardActions>
+          {/* <StyledCardActions>
             <Button onClick={onReward} disabled={earnings.eq(0)} text="收获"  />
-          </StyledCardActions>
+          </StyledCardActions> */}
         </StyledCardContentInner>
       </CardContent>
     </Card>

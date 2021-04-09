@@ -78,7 +78,7 @@ const Stake: React.FC<StakeProps> = ({ farm }) => {
             <Value value={getDisplayBalance(stakedBalance, farm.depositToken.decimal)} />
             <Label text={`质押的${farm.depositTokenName}`} />
           </StyledCardHeader>
-          <StyledCardActions>
+          {/* <StyledCardActions>
             {approveStatus !== ApprovalState.APPROVED ? (
               <Button
                 disabled={
@@ -102,7 +102,7 @@ const Stake: React.FC<StakeProps> = ({ farm }) => {
                 </IconButton>
               </>
             )}
-          </StyledCardActions>
+          </StyledCardActions> */}
         </StyledCardContentInner>
       </CardContent>
     </Card>
