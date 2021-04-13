@@ -13,6 +13,7 @@ const configurations: { [env: string]: Configuration } = {
     GetApyV2: '0x0FD83832b763371065cFA24e68d8BF50c8a225D5',
     GetVaultApy: '0xaE3a4402B987Ad29D5e7F17Bbb4fD22a713f7DaE',
     GetGOTApy: '0xD25dF71c0dD1291ff65A3279DD4C63a5Bd0ae0D4',
+    LotteryAnalysis: '0x6cE62A376Ca636E53F9b8b0b8e13Dc2CE14d1bdc',
     deployments: require('./go-farm/deployments/deployments.testnet.json'),
     externalTokens: {
       GOT: ['0xA7d5b5Dbc29ddef9871333AD2295B2E7D6F12391', 18],
@@ -47,8 +48,8 @@ const configurations: { [env: string]: Configuration } = {
       USDT: '0xCc555dfe688E3C9Ec5278f8ceD1846fEda8633f9',
     },
     lotterys:{
-      HUSD : '0x6DfF52956d3486FF94D7382b46A05ef46d014F41',
-      GOC : '0xAA7820B8DF9f3afa79488c69B080B071EeA6fC25'
+      HUSD : '0xD3116F70DaC6e1D9c50763026b1CcF560e4664D4',
+      GOC : '0x822542e0b599Fd512AC91E44AB6b3E5098345693'
     },
     refreshInterval: 10000,
     gasLimitMultiplier: 1.1
@@ -63,6 +64,7 @@ const configurations: { [env: string]: Configuration } = {
     GetApyV2: '0xFbff130B9144a1ec5861216018d491582a76EE2b',
     GetVaultApy: '0xaE3a4402B987Ad29D5e7F17Bbb4fD22a713f7DaE',
     GetGOTApy: '0xE3e22A3a6EBc8b4265843C1f9f15d71E6b751467',
+    LotteryAnalysis: '0x6cE62A376Ca636E53F9b8b0b8e13Dc2CE14d1bdc',
     deployments: require('./go-farm/deployments/deployments.mainnet.json'),
     externalTokens: {
       GOT: ['0xA7d5b5Dbc29ddef9871333AD2295B2E7D6F12391', 18],
@@ -135,8 +137,8 @@ const configurations: { [env: string]: Configuration } = {
       BETH: '0x5a4Cd1BCc5189BDd55C65eF8eB965A86E09aE0C3',
     },
     lotterys:{
-      HUSD : '0x2af035Ace5ce90134A9a012b1527BC97656Ea46E',
-      GOC : '0xa28a6250c3E313FC32d4557a0025FF1460D0c550'
+      HUSD : '0x6DfF52956d3486FF94D7382b46A05ef46d014F41',
+      GOC : '0xAA7820B8DF9f3afa79488c69B080B071EeA6fC25'
     },
     refreshInterval: 30000,
     gasLimitMultiplier: 1.7
@@ -750,18 +752,3 @@ export const lotteryDefinitions: { [contractName: string]: LotteryInfo } = {
 // export default configurations[process.env.NODE_ENV || "development"];
 // export default configurations["production"];
 export default configurations["development"];
-// ["0x94832D6B65327c3bA11b005B98998F238091555D",
-// "0xF56728794DaD2D02595876E0582185aF8f994Bcb",
-// "0xb95b9Fa817471BbC100F62d36187BC95C3F0c09B",
-// "0x0556D0D33aC6380cc43a3f923CB25cEf58D08a2c",
-// "0x3eD2fA1A783B223B3C761b49c4a2a6632415BFdD",
-// "0x58E5bB0e091C1F9689a896A785f5CBB052857CC6",
-// "0x0617c0b1471023850dAeF88a390F7FBC30f7BBE6",
-// "0x2f7624b3fc0564C357F6AaCa9b5A0A5F3027827A",
-// "0x9bc916A33d932dA04285c5A68d2D2E7BA333339b",
-// "0x809d7703810152c0AC665406206F8C50630d0FcF",
-// "0xCD0e39551Aba76A14fdac3c312192DFd141a3815",
-// "0x76f48d7ab2081215155ff7e9f18b7d1e803c97de",
-// "0xc65A0980B911f30D3bf30ADcFE33fA1141E17a58",
-// "0x77F77D8c3833A851e33063B137E39Fb0f88D0314",
-// "0x5a4Cd1BCc5189BDd55C65eF8eB965A86E09aE0C3"]

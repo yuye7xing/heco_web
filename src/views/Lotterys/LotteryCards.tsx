@@ -13,7 +13,6 @@ import ProgressCountdown from './components/ProgressCountdown';
 import Notice from '../../components/Notice';
 import useGoFarm from '../../hooks/useGoFarm';
 import { BigNumber } from 'ethers';
-// import { getDisplayBalance,getDisplayApy } from '../../utils/formatBalance';
 import useLotteryTimes from '../../hooks/useLotteryTimes';
 import { getDisplayBalance } from '../../utils/formatBalance';
 import moment from 'moment';
@@ -83,9 +82,9 @@ interface LotteryCardProps {
 
 const LotteryCard: React.FC<LotteryCardProps> = ({ lottery }) => {
   const { prevEpochTime, nextEpochTime, epoch } = useLotteryTimes();
-  const prevEpoch = useMemo(() => prevEpochTime, [prevEpochTime, nextEpochTime]);
+  const prevEpoch = useMemo(() => prevEpochTime, [prevEpochTime]);
   const nextEpoch = useMemo(() => moment(nextEpochTime).add(1, 'seconds').toDate(), [
-    prevEpoch,
+    nextEpochTime,
   ]);
 
   const goFarm = useGoFarm();
@@ -174,13 +173,24 @@ const LotteryCard: React.FC<LotteryCardProps> = ({ lottery }) => {
             </StyledDetails>
             <StyledDetails>
               <StyledDetailsItem>
-                {lottery.depositTokenName.includes('GOC')
-                  ? `回购GOT:`
-                  : `投入GOC奖池:`}</StyledDetailsItem>
+                {lottery.depositTokenName.includes('GOC') ? `回购GOT:` : `投入GOC奖池:`}
+              </StyledDetailsItem>
               <StyledDetailsItem>
                 {lottery.depositTokenName.includes('GOC')
-                  ? getDisplayBalance(totalPot.GOC.mul(100 - allocations.GOC[0] - allocations.GOC[1] - allocations.GOC[2] ).div(100), 18, 2)
-                  : getDisplayBalance(totalPot.HUSD.mul(100 - allocations.HUSD[0] - allocations.HUSD[1] - allocations.HUSD[2]).div(100), 8, 2)}
+                  ? getDisplayBalance(
+                      totalPot.GOC.mul(
+                        100 - allocations.GOC[0] - allocations.GOC[1] - allocations.GOC[2],
+                      ).div(100),
+                      18,
+                      2,
+                    )
+                  : getDisplayBalance(
+                      totalPot.HUSD.mul(
+                        100 - allocations.HUSD[0] - allocations.HUSD[1] - allocations.HUSD[2],
+                      ).div(100),
+                      8,
+                      2,
+                    )}
               </StyledDetailsItem>
             </StyledDetails>
             <Button text="加入" to={`/lottery/${lottery.depositTokenName}`} />
@@ -320,10 +330,6 @@ const StyledDetails = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-between;
-`;
-
-const StyledDetail = styled.div`
-  color: ${(props) => props.theme.color.grey[300]};
 `;
 
 const StyledInactiveNoticeContainer = styled.div`

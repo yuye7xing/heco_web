@@ -12,6 +12,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({ icon, subtitle, title }) => {
     <StyledPageHeader>
       <StyledIcon>{icon}</StyledIcon>
       <StyledTitle>{title}</StyledTitle>
+      {/* eslint-disable-next-line */}
       <StyledSubtitle>⚠️重要通知:⚠️</StyledSubtitle>
       <StyledSubtitle>星际农场将于北京时间2021年4月9日中午12点停矿并迁移至星际农场V2</StyledSubtitle>
       <StyledSubtitle>请在停矿前将存入的LP Token手动提取并存入星际农场V2</StyledSubtitle>

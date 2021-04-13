@@ -13,8 +13,9 @@ import GetApyAbi from './deployments/GetApy.abi.json';
 import GetVaultApyAbi from './deployments/GetVaultApy.abi.json';
 import GetGOTApyAbi from './deployments/GetGOTApy.abi.json';
 import LotteryAbi from './deployments/Lottery.abi.json';
+import LotteryNFTAbi from './deployments/LotteryNFT.abi.json';
+import LotteryAnalysisAbi from './deployments/LotteryAnalysis.abi.json';
 import moment from 'moment';
-import { getDisplayBalance } from '../utils/formatBalance';
 import { parseUnits } from 'ethers/lib/utils';
 
 /**
@@ -46,6 +47,11 @@ export class GoFarm {
     this.contracts['GetApyV2'] = new Contract(cfg.GetApyV2, GetApyAbi, provider);
     this.contracts['GetVaultApy'] = new Contract(cfg.GetVaultApy, GetVaultApyAbi, provider);
     this.contracts['GetGOTApy'] = new Contract(cfg.GetGOTApy, GetGOTApyAbi, provider);
+    this.contracts['LotteryAnalysis'] = new Contract(
+      cfg.LotteryAnalysis,
+      LotteryAnalysisAbi,
+      provider,
+    );
     this.externalTokens = {};
     this.pair = {};
     for (const [symbol, [address, decimal]] of Object.entries(externalTokens)) {
@@ -76,7 +82,6 @@ export class GoFarm {
     const newProvider = new ethers.providers.Web3Provider(provider, this.config.chainId);
 
     this.signer = newProvider.getSigner(0);
-
     this.myAccount = account;
     this.balance = balance;
     for (const [name, contract] of Object.entries(this.contracts)) {
@@ -285,7 +290,6 @@ export class GoFarm {
     const gas = await pool.estimateGas.exit(pid);
     return await pool.exit(pid, this.gasOptions(gas));
   }
-  
 
   async emergencyWithdraw(pid: number): Promise<TransactionResponse> {
     const pool = this.contracts['MasterChef'];
@@ -396,6 +400,21 @@ export class GoFarm {
     return await getGOTApyContract.getTVLPrice();
   }
 
+  async getHistoryAmount(name: string, issueIndex: string): Promise<string[]> {
+    const lotteryContract = this.contracts['Lottery_' + name];
+    const historyAmount = await lotteryContract.getHistoryAmount(issueIndex);
+    return historyAmount;
+  }
+
+  async getAllcationByName(name: string): Promise<string[]> {
+    const lotteryContract = this.contracts['Lottery_' + name];
+    const allocation = [];
+    allocation[0] = await lotteryContract.allocation(0);
+    allocation[1] = await lotteryContract.allocation(1);
+    allocation[2] = await lotteryContract.allocation(2);
+    return allocation;
+  }
+
   async getTotalPot(): Promise<TotalPot> {
     const lotteryHUSDContract = this.contracts['Lottery_HUSD'];
     const HUSDPot = await lotteryHUSDContract.totalAmount();
@@ -434,10 +453,6 @@ export class GoFarm {
       epochStart = moment().subtract(diff % (3600 * 6), 'second');
       epochTime = diff % (3600 * 6);
     }
-    // console.log('diff',diff)
-    // console.log('epochTime',epochTime)
-    // console.log('now=======',moment().toDate())
-    // console.log('epochStart',epochStart.toDate())
     if (epochTime < 3600 * 4.5) {
       prevEpochTime = epochStart.toDate();
       nextEpochTime = epochStart.add(4.5, 'hours').toDate();
@@ -468,19 +483,74 @@ export class GoFarm {
 
   async ticketNumbers(name: string): Promise<string[]> {
     const lotteryContract = this.contracts['Lottery_' + name];
-    const drawed = await lotteryContract.drawed();
     let issueIndex = await lotteryContract.issueIndex();
-    if (!drawed) {
-      issueIndex = issueIndex - 1;
-    }
+    const historyNumbers = await lotteryContract.historyNumbers(issueIndex, 0);
+    issueIndex =
+      Number(historyNumbers) === 0
+        ? Number(issueIndex) === 0
+          ? 0
+          : issueIndex - 1
+        : issueIndex;
     const num = await lotteryContract.getHistoryNumbers(issueIndex);
     return num;
   }
 
-  async getUserInfo(name: string, account = this.myAccount): Promise<string[]> {
+  async historyNumbers(name: string, issueIndex: string): Promise<string[]> {
+    const lotteryContract = this.contracts['Lottery_' + name];
+    const num = await lotteryContract.getHistoryNumbers(issueIndex);
+    return num;
+  }
+
+  async getUserTicket(name: string, account = this.myAccount): Promise<string[]> {
+    const LotteryAnalysis = this.contracts['LotteryAnalysis'];
+    let userTickets = [''];
+    if (name == 'GOC') {
+      userTickets = await LotteryAnalysis.getUserGOCTickets(account);
+    } else {
+      userTickets = await LotteryAnalysis.getUserHUSDTickets(account);
+    }
+    return userTickets;
+  }
+
+  async getTicketNumbers(name: string, tickets: string[]): Promise<string> {
+    const LotteryAnalysis = this.contracts['LotteryAnalysis'];
+    let numbers = '';
+    if (name === 'GOC') {
+      numbers = await LotteryAnalysis.getGOCLotteryNumbers(tickets);
+    } else {
+      numbers = await LotteryAnalysis.getHUSDLotteryNumbers(tickets);
+    }
+    return numbers;
+  }
+  async getTicket(name: string, ticket: string): Promise<string[]> {
+    const lotteryContract = this.contracts['Lottery_' + name];
+    const NFTAddress = lotteryContract.lotteryNFT();
+    let numbers = [];
+    const NFTContract = new Contract(NFTAddress, LotteryNFTAbi, this.provider);
+    numbers = await NFTContract.getLotteryNumbers(ticket);
+    return numbers;
+  }
+  async getIssueIndex(name: string): Promise<string> {
     const lotteryContract = this.contracts['Lottery_' + name];
     let issueIndex = await lotteryContract.issueIndex();
-    const userInfo = await lotteryContract.getUserInfo(issueIndex);
-    return userInfo;
+    const historyNumbers = await lotteryContract.historyNumbers(issueIndex, 0);
+    issueIndex =
+      Number(historyNumbers) === 0
+        ? Number(issueIndex) === 0
+          ? 0
+          : issueIndex - 1
+        : issueIndex;
+    return issueIndex;
+  }
+  async getCurrentIssueIndex(name: string): Promise<string> {
+    const lotteryContract = this.contracts['Lottery_' + name];
+    let issueIndex = await lotteryContract.issueIndex();
+    return issueIndex;
+  }
+
+  async lotteryClaim(name: string, ticket: string): Promise<TransactionResponse> {
+    const lotteryContract = this.contracts['Lottery_' + name];
+    const gas = await lotteryContract.estimateGas.claimReward(ticket);
+    return await lotteryContract.claimReward(ticket, this.gasOptions(gas));
   }
 }

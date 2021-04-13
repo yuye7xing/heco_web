@@ -2,13 +2,11 @@ import { useCallback, useEffect, useState } from 'react';
 import useGoFarm from './useGoFarm';
 const useLotteryStatus = (name: string) => {
   const [numbers, setNumbers] = useState([]);
-  const [userInfo, setUserInfo] = useState([]);
   const goFarm = useGoFarm();
 
   const fetchNumbers = useCallback(async () => {
-    const [_userNumbers, _userInfo] = await Promise.all([goFarm.ticketNumbers(name), goFarm.getUserInfo(name)]);
-    setNumbers(_userNumbers);
-    setUserInfo(_userInfo);
+    const userNumbers = await goFarm.ticketNumbers(name);
+    setNumbers(userNumbers);
   }, [ name,goFarm]);
 
   useEffect(() => {
@@ -16,7 +14,7 @@ const useLotteryStatus = (name: string) => {
       fetchNumbers().catch(err => console.error(err.stack));
     }
   }, [goFarm]);
-  return {numbers,userInfo};
+  return numbers;
 };
 
 export default useLotteryStatus;

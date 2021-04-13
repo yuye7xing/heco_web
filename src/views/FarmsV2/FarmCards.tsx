@@ -211,15 +211,6 @@ const StyledCardWrapper = styled.div`
   margin-bottom: 20px;
 `;
 
-const StyledTitle = styled.h4`
-  color: ${(props) => props.theme.color.grey[200]};
-  font-size: 24px;
-  font-weight: 700;
-  text-align: center;
-  margin: ${(props) => props.theme.spacing[2]}px 0 0;
-  padding: 0;
-`;
-
 const StyledContent = styled.div`
   display: flex;
   justify-content: space-between;
@@ -230,12 +221,6 @@ const StyledContent = styled.div`
 const StyledSpacer = styled.div`
   height: ${(props) => props.theme.spacing[4]}px;
   width: ${(props) => props.theme.spacing[4]}px;
-`;
-
-const StyledDetails = styled.div`
-  margin-bottom: ${(props) => props.theme.spacing[4]}px;
-  margin-top: ${(props) => props.theme.spacing[2]}px;
-  text-align: center;
 `;
 
 const StyledDetail = styled.div`

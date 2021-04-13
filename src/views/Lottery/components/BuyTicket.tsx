@@ -1,23 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 
-// import { Contract } from 'ethers';
 import Card from '../../../components/Card';
 import CardContent from '../../../components/CardContent';
 import CardIcon from '../../../components/CardIcon';
 import Label from '../../../components/Label';
 import Value from '../../../components/Value';
-import IconButton from '../../../components/IconButton';
 import useGoFarm from '../../../hooks/useGoFarm';
 import useModal from '../../../hooks/useModal';
 import Button from '../../../components/Button';
 import useLotteryTimes from '../../../hooks/useLotteryTimes';
 
-// import useLotteryEarnings from '../../../hooks/useLotteryEarnings';
 import useApprove, { ApprovalState } from '../../../hooks/useApprove';
-import useLotteryStakedBalance from '../../../hooks/useLotteryStakedBalance';
 import useTicketBuy from '../../../hooks/useTicketBuy';
-import useLotteryStatus from '../../../hooks/useLotteryStatus';
 
 import TokenSymbol from '../../../components/TokenSymbol';
 import { Lottery } from '../../../go-farm';
@@ -25,21 +20,19 @@ import BuyModal from './BuyModal';
 
 interface BuyTicketProps {
   lottery: Lottery;
+  numbers: string[][];
+  tickets: string[];
 }
 
-const BuyTicket: React.FC<BuyTicketProps> = ({ lottery }) => {
+const BuyTicket: React.FC<BuyTicketProps> = ({ lottery,tickets,numbers }) => {
   const goFarm = useGoFarm();
-  const { prevEpochTime, nextEpochTime, epoch } = useLotteryTimes();
-  // const earnings = useLotteryEarnings(lottery.depositTokenName);
-  const tokenBalance = useLotteryStakedBalance(lottery.depositTokenName);
+  const { epoch } = useLotteryTimes();
   const { onTicketBuy } = useTicketBuy(lottery);
   const [approveStatus, approve] = useApprove(
     lottery.depositToken,
-    goFarm?.contracts['Lottery_'+lottery.depositTokenName].address,
+    goFarm?.contracts['Lottery_' + lottery.depositTokenName].address,
   );
-  console.log("epoch",epoch);
-  const {userInfo} = useLotteryStatus(lottery.depositTokenName);
-  console.log("userInfo",userInfo);
+  
 
   const [onPresentBuy, onDismissDeposit] = useModal(
     <BuyModal
@@ -61,16 +54,30 @@ const BuyTicket: React.FC<BuyTicketProps> = ({ lottery }) => {
             </CardIcon>
             <LabelItem>
               <Label text={`你的本期${lottery.depositTokenName}船票:`} />
-              <Value value={userInfo.length.toString()} />
+              <Value value={tickets.length.toString()} />
             </LabelItem>
           </StyledCardHeader>
+          <StyledTickets>
+            {numbers.map((ticket, i) => (
+              <React.Fragment key={'ticket_' + i}>
+                <TicketRow>
+                  <Label text={`船票(${tickets[i]}):`} />
+                  {ticket.map((tt: string, j: number) => (
+                    <React.Fragment key={'number_' + j}>
+                      <TicketItem>{tt}</TicketItem>
+                    </React.Fragment>
+                  ))}
+                </TicketRow>
+              </React.Fragment>
+            ))}
+          </StyledTickets>
           <StyledCardActions>
-          {approveStatus === ApprovalState.APPROVED ? (
-            <Button
-              disabled={epoch !== 0}
-              onClick={() => (epoch !== 0 ? null : onPresentBuy())}
-              text={epoch === 0 ? "购买船票" : "等待下一轮开始"}
-            />
+            {approveStatus === ApprovalState.APPROVED ? (
+              <Button
+                disabled={epoch !== 0}
+                onClick={() => (epoch !== 0 ? null : onPresentBuy())}
+                text={epoch === 0 ? '购买船票' : '等待下一轮开始'}
+              />
             ) : (
               <Button
                 disabled={
@@ -95,10 +102,29 @@ const StyledCardHeader = styled.div`
   display: flex;
   width: 100%;
 `;
+const TicketRow = styled.div`
+  align-items: flex-start;
+  display: flex;
+  width: 100%;
+`;
+const TicketItem = styled.div`
+  align-items: flex-start;
+  display: flex;
+  color: #fff;
+  margin: 0px 10px;
+`;
+const StyledTickets = styled.div`
+  align-items: flex-start;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  overflow-y: scroll;
+  max-height: 150px;
+`;
 const StyledCardActions = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: ${(props) => props.theme.spacing[6]}px;
+  margin-top: ${(props) => props.theme.spacing[1]}px;
   width: 100%;
 `;
 

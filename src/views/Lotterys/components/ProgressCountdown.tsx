@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import Card from '../../../components/Card';
 import Countdown, { CountdownRenderProps } from 'react-countdown';
 
 interface ProgressCountdownProps {

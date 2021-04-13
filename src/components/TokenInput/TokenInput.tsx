@@ -38,14 +38,7 @@ const TokenInput: React.FC<TokenInputProps> = ({
   )
 }
 
-/*
-            <div>
-              <Button size="sm" text="Max" />
-            </div>
-*/
-
 const StyledTokenInput = styled.div`
-
 `
 
 const StyledSpacer = styled.div`

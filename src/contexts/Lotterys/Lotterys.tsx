@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { BigNumber } from 'ethers';
 import Context from './context';
 import useGoFarm from '../../hooks/useGoFarm';
 import { Lottery } from '../../go-farm';

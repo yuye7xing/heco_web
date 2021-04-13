@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import { useParams } from 'react-router-dom';
@@ -6,43 +6,114 @@ import { useWallet } from 'use-wallet';
 
 import Button from '../../components/Button';
 import PageHeader from '../../components/PageHeader';
-import Label from '../../components/Label';
 import Spacer from '../../components/Spacer';
 import BuyTicket from './components/BuyTicket';
 import Drawed from './components/Drawed';
+import Reward from './components/Reward';
+import Pots from './components/Pots';
+import History from './components/History';
 import useLottery from '../../hooks/useLottery';
-// import useLotteryRedeem from '../../hooks/useLotteryRedeem';
+import useGoFarm from '../../hooks/useGoFarm';
+import config from '../../config';
 
 const Lottery: React.FC = () => {
-  // useEffect(() => window.scrollTo(0, 0))
+  const goFarm = useGoFarm();
 
   const { lotteryId } = useParams();
   const lottery = useLottery(lotteryId);
   const { account } = useWallet();
-  // const { onRedeem } = useLotteryRedeem(lottery);
 
+  const [rewards, setRewards] = useState([]);
+  const [rewardAmount, setRewardAmount] = useState([]);
+  const [rewardIndex, setRewardIndex] = useState([]);
+  const [numbers, setNumbers] = useState([]);
+  const [tickets, setTickets] = useState([]);
+
+  const fetchInfo = useCallback(async () => {
+    const userInfo = await goFarm.getUserTicket(lottery.depositTokenName, goFarm?.myAccount);
+    const issueIndex = await goFarm.getCurrentIssueIndex(lottery.depositTokenName);
+    const _tickets = userInfo[0];
+    const _issueIndex = userInfo[1];
+    const _claimed = userInfo[2];
+    const _reward = userInfo[3];
+    let currentTickets = [];
+    let _rewards = [];
+    let _rewardAmount = [];
+    let _numbers = [];
+    let _rewardIndex = [];
+    for (let i = 0; i < _tickets.length; i++) {
+      if (Number(_issueIndex[i]) === Number(issueIndex)) {
+        currentTickets.push(_tickets[i]);
+      }
+      if (Number(_reward[i]) > 0 && !_claimed[i]) {
+        _rewards.push(_tickets[i]);
+        _rewardAmount.push(_reward[i]);
+        _rewardIndex.push(_issueIndex[i]);
+      }
+    }
+    const _ticketNumbers = await goFarm.getTicketNumbers(
+      lottery.depositTokenName,
+      currentTickets,
+    );
+    for (let j = 0; j < _ticketNumbers.length; j++) {
+      _numbers[j] = [];
+      for (let k = 0; k < _ticketNumbers[j].length; k++) {
+        _numbers[j][k] = _ticketNumbers[j][k];
+      }
+    }
+    console.log('_rewards', _rewards);
+    setTickets(currentTickets);
+    setNumbers(_numbers);
+    setRewards(_rewards);
+    setRewardAmount(_rewardAmount);
+    setRewardIndex(_rewardIndex);
+  }, [goFarm, lottery, setTickets, setNumbers, setRewards, setRewardAmount, setRewardIndex]);
+
+  useEffect(() => {
+    if (goFarm?.myAccount) {
+      fetchInfo().catch((err) => console.error(err.stack));
+      const refreshBalance = setInterval(fetchInfo, config.refreshInterval);
+      return () => clearInterval(refreshBalance);
+    }
+  }, [goFarm?.myAccount, fetchInfo]);
   return account && lottery ? (
     <>
       <PageHeader
-        // icon={<img src={require("../../assets/img/farm.png")} width="80%" height="90%" alt="farms" style={{position: "absolute",top: "5%",left:"10%"}}/>}
         subtitle={`通过 ${lottery?.depositTokenName} 购买船票,有机会赢取大奖`}
         title={lottery?.name}
       />
       <StyledBank>
         <StyledCardsWrapper>
           <StyledCardWrapper>
-            <BuyTicket lottery={lottery} />
+            <BuyTicket lottery={lottery} tickets={tickets} numbers={numbers} />
           </StyledCardWrapper>
           <Spacer />
-          <StyledCardWrapper>
-            <Drawed lottery={lottery} />
-          </StyledCardWrapper>
+          <StyledCardWrapper2>
+            <StyledCardWrapper>
+              <Drawed lottery={lottery} />
+            </StyledCardWrapper>
+            <StyledCardWrapper>
+              <Pots lottery={lottery} />
+            </StyledCardWrapper>
+          </StyledCardWrapper2>
         </StyledCardsWrapper>
-        <Spacer size="lg" />
-        <div>
-          <Label color={'#fff'} text={`每张船票价值 1${lottery.depositTokenName},在1~14之内选择4个数字作为幸运号码!`} />
-          <Button  text="取出全部资产" />
-        </div>
+        {rewards.length > 0 && (
+          <React.Fragment>
+            <Spacer />
+            <StyledCardWrapper3>
+              <Reward
+                lottery={lottery}
+                rewards={rewards}
+                rewardAmount={rewardAmount}
+                rewardIndex={rewardIndex}
+              />
+            </StyledCardWrapper3>
+          </React.Fragment>
+        )}
+        <Spacer />
+        <StyledCardWrapper3>
+          <History lottery={lottery} />
+        </StyledCardWrapper3>
         <Spacer size="lg" />
       </StyledBank>
     </>
@@ -50,7 +121,6 @@ const Lottery: React.FC = () => {
     <UnlockWallet />
   );
 };
-
 
 const UnlockWallet = () => {
   const { connect } = useWallet();
@@ -60,13 +130,7 @@ const UnlockWallet = () => {
     </Center>
   );
 };
-// const StyledIcon = styled.div`
-//   font-size: 28px;
-//   width:24px;
-//   height:24px;
-//   padding-left:10px;
-//   padding-right:5px;
-// `;
+
 const StyledBank = styled.div`
   align-items: center;
   display: flex;
@@ -75,17 +139,6 @@ const StyledBank = styled.div`
     width: 100%;
   }
 `;
-
-// const StyledUniswapLPGuide = styled.div`
-//   margin: -24px auto 48px;
-// `;
-
-// const StyledLink = styled.a`
-//   font-weight: 700;
-//   text-decoration: none;
-//   display: inherit;
-//   color: ${(props) => props.theme.color.primary.main};
-// `;
 
 const StyledCardsWrapper = styled.div`
   display: flex;
@@ -104,6 +157,24 @@ const StyledCardWrapper = styled.div`
   @media (max-width: 768px) {
     width: 80%;
   }
+`;
+const StyledCardWrapper2 = styled.div`
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  @media (max-width: 768px) {
+    width: 80%;
+  }
+`;
+
+const StyledCardWrapper3 = styled.div`
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  @media (max-width: 768px) {
+    width: 80%;
+  }
+  width: 100%;
 `;
 
 const Center = styled.div`

@@ -59,17 +59,13 @@ const Providers: React.FC = ({ children }) => {
             <ModalsProvider>
               <FarmsProvider>
                 <VaultsProvider>
+                <FarmsV2Provider>
                   <LotterysProvider>
                     <>
                       <Popups />
                       {children}
                     </>
                   </LotterysProvider>
-                <FarmsV2Provider>
-                  <>
-                    <Popups />
-                    {children}
-                  </>
                 </FarmsV2Provider>
                 </VaultsProvider>
               </FarmsProvider>

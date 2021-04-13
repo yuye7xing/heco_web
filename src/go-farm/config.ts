@@ -11,6 +11,7 @@ export type Configuration = {
   lotterys: {[contractName: string]: string};
   MasterChef: string,
   MasterChefV2: string,
+  LotteryAnalysis: string,
   GetApy: string,
   GetApyV2: string,
   GetVaultApy: string,

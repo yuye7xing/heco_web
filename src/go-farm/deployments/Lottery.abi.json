@@ -2,13 +2,39 @@
 	{
 		"inputs": [
 			{
-				"internalType": "contract ILotteryNFT",
-				"name": "_lotteryNFT",
-				"type": "address"
+				"internalType": "uint256",
+				"name": "_amount",
+				"type": "uint256"
+			}
+		],
+		"name": "adminWithdraw",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_price",
+				"type": "uint256"
 			},
 			{
-				"internalType": "address",
-				"name": "_lotteryGOC",
+				"internalType": "uint8[4]",
+				"name": "_numbers",
+				"type": "uint8[4]"
+			}
+		],
+		"name": "buy",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "contract ILotteryNFT",
+				"name": "_lotteryNFT",
 				"type": "address"
 			}
 		],
@@ -60,6 +86,19 @@
 		"type": "event"
 	},
 	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_tokenId",
+				"type": "uint256"
+			}
+		],
+		"name": "claimReward",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"anonymous": false,
 		"inputs": [
 			{
@@ -77,6 +116,19 @@
 		],
 		"name": "DevWithdraw",
 		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_externalRandomNumber",
+				"type": "uint256"
+			}
+		],
+		"name": "drawing",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
 		"anonymous": false,
@@ -98,6 +150,31 @@
 		"type": "event"
 	},
 	{
+		"inputs": [],
+		"name": "enterDrawingPhase",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_price",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint8[4][]",
+				"name": "_numbers",
+				"type": "uint8[4][]"
+			}
+		],
+		"name": "multiBuy",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"anonymous": false,
 		"inputs": [
 			{
@@ -115,6 +192,19 @@
 		],
 		"name": "MultiBuy",
 		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256[]",
+				"name": "_tickets",
+				"type": "uint256[]"
+			}
+		],
+		"name": "multiClaim",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
 		"anonymous": false,
@@ -155,6 +245,20 @@
 		"type": "event"
 	},
 	{
+		"inputs": [],
+		"name": "renounceOwnership",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "reset",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"anonymous": false,
 		"inputs": [
 			{
@@ -168,42 +272,78 @@
 		"type": "event"
 	},
 	{
-		"inputs": [],
-		"name": "GOC",
-		"outputs": [
+		"inputs": [
 			{
 				"internalType": "address",
-				"name": "",
+				"name": "_adminAddress",
 				"type": "address"
 			}
 		],
-		"stateMutability": "view",
+		"name": "setAdmin",
+		"outputs": [],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
-		"inputs": [],
-		"name": "GOSWAP_ROUTER",
-		"outputs": [
+		"inputs": [
 			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
+				"internalType": "uint8",
+				"name": "_allcation1",
+				"type": "uint8"
+			},
+			{
+				"internalType": "uint8",
+				"name": "_allcation2",
+				"type": "uint8"
+			},
+			{
+				"internalType": "uint8",
+				"name": "_allcation3",
+				"type": "uint8"
 			}
 		],
-		"stateMutability": "view",
+		"name": "setAllocation",
+		"outputs": [],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
-		"inputs": [],
-		"name": "HUSD",
-		"outputs": [
+		"inputs": [
+			{
+				"internalType": "uint8",
+				"name": "_maxNumber",
+				"type": "uint8"
+			}
+		],
+		"name": "setMaxNumber",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_price",
+				"type": "uint256"
+			}
+		],
+		"name": "setMinPrice",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
 			{
 				"internalType": "address",
-				"name": "",
+				"name": "newOwner",
 				"type": "address"
 			}
 		],
-		"stateMutability": "view",
+		"name": "transferOwnership",
+		"outputs": [],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -217,19 +357,6 @@
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_amount",
-				"type": "uint256"
-			}
-		],
-		"name": "adminWithdraw",
-		"outputs": [],
-		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -252,37 +379,6 @@
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_price",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint8[4]",
-				"name": "_numbers",
-				"type": "uint8[4]"
-			}
-		],
-		"name": "buy",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_tokenId",
-				"type": "uint256"
-			}
-		],
-		"name": "claimReward",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
 		"inputs": [],
 		"name": "drawed",
 		"outputs": [
@@ -296,19 +392,6 @@
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_externalRandomNumber",
-				"type": "uint256"
-			}
-		],
-		"name": "drawing",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
 		"inputs": [],
 		"name": "drawingPhase",
 		"outputs": [
@@ -319,13 +402,6 @@
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "enterDrawingPhase",
-		"outputs": [],
-		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -488,6 +564,64 @@
 	{
 		"inputs": [
 			{
+				"internalType": "address",
+				"name": "_user",
+				"type": "address"
+			}
+		],
+		"name": "getUserReward",
+		"outputs": [
+			{
+				"internalType": "uint256[]",
+				"name": "_tokenId",
+				"type": "uint256[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "GOC",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "GOSWAP_ROUTER",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "GOT",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
 				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
@@ -560,19 +694,6 @@
 		"type": "function"
 	},
 	{
-		"inputs": [],
-		"name": "lotteryGOC",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
 		"inputs": [
 			{
 				"internalType": "uint256",
@@ -636,37 +757,6 @@
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_price",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint8[4][]",
-				"name": "_numbers",
-				"type": "uint8[4][]"
-			}
-		],
-		"name": "multiBuy",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256[]",
-				"name": "_tickets",
-				"type": "uint256[]"
-			}
-		],
-		"name": "multiClaim",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
 		"inputs": [],
 		"name": "owner",
 		"outputs": [
@@ -677,95 +767,6 @@
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "renounceOwnership",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "reset",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_adminAddress",
-				"type": "address"
-			}
-		],
-		"name": "setAdmin",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint8",
-				"name": "_allcation1",
-				"type": "uint8"
-			},
-			{
-				"internalType": "uint8",
-				"name": "_allcation2",
-				"type": "uint8"
-			},
-			{
-				"internalType": "uint8",
-				"name": "_allcation3",
-				"type": "uint8"
-			}
-		],
-		"name": "setAllocation",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_lotteryGOC",
-				"type": "address"
-			}
-		],
-		"name": "setLotteryGOC",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint8",
-				"name": "_maxNumber",
-				"type": "uint8"
-			}
-		],
-		"name": "setMaxNumber",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_price",
-				"type": "uint256"
-			}
-		],
-		"name": "setMinPrice",
-		"outputs": [],
-		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -805,19 +806,6 @@
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "newOwner",
-				"type": "address"
-			}
-		],
-		"name": "transferOwnership",
-		"outputs": [],
-		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{

@@ -1,12 +1,12 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 import Button from '../../../components/Button';
 import Modal, { ModalProps } from '../../../components/Modal';
 import ModalActions from '../../../components/ModalActions';
 import ModalTitle from '../../../components/ModalTitle';
 import TicketInput from '../../../components/TicketInput';
+import Label from '../../../components/Label';
 
-import { BigNumber } from 'ethers';
 import styled from 'styled-components';
 
 interface BuyModalProps extends ModalProps {
@@ -22,7 +22,6 @@ const BuyModal: React.FC<BuyModalProps> = ({ onConfirm, onDismiss, tokenName = '
   const [val1, setVal1] = useState(randNum());
   const [val2, setVal2] = useState(randNum());
   const [val3, setVal3] = useState(randNum());
-  console.log()
 
   const handleChange0 = useCallback(
     (e: React.FormEvent<HTMLInputElement>) => {
@@ -61,6 +60,12 @@ const BuyModal: React.FC<BuyModalProps> = ({ onConfirm, onDismiss, tokenName = '
       <TicketInput value={val2} onChange={handleChange2} />
       <TicketInput value={val3} onChange={handleChange3} />
       </InputArea>
+      <LabelRow>
+          <Label
+            color={'#fff'}
+            text={`每张船票价值 1${tokenName},在1~14之内选择4个数字作为幸运号码!`}
+          />
+          </LabelRow>
       <ModalActions>
         <Button text="取消" variant="secondary" onClick={onDismiss} />
         <Button text="确认" onClick={() => onConfirm(val0, val1, val2, val3)} />
@@ -69,6 +74,11 @@ const BuyModal: React.FC<BuyModalProps> = ({ onConfirm, onDismiss, tokenName = '
   );
 };
 
+const LabelRow = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+  margin-top:10px;
+`;
 const InputArea = styled.div`
   display: flex;
   justify-content: space-evenly;

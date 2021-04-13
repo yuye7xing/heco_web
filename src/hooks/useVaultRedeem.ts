@@ -8,10 +8,10 @@ const useRedeem = (lottery: Lottery) => {
   const handleTransactionReceipt = useHandleTransactionReceipt();
 
   const handleRedeem = useCallback(() => {
-    // handleTransactionReceipt(
-    //   goFarm.lotteryWithdrawAll(lottery.depositTokenName),
-    //   `赎回 ${lottery.depositTokenName}`,
-    // );
+    handleTransactionReceipt(
+      goFarm.vaultWithdrawAll(lottery.depositTokenName),
+      `赎回 ${lottery.depositTokenName}`,
+    );
   }, [lottery, goFarm, handleTransactionReceipt]);
 
   return { onRedeem: handleRedeem };
