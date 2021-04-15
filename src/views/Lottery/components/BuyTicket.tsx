@@ -84,7 +84,7 @@ const BuyTicket: React.FC<BuyTicketProps> = ({ lottery,tickets,numbers,amounts }
               <Button
                 disabled={epoch !== 0}
                 onClick={() => (epoch !== 0 ? null : onPresentBuy())}
-                text={epoch === 0 ? '购买船票' : '等待下一轮开始'}
+                text={epoch === 0 ? '购买船票' : epoch === 1 ? '等待开奖' : '等待下一轮开始'}
               />
             ) : (
               <Button
