@@ -137,8 +137,8 @@ const configurations: { [env: string]: Configuration } = {
       BETH: '0x5a4Cd1BCc5189BDd55C65eF8eB965A86E09aE0C3',
     },
     lotterys:{
-      HUSD : '0x6DfF52956d3486FF94D7382b46A05ef46d014F41',
-      GOC : '0xAA7820B8DF9f3afa79488c69B080B071EeA6fC25'
+      HUSD : '0xEF4F348F3973F7E3C0DCe43E274268Db1249eB4E',
+      GOC : '0xA4Cd00DE7138841F0eFaF3c94202270672Bf9291'
     },
     refreshInterval: 30000,
     gasLimitMultiplier: 1.7
@@ -750,5 +750,5 @@ export const lotteryDefinitions: { [contractName: string]: LotteryInfo } = {
   }
 };
 // export default configurations[process.env.NODE_ENV || "development"];
-// export default configurations["production"];
-export default configurations["development"];
+export default configurations["production"];
+// export default configurations["development"];
