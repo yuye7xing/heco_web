@@ -64,7 +64,7 @@ const configurations: { [env: string]: Configuration } = {
     GetApyV2: '0xFbff130B9144a1ec5861216018d491582a76EE2b',
     GetVaultApy: '0xaE3a4402B987Ad29D5e7F17Bbb4fD22a713f7DaE',
     GetGOTApy: '0xE3e22A3a6EBc8b4265843C1f9f15d71E6b751467',
-    LotteryAnalysis: '0xD4dD70879b39e9A775c0c095B0D3732b706AC219',
+    LotteryAnalysis: '0x3608d04A986a8c476271F31762D72d2Dfd3FBc3F',
     deployments: require('./go-farm/deployments/deployments.mainnet.json'),
     externalTokens: {
       GOT: ['0xA7d5b5Dbc29ddef9871333AD2295B2E7D6F12391', 18],
@@ -137,7 +137,7 @@ const configurations: { [env: string]: Configuration } = {
       BETH: '0x5a4Cd1BCc5189BDd55C65eF8eB965A86E09aE0C3',
     },
     lotterys:{
-      HUSD : '0xEF4F348F3973F7E3C0DCe43E274268Db1249eB4E',
+      HUSD : '0xc881B2870b891B70bDFE9B426c7fb524fFC1F7C1',
       GOC : '0xA4Cd00DE7138841F0eFaF3c94202270672Bf9291'
     },
     refreshInterval: 30000,
