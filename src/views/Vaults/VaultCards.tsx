@@ -96,7 +96,9 @@ const VaultCard: React.FC<VaultCardProps> = ({ vault }) => {
               {/* <StyledDetail>存入 {vault.depositTokenName.toUpperCase()}</StyledDetail>
               <StyledDetail>赚取 {`${vault.depositTokenName}`}</StyledDetail> */}
               <StyledDetail>1日年化 {vault.depositTokenName.includes('GOT') ? getDisplayBalance(vault.apy,18,2) : getDisplayApy(vault.apy)}%</StyledDetail>
-              <StyledDetail>复利APY {vault.depositTokenName.includes('GOT') ? getDisplayBalance(vault.apy,18,2) : getDisplayApy2(vault.apy)}%</StyledDetail>
+              {vault.depositTokenName.includes('GOT') ? (<StyledDetail></StyledDetail>) : (
+                <StyledDetail>复利APY ${getDisplayApy2(vault.apy)}%</StyledDetail>
+              )}
               <StyledDetail>存款额 ${getDisplayBalance(vault.balance,vault.depositToken.decimal,0)}</StyledDetail>
             </StyledDetails>
             <Button text="加入" to={`/vault/${vault.depositTokenName}`} />
@@ -228,9 +230,10 @@ const StyledSpacer = styled.div`
 `;
 
 const StyledDetails = styled.div`
-  margin-bottom: ${(props) => props.theme.spacing[6]}px;
+  margin-bottom: ${(props) => props.theme.spacing[2]}px;
   margin-top: ${(props) => props.theme.spacing[2]}px;
   text-align: center;
+  min-height: 133px;
 `;
 
 const StyledDetail = styled.div`

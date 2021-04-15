@@ -114,6 +114,7 @@ const TicketRow = styled.div`
   align-items: flex-start;
   display: flex;
   width: 100%;
+  font-size:12px;
 `;
 const TicketItem = styled.div`
   align-items: flex-start;
