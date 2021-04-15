@@ -10,6 +10,7 @@ import useGoFarm from '../../../hooks/useGoFarm';
 import useModal from '../../../hooks/useModal';
 import Button from '../../../components/Button';
 import useLotteryTimes from '../../../hooks/useLotteryTimes';
+import { getDisplayBalance } from '../../../utils/formatBalance';
 
 import useApprove, { ApprovalState } from '../../../hooks/useApprove';
 import useTicketBuy from '../../../hooks/useTicketBuy';
@@ -17,14 +18,16 @@ import useTicketBuy from '../../../hooks/useTicketBuy';
 import TokenSymbol from '../../../components/TokenSymbol';
 import { Lottery } from '../../../go-farm';
 import BuyModal from './BuyModal';
+import { BigNumber } from '@ethersproject/bignumber';
 
 interface BuyTicketProps {
   lottery: Lottery;
   numbers: string[][];
   tickets: string[];
+  amounts: string[];
 }
 
-const BuyTicket: React.FC<BuyTicketProps> = ({ lottery,tickets,numbers }) => {
+const BuyTicket: React.FC<BuyTicketProps> = ({ lottery,tickets,numbers,amounts }) => {
   const goFarm = useGoFarm();
   const { epoch } = useLotteryTimes();
   const { onTicketBuy } = useTicketBuy(lottery);
@@ -36,8 +39,8 @@ const BuyTicket: React.FC<BuyTicketProps> = ({ lottery,tickets,numbers }) => {
 
   const [onPresentBuy, onDismissDeposit] = useModal(
     <BuyModal
-      onConfirm={(val0, val1, val2, val3) => {
-        onTicketBuy(val0, val1, val2, val3);
+      onConfirm={(val0, val1, val2, val3, num) => {
+        onTicketBuy(val0, val1, val2, val3, num);
         onDismissDeposit();
       }}
       tokenName={lottery.depositTokenName}
@@ -67,6 +70,11 @@ const BuyTicket: React.FC<BuyTicketProps> = ({ lottery,tickets,numbers }) => {
                       <TicketItem>{tt}</TicketItem>
                     </React.Fragment>
                   ))}
+                  <Label text={`x${getDisplayBalance(
+                    BigNumber.from(amounts[Number(tickets[i])]),
+                    lottery.depositToken.decimal,
+                    0,
+                  )}`} />
                 </TicketRow>
               </React.Fragment>
             ))}

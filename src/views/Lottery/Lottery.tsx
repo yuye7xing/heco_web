@@ -28,6 +28,7 @@ const Lottery: React.FC = () => {
   const [rewardIndex, setRewardIndex] = useState([]);
   const [numbers, setNumbers] = useState([]);
   const [tickets, setTickets] = useState([]);
+  const [amounts, setAmounts] = useState([]);
 
   const fetchInfo = useCallback(async () => {
     const userInfo = await goFarm.getUserTicket(lottery.depositTokenName, goFarm?.myAccount);
@@ -41,6 +42,7 @@ const Lottery: React.FC = () => {
     let _rewardAmount = [];
     let _numbers = [];
     let _rewardIndex = [];
+    let _amounts = [];
     for (let i = 0; i < _tickets.length; i++) {
       if (Number(_issueIndex[i]) === Number(issueIndex)) {
         currentTickets.push(_tickets[i]);
@@ -50,7 +52,9 @@ const Lottery: React.FC = () => {
         _rewardAmount.push(_reward[i]);
         _rewardIndex.push(_issueIndex[i]);
       }
+      _amounts[Number(_tickets[i])] = userInfo[4][i]
     }
+    setAmounts(_amounts);
     const _ticketNumbers = await goFarm.getTicketNumbers(
       lottery.depositTokenName,
       currentTickets,
@@ -61,7 +65,6 @@ const Lottery: React.FC = () => {
         _numbers[j][k] = _ticketNumbers[j][k];
       }
     }
-    console.log('_rewards', _rewards);
     setTickets(currentTickets);
     setNumbers(_numbers);
     setRewards(_rewards);
@@ -85,7 +88,7 @@ const Lottery: React.FC = () => {
       <StyledBank>
         <StyledCardsWrapper>
           <StyledCardWrapper>
-            <BuyTicket lottery={lottery} tickets={tickets} numbers={numbers} />
+            <BuyTicket lottery={lottery} tickets={tickets} numbers={numbers} amounts={amounts} />
           </StyledCardWrapper>
           <Spacer />
           <StyledCardWrapper2>

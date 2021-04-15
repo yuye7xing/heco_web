@@ -64,7 +64,7 @@ const configurations: { [env: string]: Configuration } = {
     GetApyV2: '0xFbff130B9144a1ec5861216018d491582a76EE2b',
     GetVaultApy: '0xaE3a4402B987Ad29D5e7F17Bbb4fD22a713f7DaE',
     GetGOTApy: '0xE3e22A3a6EBc8b4265843C1f9f15d71E6b751467',
-    LotteryAnalysis: '0x3608d04A986a8c476271F31762D72d2Dfd3FBc3F',
+    LotteryAnalysis: '0x71065aFa5267Ff992C2d2B678E09935F61E9f616',
     deployments: require('./go-farm/deployments/deployments.mainnet.json'),
     externalTokens: {
       GOT: ['0xA7d5b5Dbc29ddef9871333AD2295B2E7D6F12391', 18],
