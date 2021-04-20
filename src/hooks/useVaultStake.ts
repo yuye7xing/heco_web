@@ -10,11 +10,13 @@ const useStake = (vault: Vault) => {
 
   const handleStake = useCallback(
     (amount: string) => {
-      const amountBn = parseUnits(amount, vault.depositToken.decimal);
-      handleTransactionReceipt(
-        goFarm.vaultStake(vault.depositTokenName, amountBn),
-        `质押 ${amount} ${vault.depositTokenName} 到 ${vault.depositTokenName}`,
-      );
+      if(vault.depositTokenName !== 'MDX'){
+        const amountBn = parseUnits(amount, vault.depositToken.decimal);
+        handleTransactionReceipt(
+          goFarm.vaultStake(vault.depositTokenName, amountBn),
+          `质押 ${amount} ${vault.depositTokenName} 到 ${vault.depositTokenName}`,
+        );
+      }
     },
     [vault, goFarm,handleTransactionReceipt],
   );

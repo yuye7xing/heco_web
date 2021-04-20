@@ -97,7 +97,7 @@ const VaultCard: React.FC<VaultCardProps> = ({ vault }) => {
               <StyledDetail>赚取 {`${vault.depositTokenName}`}</StyledDetail> */}
               <StyledDetail>1日年化 {vault.depositTokenName.includes('GOT') ? getDisplayBalance(vault.apy,18,2) : getDisplayApy(vault.apy)}%</StyledDetail>
               {vault.depositTokenName.includes('GOT') ? (<StyledDetail></StyledDetail>) : (
-                <StyledDetail>复利APY ${getDisplayApy2(vault.apy)}%</StyledDetail>
+                <StyledDetail>复利APY {getDisplayApy2(vault.apy)}%</StyledDetail>
               )}
               <StyledDetail>存款额 ${getDisplayBalance(vault.balance,vault.depositToken.decimal,0)}</StyledDetail>
             </StyledDetails>
