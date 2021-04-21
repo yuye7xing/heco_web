@@ -10,15 +10,13 @@ const useVaultWithdraw = (vault: Vault) => {
 
   const handleWithdraw = useCallback(
     (amount: string) => {
-      if(vault.depositTokenName !== 'MDX'){
       const amountBn = parseUnits(amount, vault.depositToken.decimal);
       handleTransactionReceipt(
         goFarm.vaultUnstake(vault.depositTokenName, amountBn),
         `从 ${vault.depositTokenName} 取出 ${amount} ${vault.depositTokenName} `,
       );
-      }
     },
-    [vault, goFarm,handleTransactionReceipt],
+    [vault, goFarm, handleTransactionReceipt],
   );
   return { onWithdraw: handleWithdraw };
 };
