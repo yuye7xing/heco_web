@@ -525,7 +525,7 @@ export const farmDefinitions: { [contractName: string]: FarmInfo } = {
     TokenA: 'BCH',
     TokenB: 'VAULT',
     finished: false,
-    sort: 22,
+    sort: 27,
     pid: 21,
   },
   pool_22: {
@@ -535,7 +535,7 @@ export const farmDefinitions: { [contractName: string]: FarmInfo } = {
     TokenA: 'LTC',
     TokenB: 'VAULT',
     finished: false,
-    sort: 23,
+    sort: 24,
     pid: 22,
   },
   pool_23: {
@@ -545,7 +545,7 @@ export const farmDefinitions: { [contractName: string]: FarmInfo } = {
     TokenA: 'DOT',
     TokenB: 'VAULT',
     finished: false,
-    sort: 24,
+    sort: 23,
     pid: 23,
   },
   pool_24: {
@@ -575,7 +575,7 @@ export const farmDefinitions: { [contractName: string]: FarmInfo } = {
     TokenA: 'MDX',
     TokenB: 'VAULT',
     finished: false,
-    sort: 27,
+    sort: 22,
     pid: 26,
   },
   pool_27: {
@@ -666,21 +666,21 @@ export const vaultDefinitions: { [contractName: string]: VaultInfo } = {
     name: 'BCH',
     depositTokenName: 'BCH',
     finished: false,
-    sort: 6,
+    sort: 11,
     id: 5,
   },
   pool_6: {
     name: 'LTC',
     depositTokenName: 'LTC',
     finished: false,
-    sort: 7,
+    sort: 8,
     id: 6,
   },
   pool_7: {
     name: 'DOT',
     depositTokenName: 'DOT',
     finished: false,
-    sort: 8,
+    sort: 7,
     id: 7,
   },
   pool_8: {
@@ -701,7 +701,7 @@ export const vaultDefinitions: { [contractName: string]: VaultInfo } = {
     name: 'MDX',
     depositTokenName: 'MDX',
     finished: false,
-    sort: 11,
+    sort: 6,
     id: 10,
   },
   pool_11: {

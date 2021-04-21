@@ -364,11 +364,11 @@ export class GoFarm {
         _vaults.push(address);
       }
     }
-    return await getVaultApy.getApysOfWeek(_vaults);
+    return await getVaultApy.getApysOfDay(_vaults);
   }
   async getGOTApy(): Promise<string> {
     const getGOTApyContract = this.contracts['GetGOTApy'];
-    return await getGOTApyContract.getApysOfWeek();
+    return await getGOTApyContract.getApysOfDay();
   }
 
   async getVaultTVLs(): Promise<string> {
