@@ -20,7 +20,7 @@ import config from '../../config';
 const Lottery: React.FC = () => {
   const goFarm = useGoFarm();
   const [lotterys] = useLotterys();
-
+  console.log(lotterys);
   const lottery = useLottery(lotterys[0].depositTokenName);
   const { account } = useWallet();
 
@@ -31,43 +31,44 @@ const Lottery: React.FC = () => {
   const [tickets, setTickets] = useState([]);
 
   const fetchInfo = useCallback(async () => {
-    const userInfo = await goFarm.getUserTicket(lottery.depositTokenName, goFarm?.myAccount);
-    const issueIndex = await goFarm.getCurrentIssueIndex(lottery.depositTokenName);
-    const _tickets = userInfo[0];
-    const _issueIndex = userInfo[1];
-    const _claimed = userInfo[2];
-    const _reward = userInfo[3];
-    let currentTickets = [];
-    let _rewards = [];
-    let _rewardAmount = [];
-    let _numbers = [];
-    let _rewardIndex = [];
-    for (let i = 0; i < _tickets.length; i++) {
-      if (Number(_issueIndex[i]) === Number(issueIndex)) {
-        currentTickets.push(_tickets[i]);
-      }
-      if (Number(_reward[i]) > 0 && !_claimed[i]) {
-        _rewards.push(_tickets[i]);
-        _rewardAmount.push(_reward[i]);
-        _rewardIndex.push(_issueIndex[i]);
-      }
-    }
-    const _ticketNumbers = await goFarm.getTicketNumbers(
-      lottery.depositTokenName,
-      currentTickets,
-    );
-    for (let j = 0; j < _ticketNumbers.length; j++) {
-      _numbers[j] = [];
-      for (let k = 0; k < _ticketNumbers[j].length; k++) {
-        _numbers[j][k] = _ticketNumbers[j][k];
-      }
-    }
-    console.log('_rewards', _rewards);
-    setTickets(currentTickets);
-    setNumbers(_numbers);
-    setRewards(_rewards);
-    setRewardAmount(_rewardAmount);
-    setRewardIndex(_rewardIndex);
+    console.log("定时获取相关信息");
+    // const userInfo = await goFarm.getUserTicket(lottery.depositTokenName, goFarm?.myAccount);
+    // const issueIndex = await goFarm.getCurrentIssueIndex(lottery.depositTokenName);
+    // const _tickets = userInfo[0];
+    // const _issueIndex = userInfo[1];
+    // const _claimed = userInfo[2];
+    // const _reward = userInfo[3];
+    // let currentTickets = [];
+    // let _rewards = [];
+    // let _rewardAmount = [];
+    // let _numbers = [];
+    // let _rewardIndex = [];
+    // for (let i = 0; i < _tickets.length; i++) {
+    //   if (Number(_issueIndex[i]) === Number(issueIndex)) {
+    //     currentTickets.push(_tickets[i]);
+    //   }
+    //   if (Number(_reward[i]) > 0 && !_claimed[i]) {
+    //     _rewards.push(_tickets[i]);
+    //     _rewardAmount.push(_reward[i]);
+    //     _rewardIndex.push(_issueIndex[i]);
+    //   }
+    // }
+    // const _ticketNumbers = await goFarm.getTicketNumbers(
+    //   lottery.depositTokenName,
+    //   currentTickets,
+    // );
+    // for (let j = 0; j < _ticketNumbers.length; j++) {
+    //   _numbers[j] = [];
+    //   for (let k = 0; k < _ticketNumbers[j].length; k++) {
+    //     _numbers[j][k] = _ticketNumbers[j][k];
+    //   }
+    // }
+    // console.log('_rewards', _rewards);
+    // setTickets(currentTickets);
+    // setNumbers(_numbers);
+    // setRewards(_rewards);
+    // setRewardAmount(_rewardAmount);
+    // setRewardIndex(_rewardIndex);
   }, [goFarm, lottery, setTickets, setNumbers, setRewards, setRewardAmount, setRewardIndex]);
 
   useEffect(() => {
