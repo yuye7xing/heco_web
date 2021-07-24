@@ -3,61 +3,10 @@ import { Configuration } from './go-farm/config';
 import { FarmInfo, VaultInfo, LotteryInfo } from './go-farm';
 
 const configurations: { [env: string]: Configuration } = {
-  development: {
-    chainId: ChainId.HECOTEST,
-    etherscanUrl: 'https://testnet.hecoinfo.com',
-    defaultProvider: 'https://http-testnet.hecochain.com',
-    MasterChef: '0xC9FAA89989bd6562dbc67f34F825028A79f4f1B1',
-    MasterChefV2: '0xb6e8Df513dD634Bc033CdB3099448269728e8deE',
-    GetApy: '0xE453Fd8FF38b46fBda57f236103f6336CBf50594',
-    GetApyV2: '0x0FD83832b763371065cFA24e68d8BF50c8a225D5',
-    GetVaultApy: '0xaE3a4402B987Ad29D5e7F17Bbb4fD22a713f7DaE',
-    GetGOTApy: '0xD25dF71c0dD1291ff65A3279DD4C63a5Bd0ae0D4',
-    LotteryAnalysis: '0x6cE62A376Ca636E53F9b8b0b8e13Dc2CE14d1bdc',
-    deployments: require('./go-farm/deployments/deployments.testnet.json'),
-    externalTokens: {
-      GOT: ['0xA7d5b5Dbc29ddef9871333AD2295B2E7D6F12391', 18],
-      GOS: ['0x36b29B53c483bd00978D40126E614bb7e45d8354', 18],
-      GOC: ['0x271B54EBe36005A7296894F819D626161C44825C', 18],
-      USDT: ['0x4a0795da0044e083EA82207E6F8a75194A2f11D0', 18],
-      HUSD: ['0x0f548051B135fa8f7F6190cb78Fd13eCB544fEE6', 8],
-      BTC: ['0x4139d24c6C25Cc44F1F405405aC4BF44682F37C6', 18],
-      ETH: ['0x6B958fe634e4bb5fe8Fd363E1D9E85C14e61fBF4', 18],
-      HT: ['0x5545153CCFcA01fbd7Dd11C0b23ba694D9509A6F', 18],
-      DOT: ['0xE9ab18781dcB3709c45Edb72688706435B17052f', 18],
-      'GOT_HUSD-LP': ['0xc31b9f33fb2c54b789c263781ccee9b23b747677', 18],
-      'GOT_USDT-LP': ['0xb13598584a6b73644460e1bfacedcef95c17c650', 18],
-      'GOT_BTC-LP': ['0x3c21d92c83de04d026db7795e656d8a247cb984d', 18],
-      'GOT_ETH-LP': ['0x334c271f41ab4415032f37e6190c4f8f6a8527c8', 18],
-      'GOT_HT-LP': ['0x61a02786895c9c4ac1c017247bcd6070f0e18e17', 18],
-      'GOT_DOT-LP': ['0x704ba9f70560467e9fd868c040184d116e1b52bd', 18],
-      'GOT_GOS-LP': ['0x0226a0a7493dad879fbed7aa60692fd593510f99', 18],
-      'GOT_GOC-LP': ['0xb666d590a8593bfca34c557251a7445798320d6d', 18],
-      'GOC_HUSD-LP': ['0x28bfcd3c234b710d93232b5e51a2e8b8a5bb9d2f', 18],
-      'GOC_USDT-LP': ['0xe5c67f26c4112d07af265ab07994afdb34200738', 18],
-      'GOC_BTC-LP': ['0x4e33a6db97d4b2b752af793fff1c977c6d3cc64e', 18],
-      'GOC_ETH-LP': ['0xd8fb79abe7714c3d9829d58f4a21e62df12f2689', 18],
-      'GOC_HT-LP': ['0xc93c141288340efc45d36e85ca40c2dca378d2d2', 18],
-      'GOC_DOT-LP': ['0x93363d362da93acd4dbb2656f74bbaa7a6a0878c', 18],
-      'GOS_HUSD-LP': ['0xd0e8d781fae230e3da6e45ed881c99ba639ca400', 18],
-      'GOS_USDT-LP': ['0xf577e0caf94472801fbcbabb45e8b974e2439ea8', 18],
-    },
-    vaults: {
-      HUSD: '0xAF0DA088d0c2fDc1ceD8A4484445e54B0ffC7B14',
-      HT: '0x2F80931dC31003d6fB6Ed91BD4F4b43224D348C8',
-      USDT: '0xCc555dfe688E3C9Ec5278f8ceD1846fEda8633f9',
-    },
-    lotterys:{
-      HUSD : '0xD3116F70DaC6e1D9c50763026b1CcF560e4664D4',
-      GOC : '0x822542e0b599Fd512AC91E44AB6b3E5098345693'
-    },
-    refreshInterval: 10000,
-    gasLimitMultiplier: 1.1
-  },
   production: {
     chainId: ChainId.HECOMAIN,
     etherscanUrl: 'https://hecoinfo.com',
-    defaultProvider: 'https://http-mainnet.huobichain.com',
+    defaultProvider: 'https://http-mainnet.hecochain.com',
     MasterChef: '0x7dCeBC34F55b52df742C91581089ebD0BCBD254F',
     MasterChefV2: '0xb6e8Df513dD634Bc033CdB3099448269728e8deE',
     GetApy: '0xE453Fd8FF38b46fBda57f236103f6336CBf50594',
@@ -137,8 +86,7 @@ const configurations: { [env: string]: Configuration } = {
       BETH: '0x5a4Cd1BCc5189BDd55C65eF8eB965A86E09aE0C3',
     },
     lotterys:{
-      HUSD : '0x6DfF52956d3486FF94D7382b46A05ef46d014F41',
-      GOC : '0xAA7820B8DF9f3afa79488c69B080B071EeA6fC25'
+      HUSD : '0x6DfF52956d3486FF94D7382b46A05ef46d014F41'
     },
     refreshInterval: 30000,
     gasLimitMultiplier: 1.7
@@ -735,20 +683,11 @@ export const vaultDefinitions: { [contractName: string]: VaultInfo } = {
 };
 export const lotteryDefinitions: { [contractName: string]: LotteryInfo } = {
   pool_0: {
-    name: 'HUSD船票',
+    name: '入场券',
     depositTokenName: 'HUSD',
     finished: false,
     sort: 0,
     id: 15,
-  },
-  pool_1: {
-    name: 'GOC船票',
-    depositTokenName: 'GOC',
-    finished: false,
-    sort: 1,
-    id: 0,
   }
 };
-// export default configurations[process.env.NODE_ENV || "development"];
-// export default configurations["production"];
-export default configurations["development"];
+export default configurations["production"];

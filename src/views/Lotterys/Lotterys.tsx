@@ -19,16 +19,12 @@ const Lotterys: React.FC = () => {
         <Page>
           <Route exact path={path}>
             <PageHeader
-              // icon={<img src={require("../../assets/img/lotterys.png")} width="100%" height="48%" alt="lotterys" style={{position: "absolute",top: "35%",left:"0"}}/>}
               title="选择船票."
               subtitle="通过选择号码赢到幸运船票"
             />
             {!!account ? (
               <React.Fragment>
                 <LotteryCards />
-                <Center>
-                  <Button href={`https://docs.goswap.app`} text="帮助文档" />
-                </Center>
               </React.Fragment>
             ) : (
               <Center>

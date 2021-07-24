@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import { useParams } from 'react-router-dom';
 import { useWallet } from 'use-wallet';
+import useLotterys from '../../hooks/useLotterys';
 
 import Button from '../../components/Button';
 import PageHeader from '../../components/PageHeader';
@@ -18,9 +19,9 @@ import config from '../../config';
 
 const Lottery: React.FC = () => {
   const goFarm = useGoFarm();
+  const [lotterys] = useLotterys();
 
-  const { lotteryId } = useParams();
-  const lottery = useLottery(lotteryId);
+  const lottery = useLottery(lotterys[0].depositTokenName);
   const { account } = useWallet();
 
   const [rewards, setRewards] = useState([]);
@@ -79,8 +80,8 @@ const Lottery: React.FC = () => {
   return account && lottery ? (
     <>
       <PageHeader
-        subtitle={`通过 ${lottery?.depositTokenName} 购买船票,有机会赢取大奖`}
-        title={lottery?.name}
+        subtitle={`文明争霸，谁主浮沉`}
+        title='创世纪入场券'
       />
       <StyledBank>
         <StyledCardsWrapper>

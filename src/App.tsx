@@ -31,9 +31,6 @@ const App: React.FC = () => {
           <Route path="/" exact>
             <Home />
           </Route>
-          <Route path="/farm">
-            <Farms />
-          </Route>
           <Route path="/vault">
             <Vaults />
           </Route>
@@ -56,8 +53,6 @@ const Providers: React.FC = ({ children }) => {
         <Provider store={store}>
           <Updaters />
           <GoFarmProvider>
-            <ModalsProvider>
-              <FarmsProvider>
                 <VaultsProvider>
                 <FarmsV2Provider>
                   <LotterysProvider>
@@ -68,8 +63,6 @@ const Providers: React.FC = ({ children }) => {
                   </LotterysProvider>
                 </FarmsV2Provider>
                 </VaultsProvider>
-              </FarmsProvider>
-            </ModalsProvider>
           </GoFarmProvider>
         </Provider>
       </UseWalletProvider>

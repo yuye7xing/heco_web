@@ -7,7 +7,7 @@ import FarmCards from './FarmCards';
 import { useWallet } from 'use-wallet';
 import Button from '../../components/Button';
 import styled from 'styled-components';
-import background_2 from '../../assets/img/background_2.jpg';
+import background_2 from '../../assets/img/ticketBG.jpg';
 
 const Farms: React.FC = () => {
   const { path } = useRouteMatch();

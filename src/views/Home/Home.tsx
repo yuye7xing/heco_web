@@ -3,108 +3,38 @@ import styled from 'styled-components';
 import Page from '../../components/Page';
 import PageHeader from '../../components/PageHeader';
 import Spacer from '../../components/Spacer';
-import HomeCard from './components/HomeCard';
-import { OverviewData } from './types';
-import useGoFarm from '../../hooks/useGoFarm';
-import background_1 from '../../assets/img/background_2.jpg';
-import { BigNumber } from 'ethers';
-import moment from 'moment';
-import useStartTime from '../../hooks/useStartTime';
+import TimeLine from './components/TimeLine';
+import background_2 from '../../assets/img/ticketBG.jpg';
 
-const Home: React.FC = () => {
-  const goFarm = useGoFarm();
-
-  const [{ GOT }, setStats] = useState<OverviewData>({});
-  const [tvl, setTvl] = useState<BigNumber>(BigNumber.from(0));
-  const fetchStats = useCallback(async () => {
-    const [GOT, tvl] = await Promise.all([goFarm.getGOTStatFromUniswap(), goFarm.getTvl()]);
-    setStats({ GOT });
-    setTvl(tvl);
-  }, [goFarm, setStats]);
-
-  useEffect(() => {
-    if (goFarm) {
-      fetchStats().catch((err) => console.error(err.stack));
-    }
-  }, [goFarm, fetchStats]);
-
-  const GOTAddr = useMemo(() => goFarm?.externalTokens['GOT'].address, [goFarm]);
-
-
-  const { startTime } = useStartTime();
-
-  
-  const deadline = useMemo(() => moment(startTime).add(1, 'second').toDate(), [startTime]);
-  
+const Home: React.FC = () => {  
   return (
     <Background>
       <Page>
         <PageHeader
-          // icon={<img src={require("../../assets/img/goCash (3).png")} width="80%" alt="goCash" height="100%"/>}
-          subtitle="在Go Swap提供流动性,赚取Go Swap Token"
-          title="欢迎来到星际农场!"
+          title="欢迎来到创世纪!"
         />
         <Spacer size="md" />
-        <CardWrapper>
-          <HomeCard
-            title="Go Swap Token"
-            symbol="GOT"
-            color="#ECF25C"
-            supplyLabel="循环供应"
-            startTime={deadline}
-            address={GOTAddr}
-            stat={GOT}
-            tvl={tvl}
-          />
-        </CardWrapper>
+        <TimeLine></TimeLine>
       </Page>
     </Background>
   );
 };
-
-// const StyledOverview = styled.div`
-//   align-items: center;
-//   display: flex;
-//   @media (max-width: 768px) {
-//     width: 100%;
-//     flex-flow: column nowrap;
-//     align-items: center;
-//   }
-// `;
-
 const Background = styled.div`
-background: url(${background_1});
-background-repeat: no-repeat;
-background-attachment: fixed;
-background-size: cover;
+  background: url(${background_2});
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
   }
 `;
 const CardWrapper = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
-
   @media (max-width: 768px) {
     width: 100%;
     flex-flow: column nowrap;
     align-items: center;
   }
 `;
-
-// const StyledNoticeContainer = styled.div`
-//   max-width: 768px;
-//   width: 90vw;
-// `;
-
-// const StyledSpacer = styled.div`
-//   height: ${(props) => props.theme.spacing[4]}px;
-//   width: ${(props) => props.theme.spacing[4]}px;
-// `;
-
-// const StyledLink = styled.a`
-//   font-weight: 700;
-//   text-decoration: none;
-//   color: ${(props) => props.theme.color.primary.main};
-// `;
 
 export default Home;
