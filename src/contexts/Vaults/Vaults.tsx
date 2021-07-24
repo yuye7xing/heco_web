@@ -30,7 +30,7 @@ const Vaults: React.FC = ({ children }) => {
         earnToken: goFarm.externalTokens[vaultInfo.depositTokenName],
         apy:
           vaultInfo.id === 15
-            ? BigNumber.from(GOTapy).mul(100).mul(365)
+            ? BigNumber.from(GOTapy).mul(100).mul(52)
             : BigNumber.from(apys[vaultInfo.id]),
         balance:
           vaultInfo.id === 15 ? BigNumber.from(GOTprice) : BigNumber.from(price[vaultInfo.id]),

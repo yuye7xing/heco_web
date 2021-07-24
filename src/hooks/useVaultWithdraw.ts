@@ -16,7 +16,7 @@ const useVaultWithdraw = (vault: Vault) => {
         `从 ${vault.depositTokenName} 取出 ${amount} ${vault.depositTokenName} `,
       );
     },
-    [vault, goFarm, handleTransactionReceipt],
+    [vault, goFarm,handleTransactionReceipt],
   );
   return { onWithdraw: handleWithdraw };
 };

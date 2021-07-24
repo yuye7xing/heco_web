@@ -64,7 +64,7 @@ const configurations: { [env: string]: Configuration } = {
     GetApyV2: '0xFbff130B9144a1ec5861216018d491582a76EE2b',
     GetVaultApy: '0xaE3a4402B987Ad29D5e7F17Bbb4fD22a713f7DaE',
     GetGOTApy: '0xE3e22A3a6EBc8b4265843C1f9f15d71E6b751467',
-    LotteryAnalysis: '0x71065aFa5267Ff992C2d2B678E09935F61E9f616',
+    LotteryAnalysis: '0x6cE62A376Ca636E53F9b8b0b8e13Dc2CE14d1bdc',
     deployments: require('./go-farm/deployments/deployments.mainnet.json'),
     externalTokens: {
       GOT: ['0xA7d5b5Dbc29ddef9871333AD2295B2E7D6F12391', 18],
@@ -137,8 +137,8 @@ const configurations: { [env: string]: Configuration } = {
       BETH: '0x5a4Cd1BCc5189BDd55C65eF8eB965A86E09aE0C3',
     },
     lotterys:{
-      HUSD : '0xc881B2870b891B70bDFE9B426c7fb524fFC1F7C1',
-      GOC : '0xA4Cd00DE7138841F0eFaF3c94202270672Bf9291'
+      HUSD : '0x6DfF52956d3486FF94D7382b46A05ef46d014F41',
+      GOC : '0xAA7820B8DF9f3afa79488c69B080B071EeA6fC25'
     },
     refreshInterval: 30000,
     gasLimitMultiplier: 1.7
@@ -525,7 +525,7 @@ export const farmDefinitions: { [contractName: string]: FarmInfo } = {
     TokenA: 'BCH',
     TokenB: 'VAULT',
     finished: false,
-    sort: 27,
+    sort: 22,
     pid: 21,
   },
   pool_22: {
@@ -535,7 +535,7 @@ export const farmDefinitions: { [contractName: string]: FarmInfo } = {
     TokenA: 'LTC',
     TokenB: 'VAULT',
     finished: false,
-    sort: 24,
+    sort: 23,
     pid: 22,
   },
   pool_23: {
@@ -545,7 +545,7 @@ export const farmDefinitions: { [contractName: string]: FarmInfo } = {
     TokenA: 'DOT',
     TokenB: 'VAULT',
     finished: false,
-    sort: 23,
+    sort: 24,
     pid: 23,
   },
   pool_24: {
@@ -575,7 +575,7 @@ export const farmDefinitions: { [contractName: string]: FarmInfo } = {
     TokenA: 'MDX',
     TokenB: 'VAULT',
     finished: false,
-    sort: 22,
+    sort: 27,
     pid: 26,
   },
   pool_27: {
@@ -666,21 +666,21 @@ export const vaultDefinitions: { [contractName: string]: VaultInfo } = {
     name: 'BCH',
     depositTokenName: 'BCH',
     finished: false,
-    sort: 11,
+    sort: 6,
     id: 5,
   },
   pool_6: {
     name: 'LTC',
     depositTokenName: 'LTC',
     finished: false,
-    sort: 8,
+    sort: 7,
     id: 6,
   },
   pool_7: {
     name: 'DOT',
     depositTokenName: 'DOT',
     finished: false,
-    sort: 7,
+    sort: 8,
     id: 7,
   },
   pool_8: {
@@ -701,7 +701,7 @@ export const vaultDefinitions: { [contractName: string]: VaultInfo } = {
     name: 'MDX',
     depositTokenName: 'MDX',
     finished: false,
-    sort: 6,
+    sort: 11,
     id: 10,
   },
   pool_11: {
@@ -750,5 +750,5 @@ export const lotteryDefinitions: { [contractName: string]: LotteryInfo } = {
   }
 };
 // export default configurations[process.env.NODE_ENV || "development"];
-export default configurations["production"];
-// export default configurations["development"];
+// export default configurations["production"];
+export default configurations["development"];

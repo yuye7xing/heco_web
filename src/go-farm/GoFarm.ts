@@ -364,11 +364,11 @@ export class GoFarm {
         _vaults.push(address);
       }
     }
-    return await getVaultApy.getApysOfDay(_vaults);
+    return await getVaultApy.getApysOfWeek(_vaults);
   }
   async getGOTApy(): Promise<string> {
     const getGOTApyContract = this.contracts['GetGOTApy'];
-    return await getGOTApyContract.getApysOfDay();
+    return await getGOTApyContract.getApysOfWeek();
   }
 
   async getVaultTVLs(): Promise<string> {
@@ -473,10 +473,9 @@ export class GoFarm {
     val1: string,
     val2: string,
     val3: string,
-    num: string,
   ): Promise<TransactionResponse> {
     const lotteryContract = this.contracts['Lottery_' + name];
-    const amountBn = parseUnits(num, this.externalTokens[name].decimal);
+    const amountBn = parseUnits('1', this.externalTokens[name].decimal);
     const numbers = [val0, val1, val2, val3];
     const gas = await lotteryContract.estimateGas.buy(amountBn, numbers);
     return await lotteryContract.buy(amountBn, numbers, this.gasOptions(gas));

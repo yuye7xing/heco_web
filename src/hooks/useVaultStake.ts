@@ -16,7 +16,7 @@ const useStake = (vault: Vault) => {
         `质押 ${amount} ${vault.depositTokenName} 到 ${vault.depositTokenName}`,
       );
     },
-    [vault, goFarm, handleTransactionReceipt],
+    [vault, goFarm,handleTransactionReceipt],
   );
   return { onStake: handleStake };
 };
