@@ -86,7 +86,7 @@ const configurations: { [env: string]: Configuration } = {
       BETH: '0x5a4Cd1BCc5189BDd55C65eF8eB965A86E09aE0C3',
     },
     lotterys:{
-      HUSD : '0x6DfF52956d3486FF94D7382b46A05ef46d014F41'
+      USDT : '0xe0B5a318AD9400c0B733cfeDf6589D23322663f9'
     },
     refreshInterval: 30000,
     gasLimitMultiplier: 1.7
@@ -684,7 +684,7 @@ export const vaultDefinitions: { [contractName: string]: VaultInfo } = {
 export const lotteryDefinitions: { [contractName: string]: LotteryInfo } = {
   pool_0: {
     name: '入场券',
-    depositTokenName: 'HUSD',
+    depositTokenName: 'USDT',
     finished: false,
     sort: 0,
     id: 15,

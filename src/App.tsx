@@ -53,6 +53,7 @@ const Providers: React.FC = ({ children }) => {
         <Provider store={store}>
           <Updaters />
           <GoFarmProvider>
+          <ModalsProvider>
                 <VaultsProvider>
                 <FarmsV2Provider>
                   <LotterysProvider>
@@ -63,6 +64,7 @@ const Providers: React.FC = ({ children }) => {
                   </LotterysProvider>
                 </FarmsV2Provider>
                 </VaultsProvider>
+                </ModalsProvider>
           </GoFarmProvider>
         </Provider>
       </UseWalletProvider>

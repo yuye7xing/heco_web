@@ -475,10 +475,8 @@ export class GoFarm {
     val3: string,
   ): Promise<TransactionResponse> {
     const lotteryContract = this.contracts['Lottery_' + name];
-    const amountBn = parseUnits('1', this.externalTokens[name].decimal);
-    const numbers = [val0, val1, val2, val3];
-    const gas = await lotteryContract.estimateGas.buy(amountBn, numbers);
-    return await lotteryContract.buy(amountBn, numbers, this.gasOptions(gas));
+    // const gas = await lotteryContract.estimateGas.buyTicket();
+    return await lotteryContract.buyTicket();
   }
 
   async ticketNumbers(name: string): Promise<string[]> {

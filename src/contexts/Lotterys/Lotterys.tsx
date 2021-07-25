@@ -16,6 +16,7 @@ const Lotterys: React.FC = ({ children }) => {
     // const balance = await goFarm.getLotteryTVLs();
     // const price = await goFarm.getLotteryTVLPrice();
     // const GOTprice = await goFarm.getGOTTVLPrice();
+    console.log(lotteryDefinitions);
     for (const lotteryInfo of Object.values(lotteryDefinitions)) {
       if (lotteryInfo.finished) {
         if (!goFarm.isUnlocked) continue;
