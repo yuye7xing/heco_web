@@ -34,15 +34,15 @@ const BuyTicket: React.FC<BuyTicketProps> = ({ lottery,tickets,numbers }) => {
   );
   
 
-  const [onPresentBuy, onDismissDeposit] = useModal(
-    <BuyModal
-      onConfirm={(val0, val1, val2, val3) => {
-        onTicketBuy(val0, val1, val2, val3);
-        onDismissDeposit();
-      }}
-      tokenName={lottery.depositTokenName}
-    />,
-  );
+  // const [onPresentBuy, onDismissDeposit] = useModal(
+  //   <BuyModal
+  //     onConfirm={(val0, val1, val2, val3) => {
+  //       onTicketBuy(val0, val1, val2, val3);
+  //       onDismissDeposit();
+  //     }}
+  //     tokenName={lottery.depositTokenName}
+  //   />,
+  // );
 
   return (
     <Card>
@@ -53,8 +53,8 @@ const BuyTicket: React.FC<BuyTicketProps> = ({ lottery,tickets,numbers }) => {
               <TokenSymbol symbol={lottery.earnToken.symbol} />
             </CardIcon>
             <LabelItem>
-              <Label text={`你的本期${lottery.depositTokenName}船票:`} />
-              <Value value={tickets.length.toString()} />
+              <Label text={`入场券购买:`} />
+              <Value value={`1`} />
             </LabelItem>
           </StyledCardHeader>
           <StyledTickets>
@@ -74,7 +74,7 @@ const BuyTicket: React.FC<BuyTicketProps> = ({ lottery,tickets,numbers }) => {
           <StyledCardActions>
             {approveStatus === ApprovalState.APPROVED ? (
               <Button
-                onClick={onPresentBuy}
+                onClick={onTicketBuy}
                 text={'购票入场'}
               />
             ) : (

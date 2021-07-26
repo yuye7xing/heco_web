@@ -61,9 +61,9 @@ const LPTokenHelpText: React.FC<{ farm: FarmEntity }> = ({ farm }) => {
         ? `https://goswap.app/#/add/CURRENCY/${farm.TokenA_Address}` 
         : `https://goswap.app/#/add/${farm.TokenA_Address}/${farm.TokenB_Address}`} 
         target="_blank">
-       <StyledIcon>{<img src={require("../../assets/img/gocash.png")} width="80%" height="80%" alt="gocash"  style={{position:"relative",top:"-5px"}}/>}</StyledIcon>
+       <StyledIcon>{<img src={require("../../assets/img/farmer.png")} width="80%" height="80%" alt="gocash"  style={{position:"relative",top:"-5px"}}/>}</StyledIcon>
       {`  在GoSwap为 ${farm.TokenA}/${farm.TokenB} 交易对提供流动性  `}
-      <StyledIcon>{<img src={require("../../assets/img/gocash.png")} width="80%" height="80%" alt="gocash"  style={{position:"relative",top:"-5px"}}/>}</StyledIcon>
+      <StyledIcon>{<img src={require("../../assets/img/farmer.png")} width="80%" height="80%" alt="gocash"  style={{position:"relative",top:"-5px"}}/>}</StyledIcon>
     </StyledLink>
   );
 };

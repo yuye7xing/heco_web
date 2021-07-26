@@ -19,7 +19,7 @@ import FILLogo from '../../assets/img/FIL.png';
 import UNILogo from '../../assets/img/UNI.svg';
 import YFILogo from '../../assets/img/YFI.svg';
 import LINKLogo from '../../assets/img/LINK.svg';
-import VaultLogo from '../../assets/img/Vault.png';
+import VaultLogo from '../../assets/img/farmer.png';
 
 const logosBySymbol: {[title: string]: string} = {
   'GOC': gocLogo,

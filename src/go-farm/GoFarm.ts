@@ -467,15 +467,9 @@ export class GoFarm {
     }
     return { prevEpochTime, nextEpochTime, epoch };
   }
-  async BuyTicket(
-    name: string,
-    val0: string,
-    val1: string,
-    val2: string,
-    val3: string,
-  ): Promise<TransactionResponse> {
-    const lotteryContract = this.contracts['Lottery_' + name];
-    // const gas = await lotteryContract.estimateGas.buyTicket();
+  async BuyTicket(): Promise<TransactionResponse> {
+    const lotteryContract = this.contracts['Lottery_USDT' ];
+    const gas = await lotteryContract.estimateGas.buyTicket();
     return await lotteryContract.buyTicket();
   }
 
