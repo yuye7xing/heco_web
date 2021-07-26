@@ -20,9 +20,6 @@ const Vaults: React.FC = ({ children }) => {
     // console.log('price',price)
 
     for (const vaultInfo of Object.values(vaultDefinitions)) {
-      if (vaultInfo.finished) {
-        if (!goFarm.isUnlocked) continue;
-      }
       vaults.push({
         ...vaultInfo,
         address: config.MasterChef,

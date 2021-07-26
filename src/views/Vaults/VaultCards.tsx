@@ -14,59 +14,55 @@ import { getDisplayBalance,getDisplayApy,getDisplayApy2 } from '../../utils/form
 const VaultCards: React.FC = () => {
   const [vaults] = useVaults();
 
-  const activeVaults = vaults.filter((vault) => !vault.finished);
-  const inactiveVaults = vaults.filter((vault) => vault.finished);
-
-
-  let finishedFirstRow = false;
-  const inactiveRows = inactiveVaults.reduce<Vault[][]>(
-    (vaultRows, vault) => {
-      const newVaultRows = [...vaultRows];
-      if (newVaultRows[newVaultRows.length - 1].length === (finishedFirstRow ? 2 : 2)) {
-        newVaultRows.push([vault]);
-        finishedFirstRow = true;
-      } else {
-        newVaultRows[newVaultRows.length - 1].push(vault);
-      }
-      return newVaultRows;
-    },
-    [[]],
-  );
+  const activeVaults1 = vaults.filter((vault) => vault.time==1);
+  const activeVaults2 = vaults.filter((vault) => vault.time==2);
+  const activeVaults3 = vaults.filter((vault) => vault.time==3);
+  const activeVaults4 = vaults.filter((vault) => vault.time==4);
+  const activeVaults5 = vaults.filter((vault) => vault.time==5);
 
   return (
     <StyledCards>
-      {inactiveRows[0].length > 0 && (
-        <StyledInactiveNoticeContainer>
+      {/* <StyledInactiveNoticeContainer>
           <Notice color="grey">
             <b>You have vaults where the mining has finished.</b>
             <br />
             Please withdraw and settle your stakes.
           </Notice>
-        </StyledInactiveNoticeContainer>
-      )}
-      <StyledRow>
-        {activeVaults.map((vault, i) => (
-          <React.Fragment key={vault.name}>
-            <VaultCard vault={vault} />
-            {i % 4 !== 3 && <StyledSpacer />}
-          </React.Fragment>
-        ))}
-      </StyledRow>
-      {inactiveRows[0].length > 0 && (
-        <>
-          <StyledInactiveVaultTitle>Inactive Vaults</StyledInactiveVaultTitle>
-          {inactiveRows.map((vaultRow, i) => (
-            <StyledRow key={i}>
-              {vaultRow.map((vault, j) => (
+      </StyledInactiveNoticeContainer> */}
+      <StyledInactiveVaultTitle>水生土（需入场券）</StyledInactiveVaultTitle>
+      <StyledRow >
+        {activeVaults1.map((vault, j) => (
                 <React.Fragment key={j}>
                   <VaultCard vault={vault} />
-                  {j < vaultRow.length - 1 && <StyledSpacer />}
+                  <StyledSpacer />
                 </React.Fragment>
-              ))}
-            </StyledRow>
-          ))}
-        </>
-      )}
+         ))}
+      </StyledRow>
+      <StyledInactiveVaultTitle>土生木（需入场券）</StyledInactiveVaultTitle>
+      <StyledRow >
+        {activeVaults2.map((vault, j) => (
+                <React.Fragment key={j}>
+                  <VaultCard vault={vault} />
+                  <StyledSpacer />
+                </React.Fragment>
+         ))}
+      </StyledRow>
+      <StyledInactiveVaultTitle>木生火</StyledInactiveVaultTitle>
+      <StyledRow >
+        {activeVaults3.map((vault, j) => (
+                <React.Fragment key={j}>
+                  <VaultCard vault={vault} />
+                </React.Fragment>
+         ))}
+      </StyledRow>
+      <StyledInactiveVaultTitle>火生金</StyledInactiveVaultTitle>
+      <StyledRow >
+        {activeVaults4.map((vault, j) => (
+                <React.Fragment key={j}>
+                  <VaultCard vault={vault} />
+                </React.Fragment>
+         ))}
+      </StyledRow>
     </StyledCards>
   );
 };
@@ -93,8 +89,6 @@ const VaultCard: React.FC<VaultCardProps> = ({ vault }) => {
             </LogoCard>
             <StyledTitle>{vault.name}</StyledTitle>
             <StyledDetails>
-              {/* <StyledDetail>存入 {vault.depositTokenName.toUpperCase()}</StyledDetail>
-              <StyledDetail>赚取 {`${vault.depositTokenName}`}</StyledDetail> */}
               <StyledDetail>1日年化 {vault.depositTokenName.includes('GOT') ? getDisplayBalance(vault.apy,18,2) : getDisplayApy(vault.apy)}%</StyledDetail>
               <StyledDetail>复利APY {vault.depositTokenName.includes('GOT') ? getDisplayBalance(vault.apy,18,2) : getDisplayApy2(vault.apy)}%</StyledDetail>
               <StyledDetail>存款额 ${getDisplayBalance(vault.balance,vault.depositToken.decimal,0)}</StyledDetail>

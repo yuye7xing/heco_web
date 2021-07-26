@@ -45,6 +45,7 @@ export interface VaultInfo {
   sort: number;
   finished: boolean;
   id: number;
+  time:number;
 }
 
 export interface Vault extends VaultInfo {

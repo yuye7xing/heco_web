@@ -73,19 +73,6 @@ const Lottery: React.FC = () => {
             </StyledCardWrapper>
           </StyledCardWrapper2>
         </StyledCardsWrapper>
-        {rewards.length > 0 && (
-          <React.Fragment>
-            <Spacer />
-            <StyledCardWrapper3>
-              <Reward
-                lottery={lottery}
-                rewards={rewards}
-                rewardAmount={rewardAmount}
-                rewardIndex={rewardIndex}
-              />
-            </StyledCardWrapper3>
-          </React.Fragment>
-        )}
         <Spacer />
         <StyledCardWrapper3>
           <History lottery={lottery} /> 

@@ -18,15 +18,15 @@ const Farms: React.FC = ({ children }) => {
 
 
     for (const farmInfo of Object.values(bankDefinitions)) {
-      if (farmInfo.finished) {
-        if (! goFarm.isUnlocked) continue;
+      // if (farmInfo.finished) {
+      //   if (! goFarm.isUnlocked) continue;
 
-        // only show pools staked by user
-        const {amount} = await  goFarm.stakedBalanceOnFarm(farmInfo.pid,  goFarm.myAccount);
-        if (BigNumber.from(amount).lte(0)) {
-          continue;
-        }
-      }
+      //   // only show pools staked by user
+      //   const {amount} = await  goFarm.stakedBalanceOnFarm(farmInfo.pid,  goFarm.myAccount);
+      //   if (BigNumber.from(amount).lte(0)) {
+      //     continue;
+      //   }
+      // }
       farms.push({
         ...farmInfo,
         address: config.MasterChef,

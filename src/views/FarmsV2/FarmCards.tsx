@@ -50,21 +50,16 @@ const FarmCards: React.FC = () => {
           </React.Fragment>
         ))}
       </StyledRow>
-      {inactiveRows[0].length > 0 && (
-        <>
-          <StyledInactiveFarmTitle>Inactive Farms</StyledInactiveFarmTitle>
-          {inactiveRows.map((farmRow, i) => (
-            <StyledRow key={i}>
-              {farmRow.map((farm, j) => (
+      <StyledInactiveFarmTitle>水生木（需门票）</StyledInactiveFarmTitle>
+      <StyledRow>
+              {activeFarms.map((farm, j) => (
                 <React.Fragment key={j}>
                   <FarmCard farm={farm} />
-                  {j < farmRow.length - 1 && <StyledSpacer />}
                 </React.Fragment>
               ))}
-            </StyledRow>
-          ))}
-        </>
-      )}
+      </StyledRow>
+      )
+ 
     </StyledCards>
   );
 };

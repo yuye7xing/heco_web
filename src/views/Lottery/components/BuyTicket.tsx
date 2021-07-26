@@ -10,6 +10,7 @@ import useGoFarm from '../../../hooks/useGoFarm';
 import useModal from '../../../hooks/useModal';
 import Button from '../../../components/Button';
 import useLotteryTimes from '../../../hooks/useLotteryTimes';
+import ProgressCountdown from '../../Lotterys/components/ProgressCountdown';
 
 import useApprove, { ApprovalState } from '../../../hooks/useApprove';
 import useTicketBuy from '../../../hooks/useTicketBuy';
@@ -53,24 +54,18 @@ const BuyTicket: React.FC<BuyTicketProps> = ({ lottery,tickets,numbers }) => {
               <TokenSymbol symbol={lottery.earnToken.symbol} />
             </CardIcon>
             <LabelItem>
-              <Label text={`入场券购买:`} />
-              <Value value={`1`} />
+              <Label text={`创世纪入场券`} />
+              <Value value={`5 USDT`} />
             </LabelItem>
           </StyledCardHeader>
-          <StyledTickets>
-            {numbers.map((ticket, i) => (
-              <React.Fragment key={'ticket_' + i}>
-                <TicketRow>
-                  <Label text={`船票(${tickets[i]}):`} />
-                  {ticket.map((tt: string, j: number) => (
-                    <React.Fragment key={'number_' + j}>
-                      <TicketItem>{tt}</TicketItem>
-                    </React.Fragment>
-                  ))}
-                </TicketRow>
-              </React.Fragment>
-            ))}
-          </StyledTickets>
+          <ProgressCountdown
+                title={''}
+                base={new Date()}
+                deadline={new Date()}
+                description={
+                    '距离售票结束'
+                }
+              />
           <StyledCardActions>
             {approveStatus === ApprovalState.APPROVED ? (
               <Button

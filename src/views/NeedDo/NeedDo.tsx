@@ -2,14 +2,11 @@ import React from 'react';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import Page from '../../components/Page';
 import PageHeader from '../../components/PageHeader';
-import Vault from '../Vault';
-import VaultCards from './VaultCards';
 import { useWallet } from 'use-wallet';
-import Button from '../../components/Button';
 import styled from 'styled-components';
-import background_3 from '../../assets/img/background_3.jpg';
+import background_2 from '../../assets/img/b4.jpg';
 
-const Vaults: React.FC = () => {
+const Farms: React.FC = () => {
   const { path } = useRouteMatch();
   const { account, connect } = useWallet();
 
@@ -19,19 +16,12 @@ const Vaults: React.FC = () => {
       <Page>
         <Route exact path={path}>
           <PageHeader
-            title="创世纪"
-            subtitle="五行相生，世界生成"
+            title="部落"
+            subtitle="五行合成，英雄临世"
           />
-          {!!account ? (
-            <VaultCards />
-          ) : (
             <Center>
-              <Button onClick={() => connect('injected')} text="解锁钱包" />
+                <CenterTitle>本功能完成创世纪后将对外开放</CenterTitle>
             </Center>
-          )}
-        </Route>
-        <Route path={`${path}/:vaultId`}>
-          <Vault />
         </Route>
       </Page>
     </Switch>
@@ -40,7 +30,7 @@ const Vaults: React.FC = () => {
 };
 
 const Background = styled.div`
-background: url(${background_3});
+background: url(${background_2});
 background-repeat: no-repeat;
 background-attachment: fixed;
 width: 100%;
@@ -56,5 +46,13 @@ const Center = styled.div`
   align-items: center;
   justify-content: center;
 `;
+const CenterTitle = styled.h5`
+  color: ${props => props.theme.color.grey[100]};
+  font-size: 20px;
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+  text-shadow: 3px 3px 3px #000000;
+`
 
-export default Vaults;
+export default Farms;

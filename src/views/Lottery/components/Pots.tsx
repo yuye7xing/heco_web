@@ -46,56 +46,32 @@ const Pots: React.FC<PotsProps> = ({ lottery }) => {
       <CardContent>
         <StyledCardContentInner>
           <StyledDetails>
-            本期奖池:
-            {lottery.depositTokenName.includes('GOC')
-              ? getDisplayBalance(totalPot.GOC, 18, 2)
-              : getDisplayBalance(totalPot.HUSD, 8, 2)}
-            {lottery.depositTokenName}
+            购票附赠起源之水:
           </StyledDetails>
           <StyledDetails>
-            <StyledDetailsItem>一等奖:</StyledDetailsItem>
+            <StyledDetailsItem>前10:</StyledDetailsItem>
             <StyledDetailsItem>
-              {lottery.depositTokenName.includes('GOC')
-                ? getDisplayBalance(totalPot.GOC.mul(allocations.GOC[0]).div(100), 18, 2)
-                : getDisplayBalance(totalPot.HUSD.mul(allocations.HUSD[0]).div(100), 8, 2)}
+              100
             </StyledDetailsItem>
           </StyledDetails>
           <StyledDetails>
-            <StyledDetailsItem>二等奖:</StyledDetailsItem>
+            <StyledDetailsItem>前50:</StyledDetailsItem>
             <StyledDetailsItem>
-              {lottery.depositTokenName.includes('GOC')
-                ? getDisplayBalance(totalPot.GOC.mul(allocations.GOC[1]).div(100), 18, 2)
-                : getDisplayBalance(totalPot.HUSD.mul(allocations.HUSD[1]).div(100), 8, 2)}
+              8
             </StyledDetailsItem>
           </StyledDetails>
           <StyledDetails>
-            <StyledDetailsItem>三等奖:</StyledDetailsItem>
+            <StyledDetailsItem>其他:</StyledDetailsItem>
             <StyledDetailsItem>
-              {lottery.depositTokenName.includes('GOC')
-                ? getDisplayBalance(totalPot.GOC.mul(allocations.GOC[2]).div(100), 18, 2)
-                : getDisplayBalance(totalPot.HUSD.mul(allocations.HUSD[2]).div(100), 8, 2)}
+              5
             </StyledDetailsItem>
           </StyledDetails>
           <StyledDetails>
             <StyledDetailsItem>
-              {lottery.depositTokenName.includes('GOC') ? `回购GOT:` : `投入GOC奖池:`}
+              已分发
             </StyledDetailsItem>
             <StyledDetailsItem>
-              {lottery.depositTokenName.includes('GOC')
-                ? getDisplayBalance(
-                    totalPot.GOC.mul(
-                      100 - allocations.GOC[0] - allocations.GOC[1] - allocations.GOC[2],
-                    ).div(100),
-                    18,
-                    2,
-                  )
-                : getDisplayBalance(
-                    totalPot.HUSD.mul(
-                      100 - allocations.HUSD[0] - allocations.HUSD[1] - allocations.HUSD[2],
-                    ).div(100),
-                    8,
-                    2,
-                  )}
+              10000
             </StyledDetailsItem>
           </StyledDetails>
         </StyledCardContentInner>
