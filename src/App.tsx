@@ -14,6 +14,7 @@ import ModalsProvider from './contexts/Modals';
 import Farms from './views/Farms';
 import FarmsV2 from './views/FarmsV2';
 import NeedDo from './views/NeedDo';
+import NeedDo2 from './views/NeedDo/NeedDo2';
 import Vaults from './views/Vaults';
 import Lotterys from './views/Lottery';
 import Home from './views/Home';
@@ -35,8 +36,11 @@ const App: React.FC = () => {
           <Route path="/vault">
             <Vaults />
           </Route>
-          <Route path="/lottery">
+          <Route path="/Lottery">
             <Lotterys />
+          </Route>
+          <Route path="/NeedDo2">
+            <NeedDo2 />
           </Route>
           <Route path="/needToNext">
             <NeedDo />

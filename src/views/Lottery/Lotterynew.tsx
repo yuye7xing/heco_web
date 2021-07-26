@@ -55,15 +55,12 @@ const Lottery: React.FC = () => {
       <Page>
       <PageHeader
         subtitle={`文明争霸，谁主浮沉`}
-        title='创世纪入场券'
+        title='欢迎来到创世纪'
       />
       {account&&lottery ? (
         <StyledBank>
          <StyledCardsWrapper>
-          <StyledCardWrapper>
-            <BuyTicket lottery={lottery} tickets={tickets} numbers={numbers} />
-          </StyledCardWrapper>
-          <Spacer />
+         
           <StyledCardWrapper2>
             <StyledCardWrapper>
               <Drawed lottery={lottery} />
@@ -72,12 +69,12 @@ const Lottery: React.FC = () => {
               <Pots lottery={lottery} />
             </StyledCardWrapper>
           </StyledCardWrapper2>
+          <Spacer />
+          <StyledCardWrapper>
+            <BuyTicket lottery={lottery} tickets={tickets} numbers={numbers} />
+          </StyledCardWrapper>
         </StyledCardsWrapper>
         <Spacer />
-        <StyledCardWrapper3>
-          <History lottery={lottery} /> 
-        </StyledCardWrapper3>
-        <Spacer size="lg" />
       </StyledBank>
       ): (
     <UnlockWallet />
@@ -129,7 +126,8 @@ const StyledCardWrapper2 = styled.div`
   flex: 1;
   flex-direction: column;
   @media (max-width: 768px) {
-    width: 80%;
+    align-items: center;  
+    width: 100%;
   }
 `;
 

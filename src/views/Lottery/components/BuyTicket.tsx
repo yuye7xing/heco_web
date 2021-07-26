@@ -54,7 +54,7 @@ const BuyTicket: React.FC<BuyTicketProps> = ({ lottery,tickets,numbers }) => {
               <TokenSymbol symbol={lottery.earnToken.symbol} />
             </CardIcon>
             <LabelItem>
-              <Label text={`创世纪入场券`} />
+              <Label text={`入场券`} />
               <Value value={`5 USDT`} />
             </LabelItem>
           </StyledCardHeader>

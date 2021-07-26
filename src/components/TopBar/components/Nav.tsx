@@ -8,8 +8,8 @@ const Nav: React.FC = () => {
       <StyledLink exact activeClassName="active" to="/">首页</StyledLink>
       <StyledLink exact activeClassName="active" to="/lottery">入场票</StyledLink>
       <StyledLink exact activeClassName="active" to="/vault">创世纪</StyledLink>
-      <StyledLink exact activeClassName="active" to="/farmV2">部落</StyledLink>
-      <StyledLink exact activeClassName="active" to="/needToNext">文明</StyledLink>
+      <StyledLink exact activeClassName="active" to="/needToNext">部落</StyledLink>
+      <StyledLink exact activeClassName="active" to="/NeedDo2">文明</StyledLink>
     </StyledNav>
   )
 }

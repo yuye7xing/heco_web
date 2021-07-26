@@ -165,7 +165,7 @@ const StyledCardWrapper2 = styled.div`
   flex: 1;
   flex-direction: column;
   @media (max-width: 768px) {
-    width: 80%;
+    width: 100%;
   }
 `;
 

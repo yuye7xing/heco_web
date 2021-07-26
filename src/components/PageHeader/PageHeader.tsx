@@ -29,7 +29,7 @@ const StyledPageHeader = styled.div`
 
 const StyledIcon = styled.div`
   font-size: 96px;
-  height: 180px;
+  height: 230px;
   line-height: 96px;
   position: relative;
   text-align: center;
