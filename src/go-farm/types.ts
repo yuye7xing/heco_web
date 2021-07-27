@@ -43,6 +43,7 @@ export interface VaultInfo {
   name: string;
   depositTokenName: ContractName;
   sort: number;
+  earnTokenName: string; 
   finished: boolean;
   id: number;
   time:number;

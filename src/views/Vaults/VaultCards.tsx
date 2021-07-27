@@ -29,7 +29,7 @@ const VaultCards: React.FC = () => {
             Please withdraw and settle your stakes.
           </Notice>
       </StyledInactiveNoticeContainer> */}
-      <StyledInactiveVaultTitle>水生土（需入场券）</StyledInactiveVaultTitle>
+      <StyledInactiveVaultTitle>水纪元（需入场券）</StyledInactiveVaultTitle>
       <StyledRow >
         {activeVaults1.map((vault, j) => (
                 <React.Fragment key={j}>
@@ -38,7 +38,7 @@ const VaultCards: React.FC = () => {
                 </React.Fragment>
          ))}
       </StyledRow>
-      <StyledInactiveVaultTitle>土生木（需入场券）</StyledInactiveVaultTitle>
+      <StyledInactiveVaultTitle>土纪元（需入场券）</StyledInactiveVaultTitle>
       <StyledRow >
         {activeVaults2.map((vault, j) => (
                 <React.Fragment key={j}>
@@ -47,19 +47,30 @@ const VaultCards: React.FC = () => {
                 </React.Fragment>
          ))}
       </StyledRow>
-      <StyledInactiveVaultTitle>木生火</StyledInactiveVaultTitle>
+      <StyledInactiveVaultTitle>木纪元</StyledInactiveVaultTitle>
       <StyledRow >
         {activeVaults3.map((vault, j) => (
                 <React.Fragment key={j}>
                   <VaultCard vault={vault} />
+                  <StyledSpacer />
                 </React.Fragment>
          ))}
       </StyledRow>
-      <StyledInactiveVaultTitle>火生金</StyledInactiveVaultTitle>
+      <StyledInactiveVaultTitle>火纪元</StyledInactiveVaultTitle>
       <StyledRow >
         {activeVaults4.map((vault, j) => (
                 <React.Fragment key={j}>
                   <VaultCard vault={vault} />
+                  <StyledSpacer />
+                </React.Fragment>
+         ))}
+      </StyledRow>
+      <StyledInactiveVaultTitle>金纪元</StyledInactiveVaultTitle>
+      <StyledRow >
+        {activeVaults5.map((vault, j) => (
+                <React.Fragment key={j}>
+                  <VaultCard vault={vault} />
+                  <StyledSpacer />
                 </React.Fragment>
          ))}
       </StyledRow>

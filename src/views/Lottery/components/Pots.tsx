@@ -49,15 +49,15 @@ const Pots: React.FC<PotsProps> = ({ lottery }) => {
             购票附赠起源之水:
           </StyledDetails>
           <StyledDetails>
-            <StyledDetailsItem>前10:</StyledDetailsItem>
+            <StyledDetailsItem>前100:</StyledDetailsItem>
             <StyledDetailsItem>
-              100
+              30
             </StyledDetailsItem>
           </StyledDetails>
           <StyledDetails>
-            <StyledDetailsItem>前50:</StyledDetailsItem>
+            <StyledDetailsItem>前1000:</StyledDetailsItem>
             <StyledDetailsItem>
-              8
+              10
             </StyledDetailsItem>
           </StyledDetails>
           <StyledDetails>

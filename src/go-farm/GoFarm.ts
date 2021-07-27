@@ -438,33 +438,9 @@ export class GoFarm {
   }
 
   async getLotteryTimes(): Promise<LotteryTime> {
-    const today = moment().startOf('day').add(5, 'hour');
-    let diff = Math.round(moment().diff(today) / 1000);
-    let epoch = 0;
-    let epochStart = moment();
-    let prevEpochTime = new Date();
-    let nextEpochTime = new Date();
-    let epochTime = 0;
-    if (diff < 0) {
-      epochStart = moment().startOf('day').subtract(1, 'hour');
-      diff = 3600 * 6 + diff;
-      epochTime = diff;
-    } else {
-      epochStart = moment().subtract(diff % (3600 * 6), 'second');
-      epochTime = diff % (3600 * 6);
-    }
-    if (epochTime < 3600 * 4.5) {
-      prevEpochTime = epochStart.toDate();
-      nextEpochTime = epochStart.add(4.5, 'hours').toDate();
-    } else if (epochTime > 3600 * 4.5 && epochTime < 3600 * 5) {
-      prevEpochTime = epochStart.add(4.5, 'hours').toDate();
-      nextEpochTime = epochStart.add(0.5, 'hours').toDate();
-      epoch = 1;
-    } else {
-      prevEpochTime = epochStart.add(5, 'hours').toDate();
-      nextEpochTime = epochStart.add(1, 'hours').toDate();
-      epoch = 2;
-    }
+    const prevEpochTime = new Date(Date.parse("2021/07/10"));
+    const nextEpochTime = new Date(Date.parse("2021/08/30"));
+    const epoch=0;
     return { prevEpochTime, nextEpochTime, epoch };
   }
   async BuyTicket(): Promise<TransactionResponse> {

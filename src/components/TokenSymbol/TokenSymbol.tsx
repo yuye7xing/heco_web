@@ -20,6 +20,7 @@ import UNILogo from '../../assets/img/UNI.svg';
 import YFILogo from '../../assets/img/YFI.svg';
 import LINKLogo from '../../assets/img/LINK.svg';
 import VaultLogo from '../../assets/img/farmer.png';
+import WoodLogo from '../../assets/img/wood.jpg';
 
 const logosBySymbol: {[title: string]: string} = {
   'GOC': gocLogo,
@@ -43,7 +44,8 @@ const logosBySymbol: {[title: string]: string} = {
   'LINK': LINKLogo,
   'GOC_HUSD-LP': gocLogo,
   'GOS_HUSD-LP': gosLogo,
-  'VAULT': VaultLogo
+  'VAULT': VaultLogo,
+  'WOOD':WoodLogo
 };
 
 type BasisLogoProps = {

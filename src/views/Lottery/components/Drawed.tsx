@@ -36,10 +36,10 @@ const History: React.FC<HistoryProps> = ({ lottery }) => {
         <StyledCardContentInner>
             <Label text={`计划出售门票`} />
           <StyledCardHeader>
-            <Value value={numbers[0]} />
-            <Value value={numbers[1]} />
-            <Value value={numbers[2]} />
-            <Value value={numbers[3]} />
+            <Value value={'6'} />
+            <Value value={'0'} />
+            <Value value={'0'} />
+            <Value value={'0'} />
           </StyledCardHeader>
         </StyledCardContentInner>
       </CardContent>

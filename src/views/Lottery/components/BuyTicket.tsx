@@ -27,23 +27,12 @@ interface BuyTicketProps {
 
 const BuyTicket: React.FC<BuyTicketProps> = ({ lottery,tickets,numbers }) => {
   const goFarm = useGoFarm();
-  const { epoch } = useLotteryTimes();
+  const { prevEpochTime, nextEpochTime,epoch } = useLotteryTimes();
   const { onTicketBuy } = useTicketBuy(lottery);
   const [approveStatus, approve] = useApprove(
     lottery.depositToken,
     goFarm?.contracts['Lottery_' + lottery.depositTokenName].address,
   );
-  
-
-  // const [onPresentBuy, onDismissDeposit] = useModal(
-  //   <BuyModal
-  //     onConfirm={(val0, val1, val2, val3) => {
-  //       onTicketBuy(val0, val1, val2, val3);
-  //       onDismissDeposit();
-  //     }}
-  //     tokenName={lottery.depositTokenName}
-  //   />,
-  // );
 
   return (
     <Card>
@@ -55,13 +44,13 @@ const BuyTicket: React.FC<BuyTicketProps> = ({ lottery,tickets,numbers }) => {
             </CardIcon>
             <LabelItem>
               <Label text={`入场券`} />
-              <Value value={`5 USDT`} />
+              <Value value={`10 USDT`} />
             </LabelItem>
           </StyledCardHeader>
           <ProgressCountdown
                 title={''}
-                base={new Date()}
-                deadline={new Date()}
+                base={prevEpochTime}
+                deadline={nextEpochTime}
                 description={
                     '距离售票结束'
                 }
