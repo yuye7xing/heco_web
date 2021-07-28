@@ -12,6 +12,7 @@ const Home: React.FC = () => {
       <Page>
         <PageHeader
           title="欢迎来到创世纪!"
+          subtitle="节点时间里程碑"
         />
         <Spacer size="md" />
         <TimeLine></TimeLine>
