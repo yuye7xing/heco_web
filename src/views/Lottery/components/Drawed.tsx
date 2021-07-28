@@ -16,11 +16,11 @@ const History: React.FC<HistoryProps> = ({ lottery }) => {
   const goFarm = useGoFarm();
 
 
-  const [numbers, setNumbers] = useState(['0','0','0','0']);
+  const [numbers, setNumbers] = useState(6000);
 
   const fetchStats = useCallback(async () => {
-    const _numbers = await goFarm.ticketNumbers(lottery.depositTokenName);
-    setNumbers(_numbers);
+    const _numbers = await goFarm.ticketNumbers();
+    setNumbers(6000-_numbers);
   }, [goFarm, setNumbers,lottery]);
 
   useEffect(() => {
@@ -34,12 +34,9 @@ const History: React.FC<HistoryProps> = ({ lottery }) => {
     <Card>
       <CardContent>
         <StyledCardContentInner>
-            <Label text={`计划出售门票`} />
+            <Label text={`剩余门票`} />
           <StyledCardHeader>
-            <Value value={'6'} />
-            <Value value={'0'} />
-            <Value value={'0'} />
-            <Value value={'0'} />
+            <Value value={numbers+''} />
           </StyledCardHeader>
         </StyledCardContentInner>
       </CardContent>

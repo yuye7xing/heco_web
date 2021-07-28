@@ -449,17 +449,11 @@ export class GoFarm {
     return await lotteryContract.buyTicket();
   }
 
-  async ticketNumbers(name: string): Promise<string[]> {
-    const lotteryContract = this.contracts['Lottery_' + name];
-    let issueIndex = await lotteryContract.issueIndex();
-    const historyNumbers = await lotteryContract.historyNumbers(issueIndex, 0);
-    issueIndex =
-      Number(historyNumbers) === 0
-        ? Number(issueIndex) === 0
-          ? 0
-          : issueIndex - 1
-        : issueIndex;
-    const num = await lotteryContract.getHistoryNumbers(issueIndex);
+  async ticketNumbers(): Promise<number> {
+    const lotteryContract = this.contracts['Lottery_USDT'];
+    const num = await lotteryContract.getAddressSize();
+    const havenume=6000-num;
+
     return num;
   }
 

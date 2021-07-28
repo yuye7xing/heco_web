@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
 import useGoFarm from './useGoFarm';
 const useLotteryStatus = (name: string) => {
-  const [numbers, setNumbers] = useState([]);
+  const [numbers, setNumbers] = useState(6000);
   const goFarm = useGoFarm();
 
   const fetchNumbers = useCallback(async () => {
-    const userNumbers = await goFarm.ticketNumbers(name);
+    const userNumbers = await goFarm.ticketNumbers();
     setNumbers(userNumbers);
   }, [ name,goFarm]);
 

@@ -12,11 +12,11 @@ const Vaults: React.FC = ({ children }) => {
   const fetchPools = useCallback(async () => {
     const vaults: Vault[] = [];
     // const balance = await goFarm.getAllBalance();
-    const apys = await goFarm.getVaultApys();
-    const GOTapy = await goFarm.getGOTApy();
-    // const balance = await goFarm.getVaultTVLs();
-    const price = await goFarm.getVaultTVLPrice();
-    const GOTprice = await goFarm.getGOTTVLPrice();
+    // const apys = await goFarm.getVaultApys();
+    // const GOTapy = await goFarm.getGOTApy();
+    // // const balance = await goFarm.getVaultTVLs();
+    // const price = await goFarm.getVaultTVLPrice();
+    // const GOTprice = await goFarm.getGOTTVLPrice();
     // console.log('price',price)
 
     for (const vaultInfo of Object.values(vaultDefinitions)) {

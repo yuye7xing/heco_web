@@ -51,10 +51,10 @@ const Harvest: React.FC<HarvestProps> = ({ vault }) => {
         <StyledCardContentInner>
           <StyledCardHeader>
             <CardIcon>
-              <TokenSymbol symbol={vault.earnToken.symbol} />
+              <TokenSymbol symbol={vault.earnTokenName} />
             </CardIcon>
             <Value value={getDisplayBalance(earnings,goFarm?.externalTokens[vault.depositTokenName].decimal)} />
-            <Label text={`赚到的${vault.depositTokenName}`} />
+            <Label text={`赚到的${vault.earnTokenName}`} />
           </StyledCardHeader>
           <StyledCardActions>
           {earnings.gt(0) && (

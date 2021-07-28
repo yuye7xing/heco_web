@@ -63,7 +63,7 @@ const Stake: React.FC<StakeProps> = ({ vault }) => {
               </CardIcon>
             </LogoCard>
             <Value value={getDisplayBalance(stakedBalance, vault.depositToken.decimal)} />
-            <Label text={`存入的 g${vault.depositTokenName} 数量`} />
+            <Label text={`存入的 ${vault.depositTokenName} 数量`} />
           </StyledCardHeader>
           <StyledCardActions>
             <Button

@@ -40,8 +40,8 @@ const Vault: React.FC = () => {
         </StyledCardsWrapper>
         <Spacer size="lg" />
         <div>
-          <Label color={'#000'} text={`g${vault.depositTokenName}数量代表存款凭证的数量,存入后不会产生变化`} />
-          <Button onClick={onRedeem} text="取出全部资产" />
+          <Label color={'#000'} text={`${vault.depositTokenName}数量代表存款凭证的数量,存入后不会产生变化`} />
+          <Button onClick={onRedeem} disabled text="取出全部资产" />
         </div>
         <Spacer size="lg" />
       </StyledBank>
