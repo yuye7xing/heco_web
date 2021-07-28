@@ -66,7 +66,11 @@ const Stake: React.FC<StakeProps> = ({ vault }) => {
             <Label text={`存入的 g${vault.depositTokenName} 数量`} />
           </StyledCardHeader>
           <StyledCardActions>
-            {approveStatus === ApprovalState.APPROVED ||  vault.depositTokenName === 'HT'? (
+            <Button
+                disabled
+                text={vault.needticket?`请购买入场券`:'纪元未开始'}
+              />
+            {/* {approveStatus === ApprovalState.APPROVED ||  vault.depositTokenName === 'HT'? (
               <>
                 <IconButton
                   disabled={vault.finished}
@@ -84,7 +88,7 @@ const Stake: React.FC<StakeProps> = ({ vault }) => {
                 onClick={approve}
                 text={`批准 ${vault.depositTokenName}`}
               />
-            )}
+            )} */}
           </StyledCardActions>
         </StyledCardContentInner>
       </CardContent>

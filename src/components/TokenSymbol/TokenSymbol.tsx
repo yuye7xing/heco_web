@@ -20,7 +20,11 @@ import UNILogo from '../../assets/img/UNI.svg';
 import YFILogo from '../../assets/img/YFI.svg';
 import LINKLogo from '../../assets/img/LINK.svg';
 import VaultLogo from '../../assets/img/farmer.png';
-import WoodLogo from '../../assets/img/wood.jpg';
+import WoodLogo from '../../assets/img/Wood.jpg';
+import FireLogo from '../../assets/img/Fire.jpg';
+import EarthLogo from '../../assets/img/Earth.jpg';
+import MetalLogo from '../../assets/img/Metal.jpg';
+import WaterLogo from '../../assets/img/Water.jpg';
 
 const logosBySymbol: {[title: string]: string} = {
   'GOC': gocLogo,
@@ -45,7 +49,16 @@ const logosBySymbol: {[title: string]: string} = {
   'GOC_HUSD-LP': gocLogo,
   'GOS_HUSD-LP': gosLogo,
   'VAULT': VaultLogo,
-  'WOOD':WoodLogo
+  'Wood':WoodLogo,
+  'Fire':FireLogo,
+  'Earth':EarthLogo,
+  'Metal':MetalLogo,
+  'Water':WaterLogo,
+  'Water_USDT':WoodLogo,
+  'Fire_USDT':FireLogo,
+  'Earth_USDT':EarthLogo,
+  'Metal_USDT':MetalLogo,
+  'Wood_USDT':WaterLogo
 };
 
 type BasisLogoProps = {
@@ -54,6 +67,7 @@ type BasisLogoProps = {
 }
 
 const TokenSymbol: React.FC<BasisLogoProps> = ({ symbol, size = 64 }) => {
+  console.error();
   if (!logosBySymbol[symbol]) {
     throw new Error(`Invalid Logo symbol: ${symbol}`);
   }

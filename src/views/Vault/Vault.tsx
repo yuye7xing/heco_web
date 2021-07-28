@@ -25,7 +25,7 @@ const Vault: React.FC = () => {
     <>
       <PageHeader
         // icon={<img src={require("../../assets/img/farm.png")} width="80%" height="90%" alt="farms" style={{position: "absolute",top: "5%",left:"10%"}}/>}
-        subtitle={`存入 ${vault?.depositTokenName} 赚取 ${vault?.depositTokenName}`}
+        subtitle={`存入 ${vault?.depositTokenName} 赚取 ${vault?.earnTokenName}`}
         title={vault?.name}
       />
       <StyledBank>

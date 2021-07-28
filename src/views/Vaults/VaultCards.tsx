@@ -34,7 +34,6 @@ const VaultCards: React.FC = () => {
         {activeVaults1.map((vault, j) => (
                 <React.Fragment key={j}>
                   <VaultCard vault={vault} />
-                  <StyledSpacer />
                 </React.Fragment>
          ))}
       </StyledRow>
@@ -43,7 +42,6 @@ const VaultCards: React.FC = () => {
         {activeVaults2.map((vault, j) => (
                 <React.Fragment key={j}>
                   <VaultCard vault={vault} />
-                  <StyledSpacer />
                 </React.Fragment>
          ))}
       </StyledRow>
@@ -52,7 +50,6 @@ const VaultCards: React.FC = () => {
         {activeVaults3.map((vault, j) => (
                 <React.Fragment key={j}>
                   <VaultCard vault={vault} />
-                  <StyledSpacer />
                 </React.Fragment>
          ))}
       </StyledRow>
@@ -61,7 +58,6 @@ const VaultCards: React.FC = () => {
         {activeVaults4.map((vault, j) => (
                 <React.Fragment key={j}>
                   <VaultCard vault={vault} />
-                  <StyledSpacer />
                 </React.Fragment>
          ))}
       </StyledRow>
@@ -70,7 +66,6 @@ const VaultCards: React.FC = () => {
         {activeVaults5.map((vault, j) => (
                 <React.Fragment key={j}>
                   <VaultCard vault={vault} />
-                  <StyledSpacer />
                 </React.Fragment>
          ))}
       </StyledRow>
@@ -210,6 +205,7 @@ const StyledCardWrapper = styled.div`
   width: calc((900px - ${(props) => props.theme.spacing[4]}px * 2) / 5);
   position: relative;
   margin-bottom: 20px;
+  margin-left:45px;
 `;
 
 const StyledTitle = styled.h4`
@@ -217,7 +213,7 @@ const StyledTitle = styled.h4`
   font-size: 24px;
   font-weight: 700;
   text-align: center;
-  margin: ${(props) => props.theme.spacing[2]}px 0 0;
+  margin: ${(props) => props.theme.spacing[1]}px 0 0;
   padding: 0;
 `;
 
@@ -229,7 +225,7 @@ const StyledContent = styled.div`
 
 const StyledSpacer = styled.div`
   height: ${(props) => props.theme.spacing[4]}px;
-  width: ${(props) => props.theme.spacing[4]}px;
+  width: ${(props) => props.theme.spacing[1]}px;
 `;
 
 const StyledDetails = styled.div`

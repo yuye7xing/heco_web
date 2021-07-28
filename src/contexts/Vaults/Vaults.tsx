@@ -25,12 +25,8 @@ const Vaults: React.FC = ({ children }) => {
         address: config.MasterChef,
         depositToken: goFarm.externalTokens[vaultInfo.depositTokenName],
         earnToken: goFarm.externalTokens[vaultInfo.depositTokenName],
-        apy:
-          vaultInfo.id === 15
-            ? BigNumber.from(GOTapy).mul(100).mul(52)
-            : BigNumber.from(apys[vaultInfo.id]),
-        balance:
-          vaultInfo.id === 15 ? BigNumber.from(GOTprice) : BigNumber.from(price[vaultInfo.id]),
+        apy:BigNumber.from(10000000),
+        balance:BigNumber.from(0),
       });
     }
     vaults.sort((a, b) => (a.sort > b.sort ? 1 : -1));

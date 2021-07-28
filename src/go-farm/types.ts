@@ -45,6 +45,7 @@ export interface VaultInfo {
   sort: number;
   earnTokenName: string; 
   finished: boolean;
+  needticket:boolean,
   id: number;
   time:number;
 }

@@ -68,8 +68,8 @@ export class GoFarm {
     }
 
     // Uniswap V2 Pair
-    this.bacDai = new Contract(externalTokens['GOT_HUSD-LP'][0], IUniswapV2PairABI, provider);
-
+    // this.bacDai = new Contract(externalTokens['GOT_HUSD-LP'][0], IUniswapV2PairABI, provider);
+    this.bacDai = new Contract(cfg.GetVaultApy, IUniswapV2PairABI, provider);
     this.config = cfg;
     this.provider = provider;
   }
