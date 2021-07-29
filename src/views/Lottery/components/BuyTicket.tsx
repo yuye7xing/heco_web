@@ -50,16 +50,17 @@ const BuyTicket: React.FC<BuyTicketProps> = ({ lottery,tickets,numbers }) => {
           <ProgressCountdown
                 title={''}
                 base={prevEpochTime}
-                deadline={nextEpochTime}
+                deadline={epoch === 0?prevEpochTime:nextEpochTime}
                 description={
-                    '距离售票结束'
+                  epoch === 0?'距离售票开始':'距离售票结束'
                 }
               />
           <StyledCardActions>
             {approveStatus === ApprovalState.APPROVED ? (
               <Button
                 onClick={onTicketBuy}
-                text={'购票入场'}
+                disabled={epoch === 0}
+                text={epoch === 0?'暂未开始':'购票入场'}
               />
             ) : (
               <Button

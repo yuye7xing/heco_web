@@ -231,32 +231,32 @@ export class GoFarm {
 
   async getApy(): Promise<string> {
     const getApy = this.contracts['GetApy'];
-    return await getApy.getAllApy();
+    return '1000';
   }
 
   async getApyV2(): Promise<string> {
     const getApy = this.contracts['GetApyV2'];
-    return await getApy.getAllApy();
+    return '1000';
   }
 
   async getAllPoolPrice(): Promise<string> {
     const getApy = this.contracts['GetApy'];
-    return await getApy.getAllPoolPrice();
+    return '10000'
   }
 
   async getAllPoolPriceV2(): Promise<string> {
     const getApy = this.contracts['GetApyV2'];
-    return await getApy.getAllPoolPrice();
+    return '100'
   }
 
   async getAllAlloc(): Promise<string> {
     const getApy = this.contracts['GetApy'];
-    return await getApy.getAllAlloc();
+    return '100';
   }
 
   async getAllAllocV2(): Promise<string> {
     const getApy = this.contracts['GetApyV2'];
-    return await getApy.getAllAlloc();
+    return '100';
   }
 
   async getTvl(): Promise<BigNumber> {
@@ -438,9 +438,15 @@ export class GoFarm {
   }
 
   async getLotteryTimes(): Promise<LotteryTime> {
-    const prevEpochTime = new Date(Date.parse("2021/07/10"));
-    const nextEpochTime = new Date(Date.parse("2021/08/30"));
-    const epoch=0;
+    const prevEpochTime = new Date(Date.parse("2021/07/30"));
+    const nextEpochTime = new Date(Date.parse("2021/08/10"));
+    let epoch=0;
+    if(new Date>prevEpochTime){
+      epoch=1;
+    }
+    if(new Date>nextEpochTime){
+      epoch=2;
+    }
     return { prevEpochTime, nextEpochTime, epoch };
   }
   async BuyTicket(): Promise<TransactionResponse> {
@@ -452,7 +458,7 @@ export class GoFarm {
   async ticketNumbers(): Promise<number> {
     const lotteryContract = this.contracts['Lottery_USDT'];
     const num = await lotteryContract.getAddressSize();
-    const havenume=6000-num;
+    const havenume=3000-num;
 
     return num;
   }

@@ -17,7 +17,7 @@ const Farms: React.FC = () => {
         <Route exact path={path}>
           <PageHeader
             title="文明"
-            subtitle="胜者为王，败者流放，谁主沉浮"
+            subtitle="胜者为王，败者流放，跨链征伐，谁主沉浮"
           />
             <Center>
                 <CenterTitle>本功能完成部落争霸赛后将对外开放</CenterTitle>

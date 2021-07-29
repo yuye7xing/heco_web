@@ -12,9 +12,9 @@ const Farms: React.FC = ({ children }) => {
   const fetchPools = useCallback(async () => {
     const farms: Farm[] = [];
 
-    const apys = await goFarm.getApy();
-    const poolPrices = await goFarm.getAllPoolPrice();
-    const allocs = await goFarm.getAllAlloc();
+    // const apys = await goFarm.getApy();
+    // const poolPrices = await goFarm.getAllPoolPrice();
+    // const allocs = await goFarm.getAllAlloc();
 
 
     for (const farmInfo of Object.values(bankDefinitions)) {
@@ -34,9 +34,9 @@ const Farms: React.FC = ({ children }) => {
         earnToken:  goFarm.externalTokens[farmInfo.earnTokenName],
         TokenA_Address:  goFarm.externalTokens[farmInfo.TokenA].address,
         TokenB_Address:  goFarm.externalTokens[farmInfo.TokenB].address,
-        apy: BigNumber.from(apys[farmInfo.pid]).mul(100).mul(365),
-        poolPrice: BigNumber.from(poolPrices[farmInfo.pid]),
-        alloc: BigNumber.from(allocs[farmInfo.pid])
+        apy: BigNumber.from(1000),
+        poolPrice: BigNumber.from(0),
+        alloc: BigNumber.from(0)
       });
     }
     farms.sort((a, b) => (a.sort > b.sort ? 1 : -1));

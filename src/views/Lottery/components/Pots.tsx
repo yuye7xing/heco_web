@@ -51,11 +51,11 @@ const Pots: React.FC<PotsProps> = ({ lottery }) => {
           <StyledDetails>
             <StyledDetailsItem>前100:</StyledDetailsItem>
             <StyledDetailsItem>
-              30
+              20
             </StyledDetailsItem>
           </StyledDetails>
           <StyledDetails>
-            <StyledDetailsItem>前1000:</StyledDetailsItem>
+            <StyledDetailsItem>前500:</StyledDetailsItem>
             <StyledDetailsItem>
               10
             </StyledDetailsItem>
