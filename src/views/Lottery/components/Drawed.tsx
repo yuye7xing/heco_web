@@ -20,7 +20,7 @@ const History: React.FC<HistoryProps> = ({ lottery }) => {
 
   const fetchStats = useCallback(async () => {
     const _numbers = await goFarm.ticketNumbers();
-    setNumbers(6000-_numbers);
+    setNumbers(3000-_numbers);
   }, [goFarm, setNumbers,lottery]);
 
   useEffect(() => {

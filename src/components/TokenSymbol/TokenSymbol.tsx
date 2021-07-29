@@ -1,9 +1,6 @@
 import React from 'react';
 
-import gocLogo from '../../assets/img/goswap-GOC.svg';
-import gosLogo from '../../assets/img/goswap-GOS.svg';
-import gobLogo from '../../assets/img/goswap-GOB.svg';
-import gotLogo from '../../assets/img/goswap-GOT.svg';
+
 import USDTLogo from '../../assets/img/USDT.png';
 import HUSDLogo from '../../assets/img/HUSD.png';
 import BTCLogo from '../../assets/img/BTC.png';
@@ -27,10 +24,6 @@ import MetalLogo from '../../assets/img/Metal.jpg';
 import WaterLogo from '../../assets/img/Water.jpg';
 
 const logosBySymbol: {[title: string]: string} = {
-  'GOC': gocLogo,
-  'GOB': gobLogo,
-  'GOS': gosLogo,
-  'GOT': gotLogo,
   'USDT': USDTLogo,
   'HUSD': HUSDLogo,
   'BTC': BTCLogo,
@@ -46,8 +39,6 @@ const logosBySymbol: {[title: string]: string} = {
   'YFI': YFILogo,
   'UNI': UNILogo,
   'LINK': LINKLogo,
-  'GOC_HUSD-LP': gocLogo,
-  'GOS_HUSD-LP': gosLogo,
   'VAULT': VaultLogo,
   'Wood':WoodLogo,
   'Fire':FireLogo,

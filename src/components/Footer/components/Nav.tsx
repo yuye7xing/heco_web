@@ -29,7 +29,4 @@ const StyledLink = styled.a`
   }
 `
 
-const buyGOT ="https://goswap.app/#/swap?inputCurrency="+Configuration.externalTokens['HUSD'][0]+"&outputCurrency="+Configuration.externalTokens['GOT'][0];
-const buyGOS ="https://goswap.app/#/swap?inputCurrency="+Configuration.externalTokens['HUSD'][0]+"&outputCurrency="+Configuration.externalTokens['GOS'][0];
-const buyGOC= "https://goswap.app/#/swap?inputCurrency="+Configuration.externalTokens['HUSD'][0]+"&outputCurrency="+Configuration.externalTokens['GOC'][0];
 export default Nav
