@@ -17,23 +17,15 @@ interface PotsProps {
 const Pots: React.FC<PotsProps> = ({ lottery }) => {
   const goFarm = useGoFarm();
 
-  const [totalPot, setStats] = useState<TotalPot>({
-    HUSD: BigNumber.from(0),
-    GOC: BigNumber.from(0),
-  });
+  const [totalPot, setStats] = useState<string>();
 
-  const [allocations, setAllocations] = useState<Allocations>({
-    HUSD: [0, 0, 0],
-    GOC: [0, 0, 0],
-  });
+
   const fetchStats = useCallback(async () => {
     const [_totalPot, _allocations] = await Promise.all([
       goFarm.getTotalPot(),
-      goFarm.getAllcation(),
     ]);
     setStats(_totalPot);
-    setAllocations(_allocations);
-  }, [goFarm, setStats, setAllocations]);
+  }, [goFarm, setStats]);
 
   useEffect(() => {
     if (goFarm) {
@@ -71,7 +63,7 @@ const Pots: React.FC<PotsProps> = ({ lottery }) => {
               已分发
             </StyledDetailsItem>
             <StyledDetailsItem>
-              10000
+            {totalPot}
             </StyledDetailsItem>
           </StyledDetails>
         </StyledCardContentInner>

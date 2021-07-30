@@ -31,15 +31,18 @@ const Lottery: React.FC = () => {
   }
   const lottery = useLottery(depositTokenName);
   
-  const [rewards, setRewards] = useState([]);
-  const [rewardAmount, setRewardAmount] = useState([]);
-  const [rewardIndex, setRewardIndex] = useState([]);
+  
   const [numbers, setNumbers] = useState([]);
   const [tickets, setTickets] = useState([]);
 
 
   const fetchInfo = useCallback(async () => {
     console.log("定时获取相关信息");
+    
+
+
+
+
   }, [goFarm]);
 
   useEffect(() => {

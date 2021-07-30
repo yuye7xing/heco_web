@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState }  from 'react';
 import styled from 'styled-components';
 
 import Card from '../../../components/Card';
@@ -7,17 +7,16 @@ import CardIcon from '../../../components/CardIcon';
 import Label from '../../../components/Label';
 import Value from '../../../components/Value';
 import useGoFarm from '../../../hooks/useGoFarm';
-import useModal from '../../../hooks/useModal';
 import Button from '../../../components/Button';
 import useLotteryTimes from '../../../hooks/useLotteryTimes';
 import ProgressCountdown from '../../Lotterys/components/ProgressCountdown';
+import useAllowance from '../../../hooks/useAllowance';
 
 import useApprove, { ApprovalState } from '../../../hooks/useApprove';
 import useTicketBuy from '../../../hooks/useTicketBuy';
 
 import TokenSymbol from '../../../components/TokenSymbol';
 import { Lottery } from '../../../go-farm';
-import BuyModal from './BuyModal';
 
 interface BuyTicketProps {
   lottery: Lottery;
@@ -33,7 +32,7 @@ const BuyTicket: React.FC<BuyTicketProps> = ({ lottery,tickets,numbers }) => {
     lottery.depositToken,
     goFarm?.contracts['Lottery_' + lottery.depositTokenName].address,
   );
-
+  
   return (
     <Card>
       <CardContent>

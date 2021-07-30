@@ -302,7 +302,10 @@ export class GoFarm {
     const gas = await pool.estimateGas.exit(pid);
     return await pool.exit(pid, this.gasOptions(gas));
   }
-
+  async getallowance(name: string,address:string, account = this.myAccount): Promise<BigNumber> {
+    const token = this.contracts[name];
+    return await token.allowance(account,address);
+  }
   async getAllBalance(): Promise<string> {
     const getApy = this.contracts['GetApy'];
     return await getApy.getAllAlloc();
@@ -415,16 +418,14 @@ export class GoFarm {
     return allocation;
   }
 
-  async getTotalPot(): Promise<TotalPot> {
-    const lotteryHUSDContract = this.contracts['Lottery_HUSD'];
-    const HUSDPot = await lotteryHUSDContract.totalAmount();
-    const lotteryGOCContract = this.contracts['Lottery_GOC'];
-    const GOCPot = await lotteryGOCContract.totalAmount();
-    return { HUSD: HUSDPot, GOC: GOCPot };
+  async getTotalPot(): Promise<string> {
+    const lotteryHUSDContract = this.contracts['Lottery_USDT'];
+    const  HUSDPot = await lotteryHUSDContract.tokenNum();
+    return (HUSDPot/10**18).toString();
   }
 
   async getAllcation(): Promise<Allocations> {
-    const lotteryHUSDContract = this.contracts['Lottery_HUSD'];
+    const lotteryHUSDContract = this.contracts['Lottery_USDT'];
     const lotteryGOCContract = this.contracts['Lottery_GOC'];
     const HUSDAllocation = [];
     const GOCAllocation = [];

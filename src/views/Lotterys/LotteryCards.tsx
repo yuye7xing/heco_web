@@ -98,20 +98,6 @@ const LotteryCard: React.FC<LotteryCardProps> = ({ lottery }) => {
     HUSD: [0, 0, 0],
     GOC: [0, 0, 0],
   });
-  const fetchStats = useCallback(async () => {
-    const [_totalPot, _allocations] = await Promise.all([
-      goFarm.getTotalPot(),
-      goFarm.getAllcation(),
-    ]);
-    setStats(_totalPot);
-    setAllocations(_allocations);
-  }, [goFarm, setStats, setAllocations]);
-
-  useEffect(() => {
-    if (goFarm) {
-      fetchStats().catch((err) => console.error(err.stack));
-    }
-  }, [goFarm, fetchStats]);
 
   return (
     <StyledCardWrapper>
