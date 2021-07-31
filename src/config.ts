@@ -30,7 +30,7 @@ const configurations: { [env: string]: Configuration } = {
       UNI: ['0x22C54cE8321A4015740eE1109D9cBc25815C46E6', 18],
       YFI: ['0xB4F019bEAc758AbBEe2F906033AAa2f0F6Dacb35', 18],
       LINK: ['0x9e004545c59D359F6B7BFB06a26390b087717b42', 18],
-      Water: ['0xB6F4c418514dd4680F76d5caa3bB42dB4A893aCb', 18],
+      Water: ['0x08431e66Cf0b501A3E2df2d2D3dF24Aa947B6d21', 18],
       Earth: ['0xB6F4c418514dd4680F76d5caa3bB42dB4A893aCb', 18],
       Fire: ['0xB6F4c418514dd4680F76d5caa3bB42dB4A893aCb', 18],
       Wood: ['0xB6F4c418514dd4680F76d5caa3bB42dB4A893aCb', 18],
@@ -56,7 +56,7 @@ const configurations: { [env: string]: Configuration } = {
       Metal: '0x76f48d7ab2081215155ff7e9f18b7d1e803c97de',
       Fire: '0xc65A0980B911f30D3bf30ADcFE33fA1141E17a58',
       Wood: '0x77F77D8c3833A851e33063B137E39Fb0f88D0314',
-      Water: '0x5a4Cd1BCc5189BDd55C65eF8eB965A86E09aE0C3',
+      Water: '0x08431e66Cf0b501A3E2df2d2D3dF24Aa947B6d21',
       Water_USDT: '0x11d6a89Ce4Bb44138219ae11C1535F52E16B7Bd2',
       Wood_USDT: '0x11d6a89Ce4Bb44138219ae11C1535F52E16B7Bd2',
       Fire_USDT: '0x11d6a89Ce4Bb44138219ae11C1535F52E16B7Bd2',
@@ -64,7 +64,7 @@ const configurations: { [env: string]: Configuration } = {
       Earth_USDT: '0x11d6a89Ce4Bb44138219ae11C1535F52E16B7Bd2'
     },
     lotterys:{
-      USDT : '0xe0B5a318AD9400c0B733cfeDf6589D23322663f9'
+      USDT : '0x3bEE0d618FE8a3F07460445de34aCCdc313B3f01'
     },
     refreshInterval: 30000,
     gasLimitMultiplier: 1.7

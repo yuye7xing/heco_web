@@ -176,7 +176,10 @@ export class GoFarm {
     const pool = this.contracts['MasterChef'];
     return await pool.userInfo(pid, account);
   }
-
+  async ishaveTicket(): Promise<boolean> {
+    const buyTicket = this.contracts['Lottery_USDT'];
+    return await buyTicket.haveTicket();
+  }
   async stakedBalanceOnFarmV2(pid: number, account = this.myAccount): Promise<UserInfo> {
     const pool = this.contracts['MasterChefV2'];
     return await pool.userInfo(pid, account);

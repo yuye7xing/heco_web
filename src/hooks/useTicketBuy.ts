@@ -16,7 +16,8 @@ const useTicketBuy = (lottery: Lottery) => {
     },
     [lottery, goFarm,handleTransactionReceipt],
   );
-  return { onTicketBuy: handleTicketBuy };
+
+  return { onTicketBuy: handleTicketBuy};
 };
 
 export default useTicketBuy;

@@ -10,10 +10,10 @@ import useGoFarm from '../../../hooks/useGoFarm';
 import Button from '../../../components/Button';
 import useLotteryTimes from '../../../hooks/useLotteryTimes';
 import ProgressCountdown from '../../Lotterys/components/ProgressCountdown';
-import useAllowance from '../../../hooks/useAllowance';
 
 import useApprove, { ApprovalState } from '../../../hooks/useApprove';
 import useTicketBuy from '../../../hooks/useTicketBuy';
+import useTicketNum from '../../../hooks/useTicketNum';
 
 import TokenSymbol from '../../../components/TokenSymbol';
 import { Lottery } from '../../../go-farm';
@@ -28,6 +28,7 @@ const BuyTicket: React.FC<BuyTicketProps> = ({ lottery,tickets,numbers }) => {
   const goFarm = useGoFarm();
   const { prevEpochTime, nextEpochTime,epoch } = useLotteryTimes();
   const { onTicketBuy } = useTicketBuy(lottery);
+  const haveticket=useTicketNum();
   const [approveStatus, approve] = useApprove(
     lottery.depositToken,
     goFarm?.contracts['Lottery_' + lottery.depositTokenName].address,
@@ -58,8 +59,8 @@ const BuyTicket: React.FC<BuyTicketProps> = ({ lottery,tickets,numbers }) => {
             {approveStatus === ApprovalState.APPROVED ? (
               <Button
                 onClick={onTicketBuy}
-                disabled={epoch === 0}
-                text={epoch === 0?'暂未开始':'购票入场'}
+                disabled={epoch === 0||haveticket}
+                text={haveticket?'已购入场券':epoch === 0?'暂未开始':'购票入场'}
               />
             ) : (
               <Button
