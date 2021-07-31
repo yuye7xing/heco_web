@@ -17,7 +17,7 @@ import UNILogo from '../../assets/img/UNI.svg';
 import YFILogo from '../../assets/img/YFI.svg';
 import LINKLogo from '../../assets/img/LINK.svg';
 import VaultLogo from '../../assets/img/farmer.png';
-import WoodLogo from '../../assets/img/Wood.jpg';
+import WoodLogo from '../../assets/img/wood.jpg';
 import FireLogo from '../../assets/img/Fire.jpg';
 import EarthLogo from '../../assets/img/Earth.jpg';
 import MetalLogo from '../../assets/img/Metal.jpg';
