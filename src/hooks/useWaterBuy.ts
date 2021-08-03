@@ -11,7 +11,7 @@ const useWaterBuy = (lottery: Lottery) => {
 
   const handleWaterBuy = useCallback(
     (amount: string) => {
-      const amountBn = BigNumber.from(10).pow(18).mul(parseUnits(amount))
+      const amountBn = BigNumber.from(10).pow(18).mul(amount)
       handleTransactionReceipt(
         goFarm.buyWaterBuyUSDT(amountBn),
         `购买起源之水 `,

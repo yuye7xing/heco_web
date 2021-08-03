@@ -9,9 +9,14 @@ const useAllowance = (token: ERC20, spender: string, pendingApproval?: boolean) 
   const { account } = useWallet();
 
   const fetchAllowance = useCallback(async () => {
-    const allowance = await token.allowance(account, spender);
+    try{
+      const allowance = await token.allowance(account, spender);
+      setAllowance(allowance);
+    }catch (error) {
+      console.log("未授权");
+    }
     // console.log(`Allowance: ${allowance.toString()} ${token.symbol} for ${spender}`);
-    setAllowance(allowance);
+    
   }, [account, spender, token]);
 
   useEffect(() => {

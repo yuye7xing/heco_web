@@ -7,7 +7,7 @@ const configurations: { [env: string]: Configuration } = {
     chainId: ChainId.HECOMAIN,
     etherscanUrl: 'https://hecoinfo.com',
     defaultProvider: 'https://http-mainnet.hecochain.com',
-    buyWaterAndTicket: '0x6a64137529375288f217983CceA4C81273745cEE',
+    buyWaterAndTicket: '0xcaef0e4129dc46b5450a3fb447e968d1492b3e30',
     MasterChef: '0x7dCeBC34F55b52df742C91581089ebD0BCBD254F',
     MasterChefV2: '0xb6e8Df513dD634Bc033CdB3099448269728e8deE',
     GetApy: '0xE453Fd8FF38b46fBda57f236103f6336CBf50594',
@@ -17,7 +17,7 @@ const configurations: { [env: string]: Configuration } = {
     LotteryAnalysis: '0x6cE62A376Ca636E53F9b8b0b8e13Dc2CE14d1bdc',
     deployments: require('./go-farm/deployments/deployments.mainnet.json'),
     externalTokens: {
-      USDT: ['0xcaeF0e4129DC46B5450a3Fb447E968d1492B3E30', 18],
+      USDT: ['0x150457E1c69Cbb293c5DdDb1605667d65609D761', 18],
       HUSD: ['0x0298c2b32eaE4da002a15f36fdf7615BEa3DA047', 8],
       HT: ['0x5545153CCFcA01fbd7Dd11C0b23ba694D9509A6F', 18],
       BTC: ['0x66a79D23E58475D2738179Ca52cd0b41d73f0BEa', 18],
@@ -46,7 +46,7 @@ const configurations: { [env: string]: Configuration } = {
     vaults: {
       HUSD: '0x94832D6B65327c3bA11b005B98998F238091555D',
       HT: '0xF56728794DaD2D02595876E0582185aF8f994Bcb',
-      USDT: '0xcaeF0e4129DC46B5450a3Fb447E968d1492B3E30',
+      USDT: '0x150457E1c69Cbb293c5DdDb1605667d65609D761',
       BTC: '0x0556D0D33aC6380cc43a3f923CB25cEf58D08a2c',
       ETH: '0x3eD2fA1A783B223B3C761b49c4a2a6632415BFdD',
       BCH: '0x58E5bB0e091C1F9689a896A785f5CBB052857CC6',
@@ -66,7 +66,7 @@ const configurations: { [env: string]: Configuration } = {
       Earth_USDT: '0x11d6a89Ce4Bb44138219ae11C1535F52E16B7Bd2'
     },
     lotterys:{
-      USDT : '0x6a64137529375288f217983CceA4C81273745cEE'
+      USDT : '0xcaef0e4129dc46b5450a3fb447e968d1492b3e30'
     },
     refreshInterval: 10000,
     gasLimitMultiplier: 1.7
