@@ -51,7 +51,7 @@
   },
   {
     "inputs": [],
-    "name": "IcoTotal",
+    "name": "icoTotal",
     "outputs": [
       {
         "internalType": "uint256",

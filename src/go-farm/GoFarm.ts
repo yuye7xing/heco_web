@@ -527,7 +527,7 @@ export class GoFarm {
   }
   async getICOpoolBalance(name: string): Promise<BigNumber> {
     const buyWaterAndTicketContract = this.contracts['buyWaterAndTicket'];
-    return await buyWaterAndTicketContract.IcoTotal();
+    return await buyWaterAndTicketContract.icoTotal();
   }
   async buyWaterBuyUSDT(amount: BigNumber): Promise<TransactionResponse> {
     const contracts = this.contracts['buyWaterAndTicket'];
