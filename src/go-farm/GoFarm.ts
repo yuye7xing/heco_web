@@ -42,6 +42,7 @@ export class GoFarm {
     // loads contracts from deployments
     this.contracts = {};
     this.contracts['MasterChef'] = new Contract(cfg.MasterChef, MasterChefABI, provider);
+    this.contracts['buyWaterAndTicket'] = new Contract(cfg.buyWaterAndTicket, LotteryAbi, provider);
     this.contracts['MasterChefV2'] = new Contract(cfg.MasterChefV2, MasterChefABI, provider);
     this.contracts['GetApy'] = new Contract(cfg.GetApy, GetApyAbi, provider);
     this.contracts['GetApyV2'] = new Contract(cfg.GetApyV2, GetApyAbi, provider);
@@ -323,7 +324,7 @@ export class GoFarm {
     const vault = this.contracts[name];
     return await vault.balanceOf(account);
   }
-
+ 
   async tokenBalance(name: string, account = this.myAccount): Promise<BigNumber> {
     const token = this.externalTokens[name];
     return await token.balanceOf(account);
@@ -421,10 +422,10 @@ export class GoFarm {
     return allocation;
   }
 
-  async getTotalPot(): Promise<string> {
+  async getTotalPot(): Promise<BigNumber> {
     const lotteryHUSDContract = this.contracts['Lottery_USDT'];
     const  HUSDPot = await lotteryHUSDContract.tokenNum();
-    return (HUSDPot/10**18).toString();
+    return HUSDPot;
   }
 
   async getAllcation(): Promise<Allocations> {
@@ -463,8 +464,7 @@ export class GoFarm {
     const lotteryContract = this.contracts['Lottery_USDT'];
     const num = await lotteryContract.getAddressSize();
     const havenume=3000-num;
-
-    return num;
+    return havenume;
   }
 
   async historyNumbers(name: string, issueIndex: string): Promise<string[]> {
@@ -524,5 +524,14 @@ export class GoFarm {
     const lotteryContract = this.contracts['Lottery_' + name];
     const gas = await lotteryContract.estimateGas.claimReward(ticket);
     return await lotteryContract.claimReward(ticket, this.gasOptions(gas));
+  }
+  async getICOpoolBalance(name: string): Promise<BigNumber> {
+    const buyWaterAndTicketContract = this.contracts['buyWaterAndTicket'];
+    return await buyWaterAndTicketContract.IcoTotal();
+  }
+  async buyWaterBuyUSDT(amount: BigNumber): Promise<TransactionResponse> {
+    const contracts = this.contracts['buyWaterAndTicket'];
+    const gas = await contracts.estimateGas.buyWaterBuyUSDT(amount);
+    return await contracts.buyWaterBuyUSDT(amount, this.gasOptions(gas));
   }
 }

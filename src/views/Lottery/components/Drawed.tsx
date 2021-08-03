@@ -10,33 +10,18 @@ import { Lottery } from '../../../go-farm';
 
 interface HistoryProps {
   lottery: Lottery;
+  haveticketNUm:number;
 }
 
-const History: React.FC<HistoryProps> = ({ lottery }) => {
+const History: React.FC<HistoryProps> = ({ lottery ,haveticketNUm}) => {
   const goFarm = useGoFarm();
-
-
-  const [numbers, setNumbers] = useState(6000);
-
-  const fetchStats = useCallback(async () => {
-    const _numbers = await goFarm.ticketNumbers();
-    setNumbers(3000-_numbers);
-  }, [goFarm, setNumbers,lottery]);
-
-  useEffect(() => {
-    if (goFarm) {
-      fetchStats().catch((err) => console.error(err.stack));
-    }
-  }, [goFarm, fetchStats]);
-
-
   return (
     <Card>
       <CardContent>
         <StyledCardContentInner>
             <Label text={`剩余门票`} />
           <StyledCardHeader>
-            <Value value={numbers+''} />
+            <Value value={haveticketNUm+''} />
           </StyledCardHeader>
         </StyledCardContentInner>
       </CardContent>

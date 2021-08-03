@@ -17,18 +17,20 @@ import useTicketNum from '../../../hooks/useTicketNum';
 
 import TokenSymbol from '../../../components/TokenSymbol';
 import { Lottery } from '../../../go-farm';
+import { BigNumber } from 'ethers';
+import { getFullDisplayBalance,getBalance } from '../../../utils/formatBalance'
+
 
 interface BuyTicketProps {
   lottery: Lottery;
-  numbers: string[][];
-  tickets: string[];
+  ticket:BigNumber
 }
 
-const BuyTicket: React.FC<BuyTicketProps> = ({ lottery,tickets,numbers }) => {
+const BuyTicket: React.FC<BuyTicketProps> = ({ lottery,ticket}) => {
   const goFarm = useGoFarm();
   const { prevEpochTime, nextEpochTime,epoch } = useLotteryTimes();
   const { onTicketBuy } = useTicketBuy(lottery);
-  const haveticket=useTicketNum();
+  const haveticket=getBalance(ticket);
   const [approveStatus, approve] = useApprove(
     lottery.depositToken,
     goFarm?.contracts['Lottery_' + lottery.depositTokenName].address,
@@ -44,7 +46,7 @@ const BuyTicket: React.FC<BuyTicketProps> = ({ lottery,tickets,numbers }) => {
             </CardIcon>
             <LabelItem>
               <Label text={`入场券`} />
-              <Value value={`10 USDT`} />
+              <Value value={`30 USDT`} />
             </LabelItem>
           </StyledCardHeader>
           <ProgressCountdown
@@ -56,13 +58,13 @@ const BuyTicket: React.FC<BuyTicketProps> = ({ lottery,tickets,numbers }) => {
                 }
               />
           <StyledCardActions>
-            {approveStatus === ApprovalState.APPROVED ? (
+             {approveStatus === ApprovalState.APPROVED ? (
               <Button
                 onClick={onTicketBuy}
-                disabled={epoch === 0||haveticket}
-                text={haveticket?'已购入场券':epoch === 0?'暂未开始':'购票入场'}
+                disabled={epoch === 0||haveticket>=1}
+                text={haveticket>=1?'已购入场券':epoch === 0?'暂未开始':'购票入场'}
               />
-            ) : (
+            ) : ( 
               <Button
                 disabled={
                   approveStatus === ApprovalState.PENDING ||
@@ -71,7 +73,7 @@ const BuyTicket: React.FC<BuyTicketProps> = ({ lottery,tickets,numbers }) => {
                 onClick={approve}
                 text={`批准 ${lottery.depositTokenName}`}
               />
-            )}
+             )} 
           </StyledCardActions>
         </StyledCardContentInner>
       </CardContent>

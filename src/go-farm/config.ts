@@ -5,6 +5,7 @@ export type Configuration = {
   chainId: ChainId,
   etherscanUrl: string,
   defaultProvider: string,
+  buyWaterAndTicket: string,
   deployments: Deployments,
   externalTokens: {[contractName: string]: [string, number]};
   vaults: {[contractName: string]: string};

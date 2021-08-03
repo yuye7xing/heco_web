@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Card from '../../../components/Card';
 import CardContent from '../../../components/CardContent';
 import useGoFarm from '../../../hooks/useGoFarm';
-import { getDisplayBalance } from '../../../utils/formatBalance';
+import { getBalance } from '../../../utils/formatBalance';
 import { BigNumber } from 'ethers';
 import { TotalPot, Allocations } from '../../../go-farm/types';
 
@@ -12,26 +12,11 @@ import { Lottery } from '../../../go-farm';
 
 interface PotsProps {
   lottery: Lottery;
+  waterByTicket:BigNumber
 }
 
-const Pots: React.FC<PotsProps> = ({ lottery }) => {
+const Pots: React.FC<PotsProps> = ({ lottery, waterByTicket}) => {
   const goFarm = useGoFarm();
-
-  const [totalPot, setStats] = useState<string>();
-
-
-  const fetchStats = useCallback(async () => {
-    const [_totalPot, _allocations] = await Promise.all([
-      goFarm.getTotalPot(),
-    ]);
-    setStats(_totalPot);
-  }, [goFarm, setStats]);
-
-  useEffect(() => {
-    if (goFarm) {
-      fetchStats().catch((err) => console.error(err.stack));
-    }
-  }, [goFarm, fetchStats]);
 
   return (
     <Card>
@@ -43,27 +28,27 @@ const Pots: React.FC<PotsProps> = ({ lottery }) => {
           <StyledDetails>
             <StyledDetailsItem>前100:</StyledDetailsItem>
             <StyledDetailsItem>
-              20
+              60
             </StyledDetailsItem>
           </StyledDetails>
           <StyledDetails>
-            <StyledDetailsItem>前500:</StyledDetailsItem>
+            <StyledDetailsItem>前200:</StyledDetailsItem>
             <StyledDetailsItem>
-              10
+              45
             </StyledDetailsItem>
           </StyledDetails>
           <StyledDetails>
             <StyledDetailsItem>其他:</StyledDetailsItem>
             <StyledDetailsItem>
-              5
+              30
             </StyledDetailsItem>
           </StyledDetails>
           <StyledDetails>
             <StyledDetailsItem>
-              已分发
+              已派发
             </StyledDetailsItem>
             <StyledDetailsItem>
-            {totalPot}
+            {getBalance(waterByTicket)}
             </StyledDetailsItem>
           </StyledDetails>
         </StyledCardContentInner>

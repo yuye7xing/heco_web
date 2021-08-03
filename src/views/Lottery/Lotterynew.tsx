@@ -12,13 +12,14 @@ import Page from '../../components/Page';
 import Spacer from '../../components/Spacer';
 import BuyTicket from './components/BuyTicket';
 import Drawed from './components/Drawed';
-import Reward from './components/Reward';
+import useTokenBalance from '../../hooks/useTokenBalance';
 import Pots from './components/Pots';
 import History from './components/History';
 import useLottery from '../../hooks/useLottery';
 import useGoFarm from '../../hooks/useGoFarm';
 import config from '../../config';
 import ticketBG from '../../assets/img/ticketBG.jpg';
+import { BigNumber } from 'ethers';
 
 
 const Lottery: React.FC = () => {
@@ -32,14 +33,31 @@ const Lottery: React.FC = () => {
   const lottery = useLottery(depositTokenName);
   
   
-  const [numbers, setNumbers] = useState([]);
-  const [tickets, setTickets] = useState([]);
+  const [max, setMax] = useState(BigNumber.from(0));
+  const [waterBlance, setWaterBlance] = useState(BigNumber.from(0));
+  const [poolBalance, setPOOLBalance] = useState(BigNumber.from(0));
+  const [ticket, setTicket] = useState(BigNumber.from(0));
+  const [haveticketNUm, setHaveticketNUm] = useState(0);
+  const [waterByTicket, setWaterByTicket] = useState(BigNumber.from(0));
 
 
   const fetchInfo = useCallback(async () => {
-    console.log("定时获取相关信息");
-    
+    const tokenBalance =await goFarm.tokenBalance('USDT');
+    setMax(tokenBalance);
+    const waterBlance = await goFarm.tokenBalance('Water');
+    setWaterBlance(waterBlance)
+  
 
+    const ticket = await goFarm.tokenBalance('Ticket');
+    setTicket(ticket);
+
+    const haveticketNUm = await goFarm.ticketNumbers();
+    setHaveticketNUm(haveticketNUm);
+    const waterByTicket = await goFarm.getTotalPot();
+    setWaterByTicket(waterByTicket);
+
+    const poolBalance = await goFarm.getICOpoolBalance('Water');
+    setPOOLBalance(poolBalance);
 
 
 
@@ -62,22 +80,24 @@ const Lottery: React.FC = () => {
       />
       {account&&lottery ? (
         <StyledBank>
-         <StyledCardsWrapper>
-         
+         <StyledCardsWrapper>   
           <StyledCardWrapper2>
             <StyledCardWrapper>
-              <Drawed lottery={lottery} />
+              <Drawed lottery={lottery} haveticketNUm={haveticketNUm}/>
             </StyledCardWrapper>
             <StyledCardWrapper>
-              <Pots lottery={lottery} />
+              <Pots lottery={lottery} waterByTicket={waterByTicket} />
             </StyledCardWrapper>
           </StyledCardWrapper2>
           <Spacer />
           <StyledCardWrapper>
-            <BuyTicket lottery={lottery} tickets={tickets} numbers={numbers} />
+            <BuyTicket lottery={lottery} ticket={ticket}/>
           </StyledCardWrapper>
         </StyledCardsWrapper>
         <Spacer />
+        <StyledCardWrapper3>
+          <History lottery={lottery} max={max} waterBalance={waterBlance} poolBalance={poolBalance} ticket={ticket}/>
+        </StyledCardWrapper3>
       </StyledBank>
       ): (
     <UnlockWallet />

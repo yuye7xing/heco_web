@@ -1,138 +1,89 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback,useMemo, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import Card from '../../../components/Card';
 import CardContent from '../../../components/CardContent';
-import SearchInput from '../../../components/SearchInput';
-import Value from '../../../components/Value';
 import Label from '../../../components/Label';
 import useGoFarm from '../../../hooks/useGoFarm';
-import { getDisplayBalance } from '../../../utils/formatBalance';
 import { Lottery } from '../../../go-farm';
 import { BigNumber } from 'ethers';
+import TokenInput from '../../../components/TokenInput'
+import ModalActions from '../../../components/ModalActions'
+import { getBalance } from '../../../utils/formatBalance'
+import Button from '../../../components/Button'
+import useWaterBuy from '../../../hooks/useWaterBuy';
+
 
 interface HistoryProps {
   lottery: Lottery;
+  max: BigNumber,
+  waterBalance:BigNumber,
+  poolBalance:BigNumber,
+  ticket:BigNumber
 }
 
-const History: React.FC<HistoryProps> = ({ lottery }) => {
+const History: React.FC<HistoryProps> = ({ lottery,max, waterBalance,poolBalance,ticket}) => {
   const goFarm = useGoFarm();
-
-  const [issueIndex, setIssueIndex] = useState('0');
-  const [numbers, setNumbers] = useState(['0', '0', '0', '0']);
-  const fetchStats = useCallback(async () => {
-    const _issueIndex = await goFarm.getIssueIndex(lottery.depositTokenName);
-    setIssueIndex(_issueIndex);
-    handleSearch(_issueIndex);
-  }, [goFarm, setIssueIndex, lottery]);
-
-  const handleChange = useCallback(
-    (e: React.FormEvent<HTMLInputElement>) => {
-      setIssueIndex(e.currentTarget.value);
-    },
-    [setIssueIndex],
-  );
-
-  useEffect(() => {
-    if (goFarm) {
-      fetchStats().catch((err) => console.error(err.stack));
-    }
-  }, [goFarm, fetchStats]);
-
-  const handleSearch = useCallback(async (issueIndex) => {
-    console.log('issueIndex', issueIndex);
-    const [_numbers, _historyAmount, _allocations] = await Promise.all([
-      goFarm.historyNumbers(lottery.depositTokenName, issueIndex),
-      goFarm.getHistoryAmount(lottery.depositTokenName, issueIndex),
-      goFarm.getAllcationByName(lottery.depositTokenName),
-    ]);
-    console.log('_numbers', _numbers);
-    console.log('_historyAmount', _historyAmount);
-    console.log('_allocations', _allocations);
-    setNumbers(_numbers);
-    if(Number(_historyAmount[0]) > 0) setStats(_historyAmount);
-    setAllocations(_allocations);
-  }, [setIssueIndex]);
-
-  const [historyAmount, setStats] = useState(['0','0','0','0']);
-
-  const [allocations, setAllocations] = useState(['0','0','0']);
-
-  const decimal = lottery.depositToken.decimal
-
+  const [val, setVal] = useState('')
+  const { waterBuy } = useWaterBuy(lottery);
+  const fullBalance = useMemo(() => {
+    return getBalance(max, 18).toFixed(2);
+  }, [max,18])
+  const haveticket=getBalance(ticket);
+  const handleSelectMax = useCallback(() => {
+    setVal(fullBalance)
+  }, [fullBalance, setVal])
+  const handleChange = useCallback((e: React.FormEvent<HTMLInputElement>) => {
+    setVal(e.currentTarget.value)
+  }, [setVal])
+  
   return (
     <Card>
       <CardContent>
         <StyledCardContentInner>
-          <Label text={`查询往期数据`} />
+          <Label text={`获取更多本源之水`} />
           <StyledCardHeader>
-            <SearchInput value={issueIndex} onSearch={()=>handleSearch(issueIndex)} onChange={handleChange} />
+          <TokenInput
+              value={val}
+              onSelectMax={handleSelectMax}
+              onChange={handleChange}
+              max={fullBalance}
+              symbol={'USDT'}
+          />
+             <ModalActions>
+        <Button disabled={haveticket<1} text={haveticket>=1?'购买':'请购入场券'}  onClick={() => waterBuy(val)} />
+      </ModalActions>
           </StyledCardHeader>
         </StyledCardContentInner>
         <StyledCardContentInner>
-          <StyledCardContentInner>
-            <Label text={`#${issueIndex}中奖号码`} />
-            <StyledCardHeader>
-              <Value value={numbers[0]} />
-              <Value value={numbers[1]} />
-              <Value value={numbers[2]} />
-              <Value value={numbers[3]} />
-            </StyledCardHeader>
-          </StyledCardContentInner>
           <StyledDetails>
-            总奖池:
-            {getDisplayBalance(BigNumber.from(historyAmount[0]), decimal, 2)}
-            {lottery.depositTokenName}
+            剩余Water池:   {getBalance(poolBalance)} Water &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            账户余额:   {getBalance(waterBalance)} Water
           </StyledDetails>
           <StyledDetails>
             <StyledDetailsItem>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</StyledDetailsItem>
             <StyledDetailsItem>
-              中奖人数:
+              购买金额:
             </StyledDetailsItem>
             <StyledDetailsItem>
-              奖池奖金:
+              单价:
             </StyledDetailsItem>
           </StyledDetails>
           <StyledDetails>
-            <StyledDetailsItem>一等奖:</StyledDetailsItem>
-            <StyledDetailsItem>
-              {getDisplayBalance(BigNumber.from(historyAmount[1]), decimal, 0)}
-            </StyledDetailsItem>
-            <StyledDetailsItem>
-              {getDisplayBalance(BigNumber.from(historyAmount[0]).mul(allocations[0]).div(100), decimal, 2)}
+            <StyledDetailsItem>第一档</StyledDetailsItem>
+            <StyledDetailsItem>10USDT-100USDT:</StyledDetailsItem>
+            <StyledDetailsItem>1.0 Water/USDT
             </StyledDetailsItem>
           </StyledDetails>
           <StyledDetails>
-            <StyledDetailsItem>二等奖:</StyledDetailsItem>
-            <StyledDetailsItem>
-              {getDisplayBalance(BigNumber.from(historyAmount[2]), decimal, 0)}
-            </StyledDetailsItem>
-            <StyledDetailsItem>
-              {getDisplayBalance(BigNumber.from(historyAmount[0]).mul(allocations[1]).div(100), decimal, 2)}
-            </StyledDetailsItem>
+            <StyledDetailsItem>第二档</StyledDetailsItem>
+            <StyledDetailsItem>100USDT-500USDT:</StyledDetailsItem>
+            <StyledDetailsItem>1.1 Water/USDT</StyledDetailsItem>
           </StyledDetails>
           <StyledDetails>
-            <StyledDetailsItem>三等奖:</StyledDetailsItem>
-            <StyledDetailsItem>
-              {getDisplayBalance(BigNumber.from(historyAmount[3]), decimal, 0)}
-            </StyledDetailsItem>
-            <StyledDetailsItem>
-              {getDisplayBalance(BigNumber.from(historyAmount[0]).mul(allocations[2]).div(100), decimal, 2)}
-            </StyledDetailsItem>
-          </StyledDetails>
-          <StyledDetails>
-            <StyledDetailsItem>
-              {lottery.depositTokenName.includes('GOC') ? `回购GOT:` : `投入GOC奖池:`}
-            </StyledDetailsItem>
-            <StyledDetailsItem>
-              {getDisplayBalance(
-                BigNumber.from(historyAmount[0])
-                  .mul(100 - Number(allocations[0]) - Number(allocations[1]) - Number(allocations[2]))
-                  .div(100),
-                decimal,
-                2,
-              )}
-            </StyledDetailsItem>
+            <StyledDetailsItem>第三档</StyledDetailsItem>
+            <StyledDetailsItem>大于500USDT:</StyledDetailsItem>
+            <StyledDetailsItem>1.2 Water/USDT</StyledDetailsItem>
           </StyledDetails>
         </StyledCardContentInner>
       </CardContent>
