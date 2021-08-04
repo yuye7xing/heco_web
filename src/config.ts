@@ -74,28 +74,8 @@ const configurations: { [env: string]: Configuration } = {
 };
 
 export const bankDefinitions: { [contractName: string]: FarmInfo } = {
-  pool_4: {
-    name: '海卫一紫菜',
-    depositTokenName: 'GOT_HT-LP',
-    earnTokenName: 'GOT',
-    TokenA: 'GOT',
-    TokenB: 'HT',
-    finished: false,
-    sort: 5,
-    pid: 4,
-  }
 };
 export const farmDefinitions: { [contractName: string]: FarmInfo } = {
-  pool_11: {
-    name: '洛希极限丝瓜',
-    depositTokenName: 'GOC_ETH-LP',
-    earnTokenName: 'GOT',
-    TokenA: 'GOC',
-    TokenB: 'ETH',
-    finished: false,
-    sort: 12,
-    pid: 11,
-  }
 };
 export const vaultDefinitions: { [contractName: string]: VaultInfo } = {
   pool_00: {
@@ -110,8 +90,19 @@ export const vaultDefinitions: { [contractName: string]: VaultInfo } = {
     time:1,
   },
   pool_01: {
-    name: 'USDT',
-    depositTokenName: 'USDT',
+    name: 'BTC',
+    depositTokenName: 'BTC',
+    earnTokenName: 'Water',
+    needticket:true,
+    needtax:true,
+    finished: false,
+    sort: 2,
+    id: 2,
+    time:1,
+  },
+  pool_02: {
+    name: 'ETH',
+    depositTokenName: 'ETH',
     earnTokenName: 'Water',
     needticket:true,
     needtax:true,
@@ -152,17 +143,6 @@ export const vaultDefinitions: { [contractName: string]: VaultInfo } = {
     sort: 5,
     id: 5,
     time:2,
-  },
-  pool_20: {
-    name: 'Earth',
-    depositTokenName: 'Earth',
-    earnTokenName: 'Wood',
-    finished: false,
-    needticket:false,
-    needtax:false,
-    sort: 6,
-    id: 6,
-    time:3,
   },
   pool_21: {
     name: 'Water_USDT',
@@ -211,7 +191,7 @@ export const vaultDefinitions: { [contractName: string]: VaultInfo } = {
   pool_31: {
     name: 'Earth_USDT',
     depositTokenName: 'Earth_USDT',
-    earnTokenName: 'Wood',
+    earnTokenName: 'Fire',
     finished: false,
     needticket:false,
     needtax:false,
@@ -222,7 +202,7 @@ export const vaultDefinitions: { [contractName: string]: VaultInfo } = {
   pool_32: {
     name: 'Wood_USDT',
     depositTokenName: 'Wood_USDT',
-    earnTokenName: 'Wood',
+    earnTokenName: 'Fire',
     finished: false,
     needticket:false,
     needtax:false,

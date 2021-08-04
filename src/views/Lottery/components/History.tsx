@@ -51,7 +51,7 @@ const History: React.FC<HistoryProps> = ({ lottery,max, waterBalance,poolBalance
               symbol={'USDT'}
           />
              <ModalActions>
-        <Button disabled={haveticket<1} text={haveticket>=1?'购买':'请购入场券'}  onClick={() => waterBuy(val)} />
+        <Button disabled={haveticket<1} text={haveticket>=1?'购买':'购券入场'}  onClick={() => waterBuy(val)} />
       </ModalActions>
           </StyledCardHeader>
         </StyledCardContentInner>

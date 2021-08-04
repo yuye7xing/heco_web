@@ -40,7 +40,7 @@ const Vault: React.FC = () => {
         </StyledCardsWrapper>
         <Spacer size="lg" />
         <div>
-          <Label color={'#fff'} text={vault.needtax?`质押${vault.depositTokenName}，需要0.5%的取回税`:''} />
+          <Label color={'#fff'} text={vault.needtax?`质押${vault.depositTokenName}，锁仓1%,99%自由流动`:''} />
           <Button onClick={onRedeem} disabled text="取出全部资产" />
         </div>
         <Spacer size="lg" />

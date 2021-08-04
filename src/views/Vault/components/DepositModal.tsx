@@ -33,7 +33,7 @@ const DepositModal: React.FC<DepositModalProps> = ({ max, decimals, onConfirm, o
 
   return (
     <Modal>
-      <ModalTitle text={`存入 ${tokenName}`} />
+      <ModalTitle text={`存入 ${tokenName},锁仓1%`} />
       <TokenInput
         value={val}
         onSelectMax={handleSelectMax}
