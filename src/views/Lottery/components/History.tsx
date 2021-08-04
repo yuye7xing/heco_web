@@ -71,7 +71,7 @@ const History: React.FC<HistoryProps> = ({ lottery,max, waterBalance,poolBalance
           </StyledDetails>
           <StyledDetails>
             <StyledDetailsItem>第一档</StyledDetailsItem>
-            <StyledDetailsItem>10USDT-100USDT:</StyledDetailsItem>
+            <StyledDetailsItem>小于100USDT:</StyledDetailsItem>
             <StyledDetailsItem>1.0 Water/USDT
             </StyledDetailsItem>
           </StyledDetails>

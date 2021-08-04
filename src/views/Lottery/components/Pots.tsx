@@ -6,7 +6,6 @@ import CardContent from '../../../components/CardContent';
 import useGoFarm from '../../../hooks/useGoFarm';
 import { getBalance } from '../../../utils/formatBalance';
 import { BigNumber } from 'ethers';
-import { TotalPot, Allocations } from '../../../go-farm/types';
 
 import { Lottery } from '../../../go-farm';
 
@@ -28,13 +27,13 @@ const Pots: React.FC<PotsProps> = ({ lottery, waterByTicket}) => {
           <StyledDetails>
             <StyledDetailsItem>前100:</StyledDetailsItem>
             <StyledDetailsItem>
-              60
+              50
             </StyledDetailsItem>
           </StyledDetails>
           <StyledDetails>
             <StyledDetailsItem>前200:</StyledDetailsItem>
             <StyledDetailsItem>
-              45
+              40
             </StyledDetailsItem>
           </StyledDetails>
           <StyledDetails>
@@ -45,7 +44,7 @@ const Pots: React.FC<PotsProps> = ({ lottery, waterByTicket}) => {
           </StyledDetails>
           <StyledDetails>
             <StyledDetailsItem>
-              已派发
+              已分发总量
             </StyledDetailsItem>
             <StyledDetailsItem>
             {getBalance(waterByTicket)}

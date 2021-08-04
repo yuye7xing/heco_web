@@ -120,32 +120,6 @@ const StyledCardNomal = styled.div`
   left: -2px;
   z-index: -1;
 `;
-
-// const StyledCardAccent = styled.div`
-//   background: linear-gradient(
-//     45deg,
-//     rgba(255, 0, 0, 1) 0%,
-//     rgba(255, 154, 0, 1) 10%,
-//     rgba(208, 222, 33, 1) 20%,
-//     rgba(79, 220, 74, 1) 30%,
-//     rgba(63, 218, 216, 1) 40%,
-//     rgba(47, 201, 226, 1) 50%,
-//     rgba(28, 127, 238, 1) 60%,
-//     rgba(95, 21, 242, 1) 70%,
-//     rgba(186, 12, 248, 1) 80%,
-//     rgba(251, 7, 217, 1) 90%,
-//     rgba(255, 0, 0, 1) 100%
-//   );
-//   border-radius: 12px;
-//   filter: blur(4px);
-//   position: absolute;
-//   top: -2px;
-//   right: -2px;
-//   bottom: -2px;
-//   left: -2px;
-//   z-index: -1;
-// `;
-
 const StyledCardSuperAccent = styled.div`
   background: linear-gradient(
     45deg,
@@ -178,15 +152,9 @@ const StyledCards = styled.div`
   width: 900px;
   @media (max-width: 768px) {
     width: 100%;
+    align-items: center;
   }
 `;
-
-// const StyledLoadingWrapper = styled.div`
-//   align-items: center;
-//   display: flex;
-//   flex: 1;
-//   justify-content: center;
-// `;
 
 const StyledRow = styled.div`
   display: flex;
@@ -195,17 +163,15 @@ const StyledRow = styled.div`
   flex-flow: row wrap;
   @media (max-width: 768px) {
     width: 100%;
-    flex-flow: column nowrap;
     align-items: center;
   }
 `;
 
 const StyledCardWrapper = styled.div`
   display: flex;
-  width: calc((900px - ${(props) => props.theme.spacing[4]}px * 2) / 5);
   position: relative;
   margin-bottom: 20px;
-  margin-left:45px;
+  margin-left:20px;
 `;
 
 const StyledTitle = styled.h4`
@@ -213,7 +179,6 @@ const StyledTitle = styled.h4`
   font-size: 24px;
   font-weight: 700;
   text-align: center;
-  margin: ${(props) => props.theme.spacing[1]}px 0 0;
   padding: 0;
 `;
 

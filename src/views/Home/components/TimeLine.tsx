@@ -11,7 +11,7 @@ const TimeLine: React.FC = () => {
     <h3 className="vertical-timeline-element-title">认购入场券</h3>
     <h4 className="vertical-timeline-element-subtitle">2021-08-01</h4>
     <p>
-      项目开放认购入场卷，预计总售出6000张入场券，每张10USDT，认购期间购入入场券，附赠起源之水（Water）空投。
+      项目开放认购入场卷，预售6000张入场券，heco和OKEX各3000张，每张30USDT，认购期间购入入场券，附赠起源之水（Water）空投。
     </p>
   </VerticalTimelineElement>
   <VerticalTimelineElement
@@ -65,7 +65,7 @@ const TimeLine: React.FC = () => {
     <h3 className="vertical-timeline-element-title">文明</h3>
     <h4 className="vertical-timeline-element-subtitle">2021-12（预计）</h4>
     <p>
-      部落争霸，阵营形成，是聚集人才，发展科技，还是，以战养战，肆意攻伐。不同的道路却总是胜者荣耀称王，败者流浪放逐
+      部落争霸，阵营形成，是聚集人才，发展科技，还是以战养战，攻伐天下。不同的选择却总是胜者荣耀称王，败者流浪放逐
     </p>
   </VerticalTimelineElement>
 </VerticalTimeline>

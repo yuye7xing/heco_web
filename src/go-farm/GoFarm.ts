@@ -281,8 +281,7 @@ export class GoFarm {
   }
 
   async getStartTime(): Promise<StartTime> {
-    const startTime = new Date(1615348800000);
-
+    const startTime = new Date(1628141859);
     return { startTime };
   }
 
@@ -443,8 +442,8 @@ export class GoFarm {
   }
 
   async getLotteryTimes(): Promise<LotteryTime> {
-    const prevEpochTime = new Date(Date.parse("2021/07/30"));
-    const nextEpochTime = new Date(Date.parse("2021/08/10"));
+    const prevEpochTime = new Date(Date.parse("2021/08/05 20:00:00"));
+    const nextEpochTime = new Date(Date.parse("2021/08/10 20:00:00"));
     let epoch=0;
     if(new Date>prevEpochTime){
       epoch=1;
