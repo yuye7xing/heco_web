@@ -11,7 +11,7 @@ const Home: React.FC = () => {
     <Background>
       <Page>
         <PageHeader
-          title="欢迎来到创世纪!"
+          title="欢迎来到纪元!"
           subtitle="节点时间里程碑"
         />
         <Spacer size="md" />
