@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import useTokenBalance from '../../../hooks/useTokenBalance';
-import { getDisplayBalance } from '../../../utils/formatBalance';
+import { getBalance } from '../../../utils/formatBalance';
 
 // import Button from '../../Button';
 import Label from '../../Label';
@@ -13,8 +13,8 @@ import TokenSymbol from '../../TokenSymbol';
 const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
   const goFarm = useGoFarm();
 
-  const GOTBalance = useTokenBalance(goFarm.externalTokens['GOT']);
-  const displayBacBalance = useMemo(() => getDisplayBalance(GOTBalance), [GOTBalance]);
+  const GOTBalance = useTokenBalance(goFarm.externalTokens['water']);
+  const displayBacBalance = useMemo(() => getBalance(GOTBalance), [GOTBalance]);
 
   return (
     <Modal>
@@ -22,10 +22,10 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
 
       <Balances>
         <StyledBalanceWrapper>
-          <TokenSymbol symbol="GOT" />
+          <TokenSymbol symbol="Water" />
           <StyledBalance>
             <StyledValue>{displayBacBalance}</StyledValue>
-            <Label text="GOT 余额" />
+            <Label text="Water 余额" />
           </StyledBalance>
         </StyledBalanceWrapper>
       </Balances>

@@ -58,7 +58,6 @@ type BasisLogoProps = {
 }
 
 const TokenSymbol: React.FC<BasisLogoProps> = ({ symbol, size = 64 }) => {
-  console.error();
   if (!logosBySymbol[symbol]) {
     throw new Error(`Invalid Logo symbol: ${symbol}`);
   }
