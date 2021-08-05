@@ -442,8 +442,8 @@ export class GoFarm {
   }
 
   async getLotteryTimes(): Promise<LotteryTime> {
-    const prevEpochTime = new Date(Date.parse("2021/08/05 20:00:00"));
-    const nextEpochTime = new Date(Date.parse("2021/08/10 20:00:00"));
+    const prevEpochTime = new Date(Date.parse("2021/08/04 20:00:00"));
+    const nextEpochTime = new Date(Date.parse("2021/08/13 20:00:00"));
     let epoch=0;
     if(new Date>prevEpochTime){
       epoch=1;
@@ -462,7 +462,7 @@ export class GoFarm {
   async ticketNumbers(): Promise<number> {
     const lotteryContract = this.contracts['Lottery_USDT'];
     const num = await lotteryContract.getAddressSize();
-    const havenume=3000-num;
+    const havenume=3005-num;
     return havenume;
   }
 

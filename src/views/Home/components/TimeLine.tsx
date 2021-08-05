@@ -8,10 +8,10 @@ const TimeLine: React.FC = () => {
     className="vertical-timeline-element--work"
     iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
   >
-    <h3 className="vertical-timeline-element-title">认购入场券</h3>
-    <h4 className="vertical-timeline-element-subtitle">2021-08-01</h4>
+    <h3 className="vertical-timeline-element-title">认购</h3>
+    <h4 className="vertical-timeline-element-subtitle">2021-08-06 20:00:00</h4>
     <p>
-      项目开放认购入场卷，预售6000张入场券，heco和OKEX各3000张，每张30USDT，认购期间购入入场券，附赠起源之水（Water）空投。
+      项目开放认购入场卷，预售6000张入场券，heco和OKEX各3000张，每张30USDT，认购入场券，附赠起源之水（Water）空投。
     </p>
   </VerticalTimelineElement>
   <VerticalTimelineElement
@@ -20,9 +20,9 @@ const TimeLine: React.FC = () => {
     
   >
     <h3 className="vertical-timeline-element-title">水纪元</h3>
-    <h4 className="vertical-timeline-element-subtitle">2021-08-10</h4>
+    <h4 className="vertical-timeline-element-subtitle">2021-08-13</h4>
     <p>
-      宇宙初创，开始创世挖矿，持有起源之水和HT可以进行创世挖矿
+      宇宙初创，开始创世挖矿，持有起源之水可以进行创世挖矿
     </p>
   </VerticalTimelineElement>
   <VerticalTimelineElement
@@ -30,7 +30,7 @@ const TimeLine: React.FC = () => {
     iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
   >
     <h3 className="vertical-timeline-element-title">木纪元</h3>
-    <h4 className="vertical-timeline-element-subtitle">2021-08-15</h4>
+    <h4 className="vertical-timeline-element-subtitle">2021-08-18</h4>
     <p>
       水生土，终于熬过艰难的水纪元，步入木纪元，开放流动性挖矿
     </p>
@@ -41,7 +41,7 @@ const TimeLine: React.FC = () => {
   
   >
     <h3 className="vertical-timeline-element-title">土纪元</h3>
-    <h4 className="vertical-timeline-element-subtitle">2021-08-20</h4>
+    <h4 className="vertical-timeline-element-subtitle">2021-08-23</h4>
     <p>
       宇宙初成，足以迎接挑战，取消门票限制，欢迎广大玩家的到来
     </p>
