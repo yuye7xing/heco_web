@@ -134,7 +134,7 @@ const configurations: { [env: string]: Configuration } = {
     LotteryAnalysis: '0x6cE62A376Ca636E53F9b8b0b8e13Dc2CE14d1bdc',
     deployments: require('./go-farm/deployments/deployments.mainnet.json'),
     externalTokens: {
-      USDT: ['0xa71edc38d189767582c38a3145b5873052c3e47a', 18],
+      USDT: ['0x382bb369d343125bfb2117af9c149795c6c65c50', 18],
       HUSD: ['0x0298c2b32eaE4da002a15f36fdf7615BEa3DA047', 8],
       HT: ['0x5545153CCFcA01fbd7Dd11C0b23ba694D9509A6F', 18],
       BTC: ['0x66a79D23E58475D2738179Ca52cd0b41d73f0BEa', 18],
@@ -385,4 +385,4 @@ export const epochDefinitions: { [contractName: string]: FarmInfo } = {
     pid: 4,
   },
 };
-export default configurations["heco"];
+export default configurations["okex"];

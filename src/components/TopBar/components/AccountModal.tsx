@@ -13,7 +13,7 @@ import TokenSymbol from '../../TokenSymbol';
 const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
   const goFarm = useGoFarm();
 
-  const GOTBalance = useTokenBalance(goFarm.externalTokens['water']);
+  const GOTBalance = useTokenBalance(goFarm.externalTokens['Water']);
   const displayBacBalance = useMemo(() => getBalance(GOTBalance), [GOTBalance]);
 
   return (
